@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 abstract class Action
 {
-    private $responder;
+    public $responder;
 
     public $template = 'home/home.twig';
 
@@ -23,7 +23,6 @@ abstract class Action
         ServerRequestInterface $request,
         ResponseInterface $response
     ): ResponseInterface {
-        $this->data = (array)$request->getParsedBody();
-        return $this->responder->withTemplate($response, $this->template, $this->action());
+        return $this->responder->processPayload($response, $this->action(), $this->template);
     }
 }

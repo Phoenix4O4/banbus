@@ -2,11 +2,11 @@
 
 use Slim\App;
 use Slim\Views\TwigMiddleware;
-use Slim\Middleware\ErrorMiddleware;
+use App\Middleware\UrlGeneratorMiddleware;
 
 return function (App $app) {
     $app->addBodyParsingMiddleware();
+    $app->add(UrlGeneratorMiddleware::class);
     $app->addRoutingMiddleware();
     $app->add(TwigMiddleware::class);
-    // $app->add(ErrorMiddleware::class);
 };

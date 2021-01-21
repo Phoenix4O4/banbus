@@ -1,4 +1,5 @@
 <?php
+
 $settings = require __DIR__ . '/defaults.php';
 
 //Check for a development environment config file, or fallback to the production

@@ -12,6 +12,11 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+use GuzzleHttp\Client as Guzzle;
+use App\Provider\ExternalAuth;
+use App\Service\Service;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Utilities\UrlGenerator;
 
 return [
   //Settings
@@ -34,6 +39,9 @@ return [
   // //Route parser
     RouteParserInterface::class => function (ContainerInterface $container) {
         return $container->get(App::class)->getRouteCollector()->getRouteParser();
+    },
+    Request::class => function (ContainerInterface $container) {
+        return $container->get('Request');
     },
 
   // //Twig middleware
@@ -72,5 +80,17 @@ return [
             return new Session(new NativeSessionStorage($settings));
         }
     },
+      Guzzle::class => function (ContainerInterface $container) {
+          return new Guzzle();
+      },
+    ExternalAuth::class => function (ContainerInterface $container) {
+        return new ExternalAuth($container->get(Guzzle::class), $container->get(UrlGenerator::class));
+    },
+      UrlGenerator::class => function (ContainerInterface $container) {
+          return new UrlGenerator();
+      },
+    Service::class => function (ContainerInterface $container) {
+        return new Service($container->get(Session::class));
+    }
 
 ];

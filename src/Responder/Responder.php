@@ -7,6 +7,8 @@ use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Views\Twig;
+use App\Data\Payload;
+
 use function http_build_query;
 
 /**
@@ -139,5 +141,16 @@ final class Responder
         $response->getBody()->write((string)json_encode($data, JSON_THROW_ON_ERROR | $options));
 
         return $response;
+    }
+
+    public function processPayload(ResponseInterface $response, Payload $payload, $template)
+    {
+        if ($payload->checkForRedirect()) {
+            return $this->withRedirect(
+                $response,
+                $payload->getRedirect()
+            );
+        }
+        return $this->withTemplate($response, $template, $payload->getData());
     }
 }

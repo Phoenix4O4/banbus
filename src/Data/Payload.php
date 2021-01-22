@@ -31,7 +31,7 @@ class Payload
         return false;
     }
 
-    public function setData($data)
+    public function setData(array $data)
     {
         $this->data = $data;
     }

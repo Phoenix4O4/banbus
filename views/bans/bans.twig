@@ -1,0 +1,17 @@
+{% extends 'base/site.html' %}
+{% block page %}
+	<div class="list-group">
+		{% for ban in bans %}
+			<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+				<h5 class="mb-1">Banned from
+					<strong>{{ban.role}}</strong>
+				</h5>
+
+				<p class="mb-1">{{ban.reason}}</p>
+				<small>{{ban.bantime}}
+					• Banned by
+					{{ban.a_ckey}}</small>
+			</a>
+		{% endfor %}
+	</div>
+{% endblock %}

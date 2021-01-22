@@ -14,4 +14,6 @@ return function (App $app) {
       ->setName('auth_confirm');
     $app->get('/logout', \App\Action\User\Logout::class)
       ->setName('logout');
+    $app->get('/bans', \App\Action\Bans\ViewBans::class)
+      ->setName('bans');
 };

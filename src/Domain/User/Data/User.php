@@ -20,6 +20,11 @@ class User
         $this->ckey = $ckey;
     }
 
+    public function getCkey()
+    {
+        return $this->ckey;
+    }
+
     public function setRank($rank)
     {
         $this->rank = $rank;

@@ -4,8 +4,237 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c348f8e44c6deea93ae1ff82867cb41",
+    "content-hash": "33a3077cd9e51ada6c613ac5f37243ee",
     "packages": [
+        {
+            "name": "cakephp/core",
+            "version": "4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakephp/core.git",
+                "reference": "54d11c1356cea54623a3ec55530259d3c47153e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakephp/core/zipball/54d11c1356cea54623a3ec55530259d3c47153e0",
+                "reference": "54d11c1356cea54623a3ec55530259d3c47153e0",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/utility": "^4.0",
+                "php": ">=7.2.0"
+            },
+            "suggest": {
+                "cakephp/cache": "To use Configure::store() and restore().",
+                "cakephp/event": "To use PluginApplicationInterface or plugin applications.",
+                "league/container": "To use Container and ServiceProvider classes"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cake\\Core\\": "."
+                },
+                "files": [
+                    "functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CakePHP Community",
+                    "homepage": "https://github.com/cakephp/core/graphs/contributors"
+                }
+            ],
+            "description": "CakePHP Framework Core classes",
+            "homepage": "https://cakephp.org",
+            "keywords": [
+                "cakephp",
+                "core",
+                "framework"
+            ],
+            "support": {
+                "forum": "https://stackoverflow.com/tags/cakephp",
+                "irc": "irc://irc.freenode.org/cakephp",
+                "issues": "https://github.com/cakephp/cakephp/issues",
+                "source": "https://github.com/cakephp/core"
+            },
+            "time": "2020-12-29T02:05:46+00:00"
+        },
+        {
+            "name": "cakephp/database",
+            "version": "4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakephp/database.git",
+                "reference": "f5cbd97516ef2a0bddeb1c38e72034cddf875482"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakephp/database/zipball/f5cbd97516ef2a0bddeb1c38e72034cddf875482",
+                "reference": "f5cbd97516ef2a0bddeb1c38e72034cddf875482",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/core": "^4.0",
+                "cakephp/datasource": "^4.0",
+                "php": ">=7.2.0"
+            },
+            "suggest": {
+                "cakephp/i18n": "If you are using locale-aware datetime formats or Chronos types."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cake\\Database\\": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CakePHP Community",
+                    "homepage": "https://github.com/cakephp/database/graphs/contributors"
+                }
+            ],
+            "description": "Flexible and powerful Database abstraction library with a familiar PDO-like API",
+            "homepage": "https://cakephp.org",
+            "keywords": [
+                "abstraction",
+                "cakephp",
+                "database",
+                "database abstraction",
+                "pdo"
+            ],
+            "support": {
+                "forum": "https://stackoverflow.com/tags/cakephp",
+                "irc": "irc://irc.freenode.org/cakephp",
+                "issues": "https://github.com/cakephp/cakephp/issues",
+                "source": "https://github.com/cakephp/database"
+            },
+            "time": "2021-01-01T07:34:22+00:00"
+        },
+        {
+            "name": "cakephp/datasource",
+            "version": "4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakephp/datasource.git",
+                "reference": "e2c8c895254837722a5a00609644b72ef01290a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakephp/datasource/zipball/e2c8c895254837722a5a00609644b72ef01290a0",
+                "reference": "e2c8c895254837722a5a00609644b72ef01290a0",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/core": "^4.0",
+                "php": ">=7.2.0",
+                "psr/log": "^1.1",
+                "psr/simple-cache": "^1.0"
+            },
+            "suggest": {
+                "cakephp/cache": "If you decide to use Query caching.",
+                "cakephp/collection": "If you decide to use ResultSetInterface.",
+                "cakephp/utility": "If you decide to use EntityTrait."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cake\\Datasource\\": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CakePHP Community",
+                    "homepage": "https://github.com/cakephp/datasource/graphs/contributors"
+                }
+            ],
+            "description": "Provides connection managing and traits for Entities and Queries that can be reused for different datastores",
+            "homepage": "https://cakephp.org",
+            "keywords": [
+                "cakephp",
+                "connection management",
+                "datasource",
+                "entity",
+                "query"
+            ],
+            "support": {
+                "forum": "https://stackoverflow.com/tags/cakephp",
+                "irc": "irc://irc.freenode.org/cakephp",
+                "issues": "https://github.com/cakephp/cakephp/issues",
+                "source": "https://github.com/cakephp/datasource"
+            },
+            "time": "2021-01-01T07:34:22+00:00"
+        },
+        {
+            "name": "cakephp/utility",
+            "version": "4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakephp/utility.git",
+                "reference": "37d737eef64f3f09af871b70730a99912248d157"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakephp/utility/zipball/37d737eef64f3f09af871b70730a99912248d157",
+                "reference": "37d737eef64f3f09af871b70730a99912248d157",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/core": "^4.0",
+                "php": ">=7.2.0"
+            },
+            "suggest": {
+                "ext-intl": "To use Text::transliterate() or Text::slug()",
+                "lib-ICU": "To use Text::transliterate() or Text::slug()"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cake\\Utility\\": "."
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CakePHP Community",
+                    "homepage": "https://github.com/cakephp/utility/graphs/contributors"
+                }
+            ],
+            "description": "CakePHP Utility classes such as Inflector, String, Hash, and Security",
+            "homepage": "https://cakephp.org",
+            "keywords": [
+                "cakephp",
+                "hash",
+                "inflector",
+                "security",
+                "string",
+                "utility"
+            ],
+            "support": {
+                "forum": "https://stackoverflow.com/tags/cakephp",
+                "irc": "irc://irc.freenode.org/cakephp",
+                "issues": "https://github.com/cakephp/cakephp/issues",
+                "source": "https://github.com/cakephp/utility"
+            },
+            "time": "2020-12-29T02:05:46+00:00"
+        },
         {
             "name": "fig/http-message-util",
             "version": "1.1.5",
@@ -999,6 +1228,57 @@
                 "source": "https://github.com/php-fig/log/tree/1.1.3"
             },
             "time": "2020-03-23T09:12:05+00:00"
+        },
+        {
+            "name": "psr/simple-cache",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/simple-cache.git",
+                "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
+                "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\SimpleCache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interfaces for simple caching",
+            "keywords": [
+                "cache",
+                "caching",
+                "psr",
+                "psr-16",
+                "simple-cache"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/simple-cache/tree/master"
+            },
+            "time": "2017-10-23T01:57:42+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

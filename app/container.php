@@ -17,6 +17,7 @@ use App\Provider\ExternalAuth;
 use App\Service\Service;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Utilities\UrlGenerator;
+use Cake\Database\Connection;
 
 return [
   //Settings
@@ -91,6 +92,10 @@ return [
       },
     Service::class => function (ContainerInterface $container) {
         return new Service($container->get(Session::class));
+    },
+    // Database connection
+    Connection::class => function (ContainerInterface $container) {
+        return new Connection($container->get('settings')['db']);
     }
 
 ];

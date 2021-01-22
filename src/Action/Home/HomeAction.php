@@ -3,6 +3,7 @@
 namespace App\Action\Home;
 
 use App\Action\Action;
+use App\Data\Payload;
 
 /**
  * Action.
@@ -11,6 +12,6 @@ final class HomeAction extends Action
 {
     protected function action()
     {
-        return ['now' => date('d.m.Y H:i:s')];
+        return new Payload();
     }
 }

@@ -1,2 +1,34 @@
-Hello World. It is {{now}}
-{{dump()}}
+{% extends 'base/site.html' %}
+{% block title %}
+	{{app.name}}
+	{{app.version}}
+{% endblock %}
+{% block page %}
+	<h1>{{app.name}}</h1>
+	<hr>
+	{% if not user %}
+
+		<p class="lead">This application will allow you to view any active, expired, and lifted bans against your Byond account on TGStation servers.</p>
+		<p>In order to continue, you'll need to log into
+			<strong>{{app.name}}</strong>
+			with your TGStation forum account. Your Byond username (ckey)
+			<strong>must</strong>
+			be linked to your forum account.
+			<br><a href="https://tgstation13.org/phpBB/linkbyondaccount.php" target="_blank" rel="noopener noreferrer">See here for information on linking your Byond account
+				<i class="fas fa-external-link-alt"></i>
+			</a>
+		</p>
+		<p>
+			<strong>{{app.name}}</strong>
+			will access your Byond username (ckey) only. No other information,
+			<em>including any passwords</em>
+			will be shared with
+			{{app.name}}.</p>
+
+		<a class="btn btn-success btn-lg btn-block" href="{{url_for('auth')}}">Continue</a>
+	{% else %}
+		<p class="lead">Welcome,
+			{{user.displayName}}.</p>
+	{% endif %}
+
+{% endblock %}

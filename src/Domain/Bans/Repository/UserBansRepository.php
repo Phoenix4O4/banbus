@@ -13,23 +13,12 @@ final class UserBansRepository
         $this->queryFactory = $queryFactory;
     }
 
-    public function getUserRank($ckey)
-    {
-        $query = $this->queryFactory->newSelect('admin');
-        $query->select([
-          'ckey',
-          'rank'
-        ]);
-        $query->where(['ckey' => $ckey]);
-        $row = $query->execute()->fetch('obj');
-        return $row;
-    }
-
     public function getBansByCkey($ckey)
     {
         $query = $this->queryFactory->newSelect('ban');
         $query->select('*');
         $query->where(['ckey' => $ckey]);
+        $query->orderDesc('bantime');
         return $query->execute()->fetchAll('obj');
     }
 }

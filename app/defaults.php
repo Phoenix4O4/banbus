@@ -59,7 +59,8 @@ $settings['db'] = [
         PDO::ATTR_DEFAULT_FETCH_MODE       => PDO::FETCH_OBJ,
         PDO::ATTR_STRINGIFY_FETCHES        => false,
         PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
-        PDO::MYSQL_ATTR_COMPRESS           => true
+        PDO::MYSQL_ATTR_COMPRESS           => true,
+        PDO::ATTR_EMULATE_PREPARES         => false
     ]
 ];
 

@@ -5,9 +5,11 @@ namespace App\Data;
 class Payload
 {
     protected $data = [];
+    protected $messages = [];
 
     protected $redirect = false;
     protected $error = false;
+    protected $errorCode = 500;
 
     public function __construct()
     {
@@ -43,6 +45,18 @@ class Payload
 
     public function getData()
     {
+        $this->data['messages'] = $this->messages;
         return $this->data;
+    }
+
+    public function throwError(int $code = 500, string $message = "Error")
+    {
+        $this->error = true;
+        $this->errorCode = $code;
+
+        $this->messages[] = [
+            'type' => 'danger',
+            'text' => $message
+        ];
     }
 }

@@ -21,6 +21,10 @@ class ListBans extends Service
 
     public function getBansForCurrentUser()
     {
+        if (!$this->session->get('user')) {
+            $this->payload->throwError(403, "You must be logged in to access this page.");
+            return $this->payload;
+        }
         $this->payload->addData(
             'bans',
             $this->userBansRepository->getBansByCkey(

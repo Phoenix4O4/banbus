@@ -49,6 +49,22 @@ class Payload
         return $this->data;
     }
 
+    public function addMessage(string $message = "Message")
+    {
+        $this->messages[] = [
+            'type' => 'info',
+            'text' => $message
+        ];
+    }
+
+    public function addSuccessMessage(string $message = "Message")
+    {
+        $this->messages[] = [
+            'type' => 'success',
+            'text' => $message
+        ];
+    }
+
     public function throwError(int $code = 500, string $message = "Error")
     {
         $this->error = true;

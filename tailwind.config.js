@@ -1,10 +1,16 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   purge: [
      './views/**/*.twig',
    ],
   darkMode: 'media', // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Public Sans', ...defaultTheme.fontFamily.sans],
+      },
+    },
   },
   variants: {
     extend: {},

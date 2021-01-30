@@ -1,6 +1,6 @@
 version: "3.1"
 services:
-  mariadb:
+  bb_mariadb:
     image: mariadb:10.5
     container_name: banbus-mariadb
     volumes:
@@ -10,7 +10,7 @@ services:
     ports:
       - "3306:3306"
 
-  php:
+  bb_php:
     container_name: banbus-php
     working_dir: /var/www
     volumes:
@@ -21,7 +21,7 @@ services:
     environment:
       APP_ENV: "local"
 
-  nginx:
+  bb_nginx:
     image: nginx
     container_name: banbus-nginx
     volumes:
@@ -33,7 +33,7 @@ services:
       - "80:80"
       - "9000:9000"
     depends_on:
-      - php
+      - bb_php
 
 networks:
   app-network:

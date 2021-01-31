@@ -33,6 +33,6 @@ jobs:
           source: "./"
           target: "~/staging"
       - name: Deploying on remote server
-          script: |
-            echo "Copying files from staging"
-            sudo rsync --filter=':- .gitignore' -avz ~/staging/ /var/www/atlantaned.space/banbus/
+        script: |
+          echo "Copying files from staging"
+          sudo rsync --filter=':- .gitignore' -avz ~/staging/ /var/www/atlantaned.space/banbus/

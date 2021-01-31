@@ -9,18 +9,21 @@ jobs:
     env:
       NODE_ENV: 'production'
     steps:
-      - uses: actions/checkout@v2
-      - uses: nwisbeta/validate-yaml-schema@v1.0.3
-      - uses: php-actions/composer@v5
-      - uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Run composer
+        uses: php-actions/composer@v5
+
+      - name: Run NPM Scripts
+        uses: actions/setup-node@v2
         with:
           node-version: '12'
           check-latest: true
-      - run: npm install
-      - name: Build frontend CSS
-        run: npm run build:css
+        run: npm install && npm run build:css
         env:
           NODE_ENV: 'production' 
+
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@master
         with:
@@ -29,10 +32,10 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           source: "./"
           target: "~/staging"
-          script: |
-            echo "Clearing previously staged files..."
-            rm -rf ~/staging
-            mkdir ~/staging
-            echo "Pulling from Github..."
-            cd ~/staging && git pull --quiet
-            echo "Done!"
+          # script: |
+          #   echo "Clearing previously staged files..."
+          #   rm -rf ~/staging
+          #   mkdir ~/staging
+          #   echo "Pulling from Github..."
+          #   cd ~/staging && git pull --quiet
+          #   echo "Done!"

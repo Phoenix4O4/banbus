@@ -23,9 +23,9 @@ jobs:
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ Production.DEPLOY_HOST }}
-          username: ${{ Production.DEPLOY_USER }}
-          key: ${{ Production.DEPLOY_KEY }}
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
           script: |
             echo "Clearing previously staged files..."
             rm -rf ~/staging/*

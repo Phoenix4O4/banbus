@@ -32,7 +32,9 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           source: "./"
           target: "~/staging"
+
       - name: Deploying on remote server
+        uses: appleboy/ssh-action@master
         script: |
           echo "Copying files from staging"
           sudo rsync --filter=':- .gitignore' -avz ~/staging/ /var/www/atlantaned.space/banbus/

@@ -55,17 +55,17 @@ class Authenticate extends Service
         if ("OK" != $response->status) {
             die($response->error);
         }
-        $user = new User($response->byond_ckey, $this->user->getUserRank($response->byond_ckey)->rank);
+        $user = new User($response->byond_ckey, $this->user->getUserRank($response->byond_ckey));
         $this->payload->addData('user', $user);
+        $this->payload->addSuccessMessage("You have logged in as $user->displayName");
         $this->session->set('user', $user);
         return $this->payload;
     }
 
     public function destroySession()
     {
-        $this->session->set('user', false);
         $this->session->invalidate();
-        $this->payload->addData('user', false);
+        $this->payload->setRedirect($this->auth->getLogoutRedirect());
         return $this->payload;
     }
 

@@ -48,4 +48,9 @@ class ExternalAuth
         ]);
         return json_decode($response->getBody());
     }
+
+    public function getLogoutRedirect()
+    {
+        return $this->urlGenerator->fullUrlFor('home');
+    }
 }

@@ -6,8 +6,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      NODE_ENV: 'production'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,7 +20,7 @@ jobs:
           check-latest: true
 
       - name: Run node scripts
-        run: npm install && npm run build:css
+        run: npm install && npm i -D postcss postcss-cli && npm run build:css
         env:
           NODE_ENV: 'production' 
 

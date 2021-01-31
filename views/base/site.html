@@ -13,7 +13,7 @@
       <div class="container mx-auto pt-4 px-2 md:px-0 max-w-screen-md">
       {% if messages is defined and messages %}
         {% for message in messages %}
-          <div class="border-l-4 border-{{message.color}}-800 bg-{{message.color}}-200 text-{{message.color}}-800 p-4 text-xl">{{message.text}} 
+          <div class="border-l-4 border-{{message.color}}-800 bg-{{message.color}}-200 text-{{message.color}}-800 p-4 text-xl mb-4">{{message.text}} 
           </div>
         {% endfor %} 
       {% endif %}
@@ -28,11 +28,17 @@
       {% endfor %} 
       {% block page %}No content defined for this block{% endblock %}
 	<hr class="mt-4">
-      <footer>
-		<p class="text-gray-500 text-lg">
-			<small>{{app.name}}
-				{{app.version}}</small>
+      <footer class="flex justify-between py-4">
+		<p class="text-gray-500 text-sm">
+		{{app.name}}
+    {{app.version}}<br>
+    Report issues on <a href="https://github.com/{{app.github}}/issues" class="text-blue-500 hover:text-blue-900">GitHub</a>
 		</p>
+    <p class="text-gray-500 text-sm">
+    {% if user %}
+    Logged in as {{user.displayName}} | <a href="{{url_for('logout')}}" class="text-blue-500 hover:text-blue-900">Logout</a>
+    {% endif %} 
+    </p>
 	</footer>
 	{{dump()}}
   </body>

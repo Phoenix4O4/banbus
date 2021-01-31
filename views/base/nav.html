@@ -2,12 +2,14 @@
   <div class="container mx-auto flex items-center justify-between py-3  max-w-screen-md">
     <span class="font-extrabold text-4xl tracking-wide uppercase" id="nav_branding">
       <a href="#" class="transition hover:text-gray-500 duration-700 ease-in-out">
-        <i class="fa fa-gavel text-yellow-700"></i>
+        <span class="material-icons text-yellow-700">
+        gavel
+        </span>
         {{app.name}}</a>
     </span>
     <nav class="text-lg font-bold">
       {% if modules.public_bans %}
-        <a href="#" class="transition duration-700 ease-in-out hover:text-gray-500 p-3">Public Bans</a>
+        <a href="{{url_for('bans')}}" class="transition duration-700 ease-in-out hover:text-gray-500 p-3">Public Bans</a>
       {% endif %}
       {% if modules.public_bans and user%}
         <a href="#" class="transition duration-700 ease-in-out hover:text-gray-500 p-3">Your Bans</a>

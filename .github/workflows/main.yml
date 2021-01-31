@@ -28,8 +28,8 @@ jobs:
           check-latest: true
       - run: npm install
       - run: npm run build:css
-          env:
-            NODE_ENV: 'production' 
+        env:
+          NODE_ENV: 'production' 
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@master
         with:

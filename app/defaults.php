@@ -15,7 +15,7 @@ $settings['public'] = $settings['root'] . '/public';
 $settings['app'] = [
   'name' => 'Banbus',
   'timezone' => 'UTC',
-  'version' => VERSION
+  'github' => 'nfreader/banbus'
 ];
 
 $settings['modules'] = [

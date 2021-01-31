@@ -14,4 +14,6 @@ if (isset($_ENV['APP_ENV'])) {
     }
 }
 
+require_once __dir__  . "/version.php";
+$settings['app']['version'] = VERSION_MAJOR . '.' . VERSION_MINOR . '.' . VERSION_PATCH . VERSION_TAG;
 return $settings;

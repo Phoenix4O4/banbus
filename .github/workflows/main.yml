@@ -17,18 +17,31 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/checkout@v2
+      - uses: nwisbeta/validate-yaml-schema@v1.0.3
+      - uses: php-actions/composer@v5
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+          check-latest: true
+      - run: npm install
+      - run: npm run build:css
+          env:
+            NODE_ENV: 'production' 
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
+          source: "./"
+          target: "~/staging"
           script: |
             echo "Clearing previously staged files..."
-            rm -rf ~/staging/*
+            rm -rf ~/staging
+            mkdir ~/staging
             echo "Pulling from Github..."
             cd ~/staging && git pull --quiet
             echo "Done!"

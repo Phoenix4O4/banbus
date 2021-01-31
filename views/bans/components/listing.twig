@@ -1,0 +1,18 @@
+<a href="{{url_for(url,{'id':ban.id})}}" class="mb-8 flex items-center justify-between border-2 border-{{ban.active ? 'red':'green'}}-200 bg-{{ban.active ? 'red':'green'}}-100 hover:bg-{{ban.active ? 'red':'green'}}-300 transition p-5 relative">
+<div>
+    <p><strong>{{ban.ckey}}</strong> banned from <strong>{{ban.role}}</strong> by <strong>{{ban.admin}}</strong> during Round #{{ban.round}} with reason:</p>
+    <p class="py-1 my-2 pl-3 ml-3 border-l-4 border-gray-300 text-gray-600">{{ban.reason}}</p>
+    <p>This ban is
+    {% if ban.active %}
+    <strong class="bg-red-500 text-white p-2 rounded-lg">Active</strong> and
+      {% if not ban.expiration %}<strong class="uppercase font-extrabold text-white tracking-widest bg-pink-500 p-2 rounded-lg">permanent</strong> 
+      {% else %} expires at <strong>{{ban.expiration}}</strong>
+      {% endif %}
+    {% else %}
+      {% if ban.unbanned_ckey %}<strong class="bg-blue-500 text-white p-2 rounded-lg">Inactive</strong> and was lifted by <strong>{{ban.unbanned_ckey}}</strong>
+      {% else %}<strong class="bg-green-500 text-white p-2 rounded-lg">Expired</strong> (as of {{ban.expiration}})
+      {% endif %}
+    {% endif %}
+    </p>
+  </div>
+</a>

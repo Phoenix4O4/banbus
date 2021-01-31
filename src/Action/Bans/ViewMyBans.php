@@ -6,9 +6,9 @@ use App\Action\Action;
 use App\Responder\Responder;
 use App\Domain\Bans\Service\ListBans as Bans;
 
-class ViewBans extends Action
+class ViewMyBans extends Action
 {
-    public $template = 'bans/bans.twig';
+    public $template = 'bans/mybans.twig';
     private $bans;
     public function __construct(Responder $responder, Bans $bans)
     {

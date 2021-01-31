@@ -7,6 +7,8 @@ use App\Repository\Database;
 class BanRepository extends Database
 {
 
+    private $table = 'ban';
+
     private $columns = "SELECT 
             id,
             round_id as `round`,
@@ -30,12 +32,24 @@ class BanRepository extends Database
     public function getPublicBans()
     {
         return $this->db->run("$this->columns
-        FROM ban ORDER BY bantime DESC;");
+        FROM $this->table ORDER BY bantime DESC;");
     }
 
     public function getBanById(int $id)
     {
         return $this->db->row("$this->columns
-        FROM ban WHERE id = ?", $id);
+        FROM $this->table WHERE id = ?", $id);
+    }
+
+    public function getBansByCkey($ckey)
+    {
+        return $this->db->run("$this->columns
+        FROM $this->table WHERE ckey = ?", $ckey);
+    }
+
+    public function getSingleBanByCkey($ckey, $id)
+    {
+        return $this->db->row("$this->columns
+        FROM $this->table WHERE ckey = ? AND id = ?", $ckey, $id);
     }
 }

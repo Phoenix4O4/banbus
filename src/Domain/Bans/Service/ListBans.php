@@ -27,10 +27,26 @@ class ListBans extends Service
         }
         $this->payload->addData(
             'bans',
-            $this->userBansRepository->getBansByCkey(
+            $this->banRepository->getBansByCkey(
                 $this->session->get('user')->getCkey()
             )
         );
+        return $this->payload;
+    }
+
+    public function getSingleBanForCurrentUser($id)
+    {
+        if (!$this->session->get('user')) {
+            $this->payload->throwError(403, "You must be logged in to access this page.");
+            return $this->payload;
+        }
+        $ban = $this->banRepository->getSingleBanByCkey(
+            $this->session->get('user')->getCkey(),
+            $id
+        );
+        if (!$this->payload->addData('ban', $ban)) {
+            $this->payload->throwError(404, "Ban with id $id not found");
+        }
         return $this->payload;
     }
 
@@ -44,9 +60,9 @@ class ListBans extends Service
     }
 
     public function getBan(int $id)
-    {   
+    {
         $ban = $this->banRepository->getBanById($id);
-        if(!$this->payload->addData('ban', $ban)) {
+        if (!$this->payload->addData('ban', $ban)) {
             $this->payload->throwError(404, "Ban with id $id not found");
         }
         return $this->payload;

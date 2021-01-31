@@ -1,8 +1,8 @@
 {% extends 'base/site.html' %}
 {% block page %}
-	<div class="border-b-2 border-gray-200 text-2xl py-4 mb-4">Showing {{bans|length}} public bans
+	<div class="border-b-2 border-gray-200 text-2xl py-4 mb-4">Showing {{bans|length}} bans attached to {{user.displayName}}
 	</div>
-		{% set url = 'ban.single' %}
+		{% set url = 'mybans.single' %}
 		{% for ban in bans %}
 			{% include 'bans/components/listing.twig' %}
 		{% endfor %}

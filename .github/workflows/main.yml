@@ -42,6 +42,7 @@ jobs:
           script: |
             echo "Copying files from staging"
             sudo rsync --filter=':- .gitignore' -avz ~/staging/ /var/www/atlantaned.space/banbus/
-            sudo mv /var/www/atlantaned.space/banbus/public /var/www/atlantaned.space/public/banbus/
+            sudo mkdir /var/www/atlantaned.space/public/banbus/
+            sudo mv /var/www/atlantaned.space/banbus/public/* /var/www/atlantaned.space/public/banbus/
             sed 's/\/app\//\/banbus\/app\//' /var/www/atlantaned.space/public/banbus/index.php
             sudo chown -R www-data:www-data /var/www/atlantaned.space

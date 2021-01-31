@@ -23,9 +23,9 @@ jobs:
         run: npm install && npm i -D postcss postcss-cli && npm run build:css
         env:
           NODE_ENV: 'production' 
-
+      
       - name: executing remote ssh commands
-        uses: appleboy/ssh-action@master
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}

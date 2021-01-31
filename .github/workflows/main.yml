@@ -46,7 +46,7 @@ jobs:
             echo "Copying files from staging"
             sudo rsync -avz ~/staging/ /var/www/atlantaned.space/banbus/
             sudo mkdir /var/www/atlantaned.space/public/banbus/
-            rm -rf /var/www/atlantaned.space/public/banbus/*
+            sudo rm -rf /var/www/atlantaned.space/public/banbus/*
             sudo mv /var/www/atlantaned.space/banbus/public/* /var/www/atlantaned.space/public/banbus/
             sed 's/\/app\//..\/\/banbus\/app\//g' /var/www/atlantaned.space/public/banbus/index.php
             sudo chown -R www-data:www-data /var/www/atlantaned.space

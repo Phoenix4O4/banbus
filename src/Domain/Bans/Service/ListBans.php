@@ -5,17 +5,17 @@ namespace App\Domain\Bans\Service;
 use App\Service\Service;
 use App\Data\Payload;
 use Symfony\Component\HttpFoundation\Session\Session;
-use App\Domain\Bans\Repository\UserBansRepository as Repository;
+use App\Domain\Bans\Repository\BanRepository as Repository;
 
 class ListBans extends Service
 {
     private $session;
-    private $userBansRepository;
+    private $banRepository;
 
-    public function __construct(Session $session, Repository $userBansRepository)
+    public function __construct(Session $session, Repository $banRepository)
     {
         $this->session = $session;
-        $this->userBansRepository = $userBansRepository;
+        $this->banRepository = $banRepository;
         $this->payload = new Payload();
     }
 
@@ -31,6 +31,24 @@ class ListBans extends Service
                 $this->session->get('user')->getCkey()
             )
         );
+        return $this->payload;
+    }
+
+    public function getPublicBans()
+    {
+        $this->payload->addData(
+            'bans',
+            $this->banRepository->getPublicBans()
+        );
+        return $this->payload;
+    }
+
+    public function getBan(int $id)
+    {   
+        $ban = $this->banRepository->getBanById($id);
+        if(!$this->payload->addData('ban', $ban)) {
+            $this->payload->throwError(404, "Ban with id $id not found");
+        }
         return $this->payload;
     }
 }

@@ -17,7 +17,8 @@ use App\Provider\ExternalAuth;
 use App\Service\Service;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Utilities\UrlGenerator;
-use Cake\Database\Connection;
+use ParagonIE\EasyDB\EasyDB;
+use App\Repository\Database;
 
 return [
   //Settings
@@ -68,6 +69,7 @@ return [
 
         $twig->addExtension(new \Twig\Extension\DebugExtension());
         $twig->getEnvironment()->addGlobal('app', $config['app']);
+        $twig->getEnvironment()->addGlobal('modules', $config['modules']);
         $twig->getEnvironment()->addGlobal('flash', $session->getFlashBag()->all());
         $twig->getEnvironment()->addGlobal('user', $session->get('user'));
 
@@ -93,9 +95,20 @@ return [
     Service::class => function (ContainerInterface $container) {
         return new Service($container->get(Session::class));
     },
-    // Database connection
-    Connection::class => function (ContainerInterface $container) {
-        return new Connection($container->get('settings')['db']);
+    EasyDB::class => function (ContainerInterface $container) {
+        $config = (array) $container->get('settings')['db'];
+        try {
+            $db = \ParagonIE\EasyDB\Factory::fromArray([
+            $config['method'] . ':host=' . $config['host'] . ';port=' . $config['port'] . ';dbname=' . $config['database'],
+            $config['username'],
+            $config['password'],
+            $config['flags']
+            ]);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+        $db->debug = $container->get('settings')['debug'];
+        return $db;
     }
 
 ];

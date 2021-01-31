@@ -21,8 +21,9 @@ abstract class Action
 
     public function __invoke(
         ServerRequestInterface $request,
-        ResponseInterface $response
+        ResponseInterface $response,
+        array $args = []
     ): ResponseInterface {
-        return $this->responder->processPayload($response, $this->action(), $this->template);
+        return $this->responder->processPayload($response, $this->action($args), $this->template);
     }
 }

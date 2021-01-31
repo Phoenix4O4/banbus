@@ -5,6 +5,8 @@
 
 $settings = [];
 
+$settings['debug'] = false;
+
 // Path settings
 $settings['root'] = dirname(__DIR__);
 $settings['temp'] = $settings['root'] . '/tmp';
@@ -14,6 +16,11 @@ $settings['app'] = [
   'name' => 'Banbus',
   'timezone' => 'UTC',
   'version' => VERSION
+];
+
+$settings['modules'] = [
+  'public_bans' => true,
+  'personal_bans' => true
 ];
 
 $settings['twig'] = [
@@ -40,8 +47,9 @@ $settings['session'] = [
 ];
 
 $settings['db'] = [
-    'driver' => \Cake\Database\Driver\Mysql::class,
-    'host' => 'mariadb',
+    'method' => 'mysql',
+    'host' => 'bb_mariadb',
+    'port' => 3306,
     'encoding' => 'utf8mb4',
     'collation' => 'utf8mb4_unicode_ci',
     // Enable identifier quoting
@@ -58,8 +66,6 @@ $settings['db'] = [
         PDO::ATTR_ERRMODE                  => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE       => PDO::FETCH_OBJ,
         PDO::ATTR_STRINGIFY_FETCHES        => false,
-        PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
-        PDO::MYSQL_ATTR_COMPRESS           => true,
         PDO::ATTR_EMULATE_PREPARES         => false
     ]
 ];

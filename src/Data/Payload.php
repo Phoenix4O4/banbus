@@ -39,8 +39,12 @@ class Payload
     }
 
     public function addData(string $key, $data)
-    {
-        $this->data[$key] = $data;
+    {   
+        if(is_array($data) || is_object($data)) {
+            $this->data[$key] = $data;
+            return true;
+        }
+        return false;
     }
 
     public function getData()
@@ -53,6 +57,7 @@ class Payload
     {
         $this->messages[] = [
             'type' => 'info',
+            'color' => 'blue',
             'text' => $message
         ];
     }
@@ -61,6 +66,7 @@ class Payload
     {
         $this->messages[] = [
             'type' => 'success',
+            'color' => 'green',
             'text' => $message
         ];
     }
@@ -72,6 +78,7 @@ class Payload
 
         $this->messages[] = [
             'type' => 'danger',
+            'color' => 'red',
             'text' => $message
         ];
     }

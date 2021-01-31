@@ -2,27 +2,16 @@
 
 namespace App\Domain\User\Repository;
 
-use App\Factory\QueryFactory;
-use DomainException;
+use App\Repository\Database;
 
-final class UserRepository
+final class UserRepository extends Database
 {
-    private $queryFactory;
-
-    public function __construct(QueryFactory $queryFactory)
-    {
-        $this->queryFactory = $queryFactory;
-    }
-
     public function getUserRank($ckey)
     {
-        $query = $this->queryFactory->newSelect('admin');
-        $query->select([
-          'ckey',
-          'rank'
-        ]);
-        $query->where(['ckey' => $ckey]);
-        $row = $query->execute()->fetch('obj');
-        return $row;
+        var_dump(
+            $this->db
+        );
+        die();
+        return $this->db->cell("SELECT rank FROM `admin` WHERE ckey = ?", $ckey);
     }
 }

@@ -5,60 +5,28 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<link href="/assets/css/style.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
 	</head>
-	<body>
+	<body class="font-sans">
 
-		<nav class="bg-black text-white px-4 md:px-0 border-b-2 border-gray-300">
-
-			<div class="container mx-auto flex items-center justify-between py-3  max-w-screen-lg">
-				<span class="font-extrabold text-4xl tracking-wide uppercase" id="nav_branding">
-					<a href="#" class="hover:text-gray-300">
-						<i class="fa fa-gavel"></i>
-						{{app.name}}</a>
-				</span>
-				<nav class="text-lg font-bold">
-					{% if modules.public_bans %}
-						<a href="#" class="bg-gray-900 hover:bg-gray-700 p-3 rounded-lg">Public Bans</a>
-					{% endif %}
-					{% if modules.public_bans and user%}
-						<a href="#" class="bg-gray-900 hover:bg-gray-700 p-3 rounded-lg">Your Bans</a>
-					{% endif %}
-				</nav>
-			</div>
-		</nav>
-
-
-		<div class="container mx-auto pt-4 px-2 md:px-0 max-w-screen-lg">
+		
+		<div class="container mx-auto pt-4 px-2 md:px-0 max-w-screen-md">
 			{% if not user %}
-				<p class="text-2xl">This application will allow you to view any active, expired, and lifted bans against your Byond account on TGStation servers.</p>
-				<p class="text-lg mt-4">In order to continue, you'll need to log into
-					<strong>{{app.name}}</strong>
-					with your TGStation forum account. Your Byond username (ckey)
-					<strong>must</strong>
-					be linked to your forum account.
-					<br><a href=" https://tgstation13.org/phpBB/linkbyondaccount.php" target=" _blank" rel=" noopener noreferrer" class="text-blue-600 hover:text-blue-900">See here for information on linking your Byond account
-						<i class="fas fa-external-link-alt"></i>
-					</a>
-				</p>
-				<p class="bg-blue-200 p-2 border-2 border-blue-400 rounded-md font-mono my-4">
-					<strong>{{app.name}}</strong>
-					will access your Byond username (ckey) only. No other information,
-					<em>including any passwords</em>
-					will be shared with
-					{{app.name}}.</p>
-				<a class="bg-green-400 hover:bg-green-200 ring-2 ring-green-600 block p-4 text-white text-center text-4xl font-extrabold tracking-wide uppercase rounded-lg" href="{{url_for('auth')}}">Continue</a>
-			</p>
-			<p class="lead">
-				{% else %}Welcome,
-				{{user.displayName}}.</p>
-		{% endif %}
-		<hr class="mt-4">
-		<footer>
-			<p class="text-gray-500 text-lg">
-				<small>{{app.name}}
-					{{app.version}}</small>
-			</p>
-		</footer>
-		{{dump()}}</body>
-</html></body></html></body></html>
+				
+		{% else %}
+			<p class="lead"></p>
+			Welcome,
+			{{user.displayName}}.
+		</p>
+	{% endif %}
+	<hr class="mt-4">
+	<footer>
+		<p class="text-gray-500 text-lg">
+			<small>{{app.name}}
+				{{app.version}}</small>
+		</p>
+	</footer>
+	{{dump()}}
+</html></body></html></body></html></body></html>

@@ -10,6 +10,8 @@ use App\Data\Payload;
  */
 final class HomeAction extends Action
 {
+
+    public $template = 'home/home.twig';
     protected function action()
     {
         return new Payload();

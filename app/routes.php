@@ -14,6 +14,10 @@ return function (App $app) {
       ->setName('auth_confirm');
     $app->get('/logout', \App\Action\User\Logout::class)
       ->setName('logout');
-    $app->get('/bans', \App\Action\Bans\ViewBans::class)
+    $app->get('/mybans', \App\Action\Bans\ViewBans::class)
+      ->setName('mybans');
+    $app->get('/bans', \App\Action\Bans\ViewPublicBans::class)
       ->setName('bans');
+      $app->get('/bans/{id:[0-9]+}', \App\Action\Bans\ViewSingleBan::class)
+      ->setName('ban.single');
 };

@@ -15,11 +15,13 @@ jobs:
       - name: Run composer
         uses: php-actions/composer@v5
 
-      - name: Run NPM Scripts
+      - name: Set up node
         uses: actions/setup-node@v2
         with:
           node-version: '12'
           check-latest: true
+
+      - name: Run node scripts
         run: npm install && npm run build:css
         env:
           NODE_ENV: 'production' 

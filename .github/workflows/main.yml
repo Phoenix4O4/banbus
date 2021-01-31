@@ -1,35 +1,29 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
-
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ deploy ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [ master ]
   workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
-      - uses: nwisbeta/validate-yaml-schema@v1.0.3
-      - uses: php-actions/composer@v5
-      - uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Run composer
+        uses: php-actions/composer@v5
+
+      - name: Set up node
+        uses: actions/setup-node@v2
         with:
           node-version: '12'
           check-latest: true
-      - run: npm install
-      - run: npm run build:css
+
+      - name: Run node scripts
+        run: npm install && npm i -D postcss postcss-cli && npm run build:css
         env:
           NODE_ENV: 'production' 
+
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@master
         with:
@@ -38,10 +32,10 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           source: "./"
           target: "~/staging"
-          script: |
-            echo "Clearing previously staged files..."
-            rm -rf ~/staging
-            mkdir ~/staging
-            echo "Pulling from Github..."
-            cd ~/staging && git pull --quiet
-            echo "Done!"
+          # script: |
+          #   echo "Clearing previously staged files..."
+          #   rm -rf ~/staging
+          #   mkdir ~/staging
+          #   echo "Pulling from Github..."
+          #   cd ~/staging && git pull --quiet
+          #   echo "Done!"

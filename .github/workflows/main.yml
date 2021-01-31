@@ -24,7 +24,7 @@ jobs:
         env:
           NODE_ENV: 'production' 
       
-      - name: executing remote ssh commands
+      - name: Pushing artifact to deployment server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -32,10 +32,7 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           source: "./"
           target: "~/staging"
-          # script: |
-          #   echo "Clearing previously staged files..."
-          #   rm -rf ~/staging
-          #   mkdir ~/staging
-          #   echo "Pulling from Github..."
-          #   cd ~/staging && git pull --quiet
-          #   echo "Done!"
+      - name: Deploying on remote server
+          script: |
+            echo "Copying files from staging"
+            sudo rsync --filter=':- .gitignore' -avz ~/staging/ /var/www/atlantaned.space/banbus/

@@ -11,21 +11,7 @@
 	<body class="font-sans">
     {% include 'base/nav.html' %}
       <div class="container mx-auto pt-4 px-2 md:px-0 max-w-screen-md">
-      {% if messages is defined and messages %}
-        {% for message in messages %}
-          <div class="border-l-4 border-{{message.color}}-800 bg-{{message.color}}-200 text-{{message.color}}-800 p-4 text-xl mb-4">{{message.text}} 
-          </div>
-        {% endfor %} 
-      {% endif %}
-      {% for type, messages in flash %}
-        {% for message in messages %}
-          <div class="alert alert-{{type}} alert-dismissible fade show border border-{{type}}">{{message}} 
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        {% endfor %}
-      {% endfor %} 
+      {% include 'base/components/messages.twig' %}
       {% block page %}No content defined for this block{% endblock %}
 	<hr class="mt-4">
       <footer class="flex justify-between py-4">

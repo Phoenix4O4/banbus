@@ -2,7 +2,8 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   purge: [
-     './views/**/*.twig',
+    './views/**/*.twig',
+    './views/**/*.html',
    ],
   darkMode: 'media', // or 'media' or 'class'
   theme: {

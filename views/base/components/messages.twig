@@ -1,0 +1,28 @@
+{% if messages is defined and messages %}
+  {% for message in messages %}
+    {% if 'success' == message.type %}
+      <div class="border-l-4 border-green-800 bg-green-200 text-green-800 p-4 text-xl mb-4">{{message.text}} 
+      </div>
+    {% elseif 'danger' == message.type %}
+      <div class="border-l-4 border-red-800 bg-red-200 text-red-800 p-4 text-xl mb-4">{{message.text}} 
+      </div>
+    {% else %}
+      <div class="border-l-4 border-blue-800 bg-blue-200 text-blue-800 p-4 text-xl mb-4">{{message.text}} 
+      </div>
+    {% endif %}
+  {% endfor %} 
+{% endif %}
+{% for type, messages in flash %}
+  {% for message in messages %}
+    {% if 'Success' == type %}
+      <div class="border-l-4 border-green-800 bg-green-200 text-green-800 p-4 text-xl mb-4">{{message}} 
+      </div>
+    {% elseif 'danger' == type %}
+      <div class="border-l-4 border-red-800 bg-red-200 text-red-800 p-4 text-xl mb-4">{{message}} 
+      </div>
+    {% else %}
+      <div class="border-l-4 border-blue-800 bg-blue-200 text-blue-800 p-4 text-xl mb-4">{{message}} 
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endfor %} 

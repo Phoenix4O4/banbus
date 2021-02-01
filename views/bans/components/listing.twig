@@ -1,4 +1,4 @@
-<a href="{{url_for(url,{'id':ban.id})}}" class="mb-8 flex items-center justify-between border-2 border-{{ban.active ? 'red':'green'}}-200 bg-{{ban.active ? 'red':'green'}}-100 hover:bg-{{ban.active ? 'red':'green'}}-300 transition p-5 relative">
+<a href="{{url_for(url,{'id':ban.id})}}" class="mb-8 flex items-center justify-between border-2 {{ban.active ? 'border-red-200':'border-green-200'}} {{ban.active ? 'bg-red-100':'bg-green-100'}} {{ban.active ? 'hover:bg-red-300':'hover:bg-green-300'}} transition p-5 relative">
 <div>
     <p><strong>{{ban.ckey}}</strong> banned from <strong>{{ban.role}}</strong> by <strong>{{ban.admin}}</strong> during Round #{{ban.round}} with reason:</p>
     <p class="py-1 my-2 pl-3 ml-3 border-l-4 border-gray-300 text-gray-600">{{ban.reason}}</p>

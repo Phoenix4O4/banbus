@@ -9,7 +9,10 @@ module.exports = {
       ? cssnano({ preset: 'default' })
       : null,
     process.env.NODE_ENV === 'production' ? purgecss({
-      content: ['./views/**/*.twig','./views/**/*.html'],
+      content: [
+        './views/**/*.twig',
+        './views/**/*.html'
+      ],
       defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
     }) : null
   ]

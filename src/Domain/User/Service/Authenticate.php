@@ -69,8 +69,11 @@ class Authenticate extends Service
         }
         $user = new User($response->byond_ckey, $this->user->getUserRank($response->byond_ckey));
         $this->payload->addData('user', $user);
-        $this->payload->addSuccessMessage("You have logged in as $user->displayName");
         $this->session->set('user', $user);
+        $this->session->getFlashBag()->add('Success', "You have logged in as $user->displayName");
+        if (!$this->modules['public_bans']) {
+            $this->payload->setRouteRedirect('mybans');
+        }
         return $this->payload;
     }
 

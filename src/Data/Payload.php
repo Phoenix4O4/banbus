@@ -8,6 +8,7 @@ class Payload
     protected $messages = [];
 
     protected $redirect = false;
+    protected $routeRedirect = false;
     protected $error = false;
     protected $errorCode = 500;
     protected $error_template = 'error/error.twig';
@@ -26,9 +27,27 @@ class Payload
         return $this->redirect;
     }
 
+    public function setRouteRedirect(string $route)
+    {
+        $this->routeRedirect = $route;
+    }
+
+    public function getRouteRedirect()
+    {
+        return $this->routeRedirect;
+    }
+
     public function checkForRedirect()
     {
         if ($this->redirect) {
+            return true;
+        }
+        return false;
+    }
+
+    public function checkForRouteRedirect()
+    {
+        if ($this->routeRedirect) {
             return true;
         }
         return false;

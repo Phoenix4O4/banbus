@@ -151,6 +151,12 @@ final class Responder
                 $payload->getRedirect()
             );
         }
+        if ($payload->checkForRouteRedirect()) {
+            return $this->withRedirectFor(
+                $response,
+                $payload->getRouteRedirect()
+            );
+        }
         if ($payload->hasError()) {
             $template = $payload->getErrorTemplate();
         }

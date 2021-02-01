@@ -10,6 +10,7 @@ class Payload
     protected $redirect = false;
     protected $error = false;
     protected $errorCode = 500;
+    protected $error_template = 'error/error.twig';
 
     public function __construct()
     {
@@ -39,7 +40,7 @@ class Payload
     }
 
     public function addData(string $key, $data)
-    {   
+    {
         if(is_array($data) || is_object($data)) {
             $this->data[$key] = $data;
             return true;
@@ -51,6 +52,16 @@ class Payload
     {
         $this->data['messages'] = $this->messages;
         return $this->data;
+    }
+
+    public function hasError()
+    {
+        return $this->error;
+    }
+
+    public function getErrorTemplate()
+    {
+        return $this->error_template;
     }
 
     public function addMessage(string $message = "Message")
@@ -75,7 +86,6 @@ class Payload
     {
         $this->error = true;
         $this->errorCode = $code;
-
         $this->messages[] = [
             'type' => 'danger',
             'color' => 'red',

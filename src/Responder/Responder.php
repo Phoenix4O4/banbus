@@ -151,6 +151,9 @@ final class Responder
                 $payload->getRedirect()
             );
         }
+        if ($payload->hasError()) {
+            $template = $payload->getErrorTemplate();
+        }
         return $this->withTemplate($response, $template, $payload->getData());
     }
 }

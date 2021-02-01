@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use App\Data\Payload;
 use App\Domain\User\Data\User;
 use App\Domain\User\Repository\UserRepository as CurrentUser;
+use App\Factory\SettingsFactory;
 
 class Authenticate extends Service
 {
@@ -15,7 +16,7 @@ class Authenticate extends Service
     private $session;
     private $user;
 
-    public function __construct(Session $session, ExternalAuth $auth, CurrentUser $user)
+    public function __construct(Session $session, ExternalAuth $auth, CurrentUser $user, SettingsFactory $settings)
     {
         $this->session = $session;
         $this->auth = $auth;
@@ -25,10 +26,17 @@ class Authenticate extends Service
             $this->session->set('site_private_token', $this->generateToken());
         }
         $this->user = $user;
+        parent::__construct($settings);
+        $this->modules = $this->settings->getSettingsByKey('modules');
         $this->payload = new Payload();
     }
+
     public function beginAuthentication()
     {
+        if (!$this->modules['personal_bans']) {
+            $this->payload->throwError(500, "This module is not enabled");
+            return $this->payload;
+        }
         $response = $this->auth->createSession(
             $this->session->get('site_private_token')
         );
@@ -48,6 +56,10 @@ class Authenticate extends Service
 
     public function confirmAuthentication()
     {
+        if (!$this->modules['personal_bans']) {
+            $this->payload->throwError(500, "This module is not enabled");
+            return $this->payload;
+        }
         $response = $this->auth->fetchSessionInfo(
             $this->session->get('site_private_token'),
             $this->session->get('session_private_token')

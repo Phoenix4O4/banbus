@@ -19,6 +19,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Utilities\UrlGenerator;
 use ParagonIE\EasyDB\EasyDB;
 use App\Repository\Database;
+use App\Factory\SettingsFactory;
 
 return [
   //Settings
@@ -29,16 +30,19 @@ return [
   // //App
     App::class => function (ContainerInterface $container) {
         AppFactory::setContainer($container);
-
-        return AppFactory::create();
+        $app = AppFactory::create();
+        if ($container->get('settings')['basepath']) {
+            $app->setBasePath($container->get('settings')['basepath']);
+        }
+        return $app;
     },
 
-  // //Response
+    //Response
     ResponseFactoryInterface::class => function (ContainerInterface $container) {
         return $container->get(App::class)->getResponseFactory();
     },
 
-  // //Route parser
+    //Route parser
     RouteParserInterface::class => function (ContainerInterface $container) {
         return $container->get(App::class)->getRouteCollector()->getRouteParser();
     },
@@ -46,7 +50,7 @@ return [
         return $container->get('Request');
     },
 
-  // //Twig middleware
+    //Twig middleware
     TwigMiddleware::class => function (ContainerInterface $container) {
         return TwigMiddleware::createFromContainer($container->get(App::class), Twig::class);
     },
@@ -54,7 +58,6 @@ return [
     // Twig templates
     Twig::class => function (ContainerInterface $container) {
         $config = (array)$container->get('settings');
-        $session = $container->get(Session::class);
         $settings = $config['twig'];
         $options = $settings['options'];
         $options['cache'] = $options['cache_enabled'] ? $options['cache_path'] : false;
@@ -67,7 +70,9 @@ return [
             $loader->addPath($publicPath, 'public');
         }
 
+        $session = $container->get(Session::class);
         $twig->addExtension(new \Twig\Extension\DebugExtension());
+        $twig->getEnvironment()->addGlobal('debug', $config['debug']);
         $twig->getEnvironment()->addGlobal('app', $config['app']);
         $twig->getEnvironment()->addGlobal('modules', $config['modules']);
         $twig->getEnvironment()->addGlobal('flash', $session->getFlashBag()->all());
@@ -83,17 +88,17 @@ return [
             return new Session(new NativeSessionStorage($settings));
         }
     },
-      Guzzle::class => function (ContainerInterface $container) {
-          return new Guzzle();
-      },
+    Guzzle::class => function (ContainerInterface $container) {
+        return new Guzzle();
+    },
     ExternalAuth::class => function (ContainerInterface $container) {
         return new ExternalAuth($container->get(Guzzle::class), $container->get(UrlGenerator::class));
     },
       UrlGenerator::class => function (ContainerInterface $container) {
           return new UrlGenerator();
       },
-    Service::class => function (ContainerInterface $container) {
-        return new Service($container->get(Session::class));
+    SettingsFactory::class => function (ContainerInterface $container) {
+        return new SettingsFactory($container->get('settings'));
     },
     EasyDB::class => function (ContainerInterface $container) {
         $config = (array) $container->get('settings')['db'];

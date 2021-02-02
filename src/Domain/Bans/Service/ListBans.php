@@ -39,6 +39,7 @@ class ListBans extends Service
                 $this->session->get('user')->getCkey()
             )
         );
+        $this->payload->setTemplate('bans/mybans.twig');
         return $this->payload;
     }
 
@@ -56,6 +57,7 @@ class ListBans extends Service
             $this->session->get('user')->getCkey(),
             $id
         );
+        $this->payload->setTemplate('bans/single.twig');
         if (!$this->payload->addData('ban', $ban)) {
             $this->payload->throwError(404, "Ban with id $id not found");
         }
@@ -72,6 +74,7 @@ class ListBans extends Service
             'bans',
             $this->banRepository->getPublicBans()
         );
+        $this->payload->setTemplate('bans/bans.twig');
         return $this->payload;
     }
 
@@ -84,7 +87,18 @@ class ListBans extends Service
         $ban = $this->banRepository->getBanById($id);
         if (!$this->payload->addData('ban', $ban)) {
             $this->payload->throwError(404, "Ban with id $id not found");
+            $this->payload->setTemplate('bans/single.twig');
         }
         return $this->payload;
+    }
+
+    public function bansHomepage()
+    {
+        if (!$this->session->get('user') && !$this->modules['public_bans']) {
+            $this->payload->setTemplate('home/home.twig');
+            return $this->payload;
+        } elseif ($this->session->get('user') && $this->modules['personal_bans']) {
+            return $this->getBansForCurrentUser();
+        }
     }
 }

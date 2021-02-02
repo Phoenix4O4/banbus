@@ -7,8 +7,11 @@ class Payload
     protected $data = [];
     protected $messages = [];
 
+    protected $template = 'home/home.twig';
+
     protected $redirect = false;
     protected $routeRedirect = false;
+    
     protected $error = false;
     protected $errorCode = 500;
     protected $error_template = 'error/error.twig';
@@ -81,6 +84,16 @@ class Payload
     public function getErrorTemplate()
     {
         return $this->error_template;
+    }
+
+    public function setTemplate(string $template)
+    {
+        $this->template = $template;
+    }
+
+    public function getTemplate()
+    {
+        return $this->template;
     }
 
     public function addMessage(string $message = "Message")

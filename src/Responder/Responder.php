@@ -160,6 +160,6 @@ final class Responder
         if ($payload->hasError()) {
             $template = $payload->getErrorTemplate();
         }
-        return $this->withTemplate($response, $template, $payload->getData());
+        return $this->withTemplate($response, $payload->getTemplate(), $payload->getData());
     }
 }

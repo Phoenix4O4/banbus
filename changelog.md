@@ -7,6 +7,14 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.2.2] - 2021-02-02 • nfreader
+
+### Fixed
+
+- Links to log files weren't comprehensive enough, and didn't account for midnight rollovers.
+
+---
+
 ## [0.2.1] - 2021-02-02 • nfreader
 
 ### Added

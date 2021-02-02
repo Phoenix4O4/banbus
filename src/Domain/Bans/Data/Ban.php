@@ -18,6 +18,7 @@ class Ban
     public $unbanned_datetime;
     public int $minutes;
     public bool $active;
+    public $round_time;
 
     public $server = null;
 
@@ -43,7 +44,8 @@ class Ban
         $unbanned_datetime,
         int $minutes,
         int $active,
-        $server = null
+        $round_time,
+        $server = null,
     ) {
         $this->id = $id;
         $this->round = $round;
@@ -60,6 +62,7 @@ class Ban
         $this->minutes = (int) $minutes;
         $this->active = (bool) $active;
         $this->server = $server;
+        $this->round_time = $round_time;
     }
 
     public function getIp()

@@ -38,11 +38,16 @@
 			<i class="fas fa-circle"></i>
 			{{ban.round}}
 			<i class="fas fa-external-link-alt"></i>
-		</a> on {{ban.server.name}}
+		</a> on {{ban.server.name}} at {{ban.bantime}}
 	</p>
-  <p class="text-gray-400">Logs for this round can be found at 
-  <a href="{{ban.server.public_logs}}/{{ban.round}}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-800">{{ban.server.public_logs}}{{ban.round}} <i class="fas fa-external-link-alt"></i></a>
-  </p>
+	<p class="text-gray-400">
+	{% if ban.logs %}
+  Logs for this round can be found at 
+  <a href="{{ban.logs}}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-800">{{ban.logs}} <i class="fas fa-external-link-alt"></i></a>
+ 	{% else %}
+	I could not reliably determine a suitable link for this rounds logs. Please check the round page at Statbus for further information.
+	{% endif %}
+	</p>
 	<hr class="my-8 block">
 	<p class="mb-2">Interested in appealing this ban? Copy and paste the text below to get started:</p>
 	<p class="p-4 bg-gray-100 text-gray-600 border-2 border-gray-400 rounded-lg select-all leading-loose relative">

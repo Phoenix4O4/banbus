@@ -15,10 +15,10 @@ class BanRepository
     private $table = 'ban';
 
     private $columns = "SELECT 
-        id,
+        ban.id,
         round_id as `round`,
-        server_ip,
-        server_port,
+        ban.server_ip,
+        ban.server_port,
         `role`,
         bantime,
         expiration_time as `expiration`,
@@ -35,7 +35,10 @@ class BanRepository
             WHEN expiration_time < NOW() THEN 0
             WHEN unbanned_ckey IS NOT NULL THEN 0
             ELSE 1 
-        END as `active`";
+        END as `active`,
+        round.initialize_datetime AS round_time
+        FROM ban
+        LEFT JOIN `round` ON round_id = round.id";
 
     public function __construct(EasyDB $db, BanFactory $factory)
     {
@@ -45,21 +48,18 @@ class BanRepository
 
     public function getPublicBans()
     {
-        return $this->db->run("$this->columns
-        FROM $this->table ORDER BY bantime DESC;");
+        return $this->db->run("$this->columns ORDER BY bantime DESC;");
     }
 
     public function getBanById(int $id)
     {
-        return $this->db->row("$this->columns
-        FROM $this->table WHERE id = ?", $id);
+        return $this->db->row("$this->columns WHERE ban.id = ?", $id);
     }
 
     public function getBansByCkey($ckey)
     {
         foreach (
-            $this->db->run("$this->columns
-            FROM $this->table WHERE ckey = ?", $ckey) as $ban
+            $this->db->run("$this->columns WHERE ckey = ?", $ckey) as $ban
         ) {
             $bans[] = Ban::fromDb($ban);
         }
@@ -67,7 +67,6 @@ class BanRepository
     }
     public function getSingleBanByCkey($ckey, $id)
     {
-        return $this->factory->buildBan($this->db->row("$this->columns
-        FROM $this->table WHERE ckey = ? AND id = ?", $ckey, $id));
+        return $this->factory->buildBan($this->db->row("$this->columns WHERE ckey = ? AND ban.id = ?", $ckey, $id));
     }
 }

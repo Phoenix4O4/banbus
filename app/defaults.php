@@ -38,8 +38,8 @@ $settings['twig'] = [
 // Error handler
 $settings['error'] = [
   'display_error_details' => false,
-  'log_errors' => true,
-  'log_error_details' => true,
+  'log_errors' => false,
+  'log_error_details' => false,
 ];
 
 $settings['session'] = [

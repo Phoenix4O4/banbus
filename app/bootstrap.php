@@ -16,5 +16,12 @@ date_default_timezone_set($container->get('settings')['app']['timezone']);
 
 (require __DIR__ . '/middleware.php')($app);
 (require __DIR__ . '/routes.php')($app);
-$errorMiddleware = $app->addErrorMiddleware(true, true, true);
+
+$error = $container->get('settings')['error'];
+$errorMiddleware = $app->addErrorMiddleware(
+    $error['display_error_details'],
+    $error['log_errors'],
+    $error['log_error_details']
+);
+
 return $app;

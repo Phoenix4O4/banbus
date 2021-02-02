@@ -43,7 +43,7 @@ $settings['error'] = [
 ];
 
 $settings['session'] = [
-  'name' => 'app',
+  'name' => 'banbus',
   'cache_expire' => 0,
 ];
 

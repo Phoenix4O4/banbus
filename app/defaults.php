@@ -71,4 +71,6 @@ $settings['db'] = [
     ]
 ];
 
+$settings['servers'] = null;
+
 return $settings;

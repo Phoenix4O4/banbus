@@ -18,6 +18,8 @@ services:
     build:
       context: docker/php
       dockerfile: dockerfile
+    ports:
+      - "8080:8080"
     environment:
       APP_ENV: "local"
 
@@ -31,7 +33,6 @@ services:
       - ./docker/nginx/conf:/etc/nginx/custom:ro
     ports:
       - "80:80"
-      - "9000:9000"
     depends_on:
       - bb_php
 

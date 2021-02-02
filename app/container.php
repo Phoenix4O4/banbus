@@ -18,7 +18,6 @@ use App\Service\Service;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Utilities\UrlGenerator;
 use ParagonIE\EasyDB\EasyDB;
-use App\Repository\Database;
 use App\Factory\SettingsFactory;
 
 return [
@@ -94,9 +93,9 @@ return [
     ExternalAuth::class => function (ContainerInterface $container) {
         return new ExternalAuth($container->get(Guzzle::class), $container->get(UrlGenerator::class));
     },
-      UrlGenerator::class => function (ContainerInterface $container) {
-          return new UrlGenerator();
-      },
+    UrlGenerator::class => function (ContainerInterface $container) {
+        return new UrlGenerator();
+    },
     SettingsFactory::class => function (ContainerInterface $container) {
         return new SettingsFactory($container->get('settings'));
     },

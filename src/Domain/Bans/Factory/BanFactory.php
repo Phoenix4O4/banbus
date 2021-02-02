@@ -29,7 +29,6 @@ class BanFactory
             return false;
         }
         $date = new DateTime($datetime);
-        var_dump($date);
         $year = $date->format('Y');
         $month = $date->format('m');
         $day = $date->format('d');

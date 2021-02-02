@@ -1,44 +1,88 @@
 {% extends 'base/site.html' %}
 {% block page %}
-<p class="text-xl">#{{ban.id}}:</p>
-<p class="text-center text-4xl">
-  <strong>{{ban.ckey}}</strong> banned from <strong>{{ban.role}}</strong> by <strong>{{ban.admin}}</strong>
-</p>
+	<p class="text-xl">#{{ban.id}}:</p>
+	<p class="text-center text-4xl">
+		<strong>{{ban.ckey}}</strong>
+		banned from
+		<strong>{{ban.role}}</strong>
+		by
+		<strong>{{ban.admin}}</strong>
+	</p>
 
-<p class="text-2xl py-1 my-6 pl-3 ml-3 border-l-4 border-gray-300 text-gray-600 leading-loose">{{ban.reason}}</p>
+	<p class="text-2xl py-1 my-6 pl-3 ml-3 border-l-4 border-gray-300 text-gray-600 leading-loose">{{ban.reason}}</p>
 
-<p class="text-xl">This ban is
-{% if ban.active %}
-<strong class="bg-red-500 text-white p-2 rounded-lg">Active</strong> and
-  {% if not ban.expiration %}<strong class="uppercase font-extrabold text-white tracking-widest bg-pink-500 p-2 rounded-lg">permanent</strong> 
-  {% else %} expires at <strong>{{ban.expiration}}</strong>
-  {% endif %}
-{% else %}
-  {% if ban.unbanned_ckey %}<strong class="bg-blue-500 text-white p-2 rounded-lg">Inactive</strong> and was lifted by <strong>{{ban.unbanned_ckey}}</strong>
-  {% else %}<strong class="bg-green-500 text-white p-2 rounded-lg">Expired</strong> (as of {{ban.expiration}})
-  {% endif %}
-{% endif %}
-</p>
-<p class="text-gray-400 my-4">This ban was placed during round <a href="https://sb.atlantaned.space/rounds/{{ban.round}}" class="text-blue-400 hover:text-blue-800" target="_blank" rel="noopener noreferrer"><i class="fas fa-circle"></i> {{ban.round}} <i class="fas fa-external-link-alt"></i></a></p>
-<hr class="my-8 block">
-<p class="mb-2">Interested in appealing this ban? Copy and paste the text below to get started:</p>
-<p class="p-4 bg-gray-100 text-gray-600 border-2 border-gray-400 rounded-lg select-all leading-loose relative">
-<span>
-  <i class="fas fa-copy text-gray-400 absolute right-3 select-none">
-  </i>
-</span>
-[b]<strong>BYOND account:</strong>[/b] {{ban.ckey}}<br>
-[b]<strong>Character name:</strong>[/b] <span class="bg-red-400 rounded-md text-white px-2 py-1">« Fill this in on your own! »</span><br>
-[b]<strong>Ban type:</strong>[/b] {{ban.role}}<br>
-[b]<strong>Ban length:</strong>[/b] {{ban.expiration ? ban.minutes ~ ' minutes' : 'Permanent'}}<br>
-[b]<strong>Ban reason:</strong>[/b] {{ban.reason}}<br>
-[b]<strong>Time ban was placed:</strong>[/b] {{ban.bantime}}<br>
-[b]<strong>Server you were playing on when banned:</strong>[/b] Server name, eg, Bagil/Sybil/Terry/Event Hall<br>
-[b]<strong>Round ID in which ban was placed:</strong>[/b] {{ban.round}}<br>
-[b]<strong>Your side of the story:</strong>[/b] <span class="bg-red-400 rounded-md text-white  px-2 py-1">« Fill this in on your own! »</span><br>
-[b]<strong>Why you think you should be unbanned:</strong>[/b] <span class="bg-red-400 rounded-md text-white px-2 py-1">« Fill this in on your own! »</span><br>
-[b]<strong>References of good conduct:</strong>[/b] <span class="bg-red-400 rounded-md text-white px-2 py-1">« Fill this in on your own! »</span><br>
-</p>
-<p class="mt-2"><i class="fas fa-lightbulb text-yellow-400"></i> Be sure to fill in the fields highlighted in red on your own! The HTML formatting won't be copied!</p>
+	<p class="text-xl">This ban is
+		{% if ban.active %}
+			<strong class="bg-red-500 text-white p-2 rounded-lg">Active</strong>
+			and
+			{% if not ban.expiration %}
+				<strong class="uppercase font-extrabold text-white tracking-widest bg-pink-500 p-2 rounded-lg">permanent</strong>
+			{% else %}
+				expires at
+				<strong>{{ban.expiration}}</strong>
+			{% endif %}
+		{% else %}
+			{% if ban.unbanned_ckey %}
+				<strong class="bg-blue-500 text-white p-2 rounded-lg">Inactive</strong>
+				and was lifted by
+				<strong>{{ban.unbanned_ckey}}</strong>
+			{% else %}
+				<strong class="bg-green-500 text-white p-2 rounded-lg">Expired</strong>
+				(as of
+				{{ban.expiration}})
+			{% endif %}
+		{% endif %}
+	</p>
+	<p class="text-gray-400 my-4">This ban was placed during round
+		<a href="https://sb.atlantaned.space/rounds/{{ban.round}}" class="text-blue-400 hover:text-blue-800" target="_blank" rel="noopener noreferrer">
+			<i class="fas fa-circle"></i>
+			{{ban.round}}
+			<i class="fas fa-external-link-alt"></i>
+		</a> on {{ban.server.name}}
+	</p>
+  <p class="text-gray-400">Logs for this round can be found at 
+  <a href="{{ban.server.public_logs}}/{{ban.round}}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-800">{{ban.server.public_logs}}{{ban.round}} <i class="fas fa-external-link-alt"></i></a>
+  </p>
+	<hr class="my-8 block">
+	<p class="mb-2">Interested in appealing this ban? Copy and paste the text below to get started:</p>
+	<p class="p-4 bg-gray-100 text-gray-600 border-2 border-gray-400 rounded-lg select-all leading-loose relative">
+		<span>
+			<i class="fas fa-copy text-gray-400 absolute right-3 select-none"></i>
+		</span>
+		[b]<strong>BYOND account:</strong>[/b]
+		{{ban.ckey}}<br>
+		[b]<strong>Character name:</strong>[/b]
+		<span class="bg-red-400 rounded-md text-white px-2 py-1">« Fill this in on your own! »</span><br>
+		[b]<strong>Ban type:</strong>[/b]
+		{{ban.role}}<br>
+		[b]<strong>Ban length:</strong>[/b]
+		{{ban.expiration ? ban.minutes ~ ' minutes' : 'Permanent'}}<br>
+		[b]<strong>Ban reason:</strong>[/b]
+		{{ban.reason}}<br>
+		[b]<strong>Time ban was placed:</strong>[/b]
+		{{ban.bantime}}<br>
+		[b]<strong>Server you were playing on when banned:</strong>[/b]
+		{{ban.server.name}}<br>
+		[b]<strong>Round ID in which ban was placed:</strong>[/b]
+		{{ban.round}}<br>
+		[b]<strong>Your side of the story:</strong>[/b]
+		<span class="bg-red-400 rounded-md text-white  px-2 py-1">« Fill this in on your own! »</span><br>
+		[b]<strong>Why you think you should be unbanned:</strong>[/b]
+		<span class="bg-red-400 rounded-md text-white px-2 py-1">« Fill this in on your own! »</span><br>
+		[b]<strong>References of good conduct:</strong>[/b]
+		<span class="bg-red-400 rounded-md text-white px-2 py-1">« Fill this in on your own! »</span><br>
+	</p>
+	<p class="mt-2">
+		<i class="fas fa-lightbulb text-yellow-400"></i>
+		Be sure to fill in the fields highlighted in red on your own! The HTML formatting won't be copied!
+	</p>
+
+      <p class="text-gray-500 text-xs mt-4 mb-2"><strong><i class="fas fa-hand-point-right"></i> Please be advised that:</strong></p>
+    <ul class="pl-2">
+      <li class="text-gray-500 text-xs mb-2">All dates and times are in UTC</li>
+      <li class="text-gray-500 text-xs mb-2">Banbus does not show bans by any criteria other than which ckey they are attached to. Banbus can not pull up bans that are attached solely to an IP address. Please consult an in-game administrator if a ban affecting you is not shown on Banbus.</li>
+      <li class="text-gray-500 text-xs mb-2">Not all bans are placed during the round in which the bannable offense occurred. The correct round ID is usually noted in the banning reason.</li>
+      <li class="text-gray-500 text-xs mb-2">Your account information is not retained by Banbus, except ephemerally as needed by the webserver in order to facilitate app functionality. This data is linked to your browser via a cookie.</li>
+    </ul>
 
 {% endblock %}

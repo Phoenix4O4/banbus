@@ -72,5 +72,7 @@ $settings['db'] = [
 ];
 
 $settings['servers'] = null;
+$settings['ranks'] = null;
+
 
 return $settings;

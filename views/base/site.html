@@ -38,7 +38,15 @@
           >
         </p>
         <p class="text-gray-500 text-sm">
-          {% if user %} Logged in as {{user.displayName}} |
+          {% if user %} Logged in as
+          <span
+            class="rounded-sm p-1 text-xs"
+            style="background: {{user.rank.backColor}}; color:{{user.rank.foreColor}}"
+            title="{{user.rank.title}}"
+          >
+            <i class="fas fa-{{user.rank.icon}}"></i> {{user.displayName}}</span
+          >
+          |
           <a
             href="{{url_for('logout')}}"
             class="text-blue-500 hover:text-blue-900"

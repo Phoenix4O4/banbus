@@ -9,14 +9,16 @@ use App\Data\Payload;
 use App\Domain\User\Data\User;
 use App\Domain\User\Repository\UserRepository as CurrentUser;
 use App\Factory\SettingsFactory;
+use App\Domain\User\Factory\UserFactory;
 
 class Authenticate extends Service
 {
     private $auth;
     private $session;
     private $user;
+    private $userFactory;
 
-    public function __construct(Session $session, ExternalAuth $auth, CurrentUser $user, SettingsFactory $settings)
+    public function __construct(Session $session, ExternalAuth $auth, CurrentUser $user, SettingsFactory $settings, UserFactory $userFactory)
     {
         $this->session = $session;
         $this->auth = $auth;
@@ -26,6 +28,7 @@ class Authenticate extends Service
             $this->session->set('site_private_token', $this->generateToken());
         }
         $this->user = $user;
+        $this->userFactory = $userFactory;
         parent::__construct($settings);
         $this->modules = $this->settings->getSettingsByKey('modules');
         $this->payload = new Payload();
@@ -67,7 +70,10 @@ class Authenticate extends Service
         if ("OK" != $response->status) {
             die($response->error);
         }
-        $user = new User($response->byond_ckey, $this->user->getUserRank($response->byond_ckey));
+        $user = $this->userFactory->BuildUser(
+            $response->byond_ckey,
+            $this->user->getUserRank($response->byond_ckey)
+        );
         $this->payload->addData('user', $user);
         $this->session->set('user', $user);
         $this->session->getFlashBag()->add('Success', "You have logged in as $user->displayName");

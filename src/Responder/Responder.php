@@ -160,9 +160,14 @@ final class Responder
         if ($payload->hasError()) {
             $template = $payload->getErrorTemplate();
         }
-        if ($_GET['json']) {
-            return $this->withJson($response, $payload->getData());
+        // if ($_GET['json']) {
+        //     return $this->withJson($response, $payload->getData());
+        // }
+        if (isset($this->template)) {
+            $template = $this->template;
+        } else {
+            $template = $payload->getTemplate();
         }
-        return $this->withTemplate($response, $payload->getTemplate(), $payload->getData());
+        return $this->withTemplate($response, $template, $payload->getData());
     }
 }

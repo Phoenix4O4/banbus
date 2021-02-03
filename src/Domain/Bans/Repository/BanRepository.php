@@ -20,6 +20,7 @@ class BanRepository
         ban.server_ip,
         ban.server_port,
         GROUP_CONCAT(role SEPARATOR ', ') as `role`,
+        null as `banIds`,
         bantime,
         expiration_time as `expiration`,
         reason,

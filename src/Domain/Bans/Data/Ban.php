@@ -19,8 +19,10 @@ class Ban
     public int $minutes;
     public bool $active;
     public $round_time;
+    public $banIds;
 
     public $server = null;
+    public $roleBans = false;
 
     public static function fromDb(object $row)
     {
@@ -45,6 +47,7 @@ class Ban
         int $minutes,
         int $active,
         $round_time,
+        $banIds,
         $server = null,
     ) {
         $this->id = $id;
@@ -63,6 +66,8 @@ class Ban
         $this->active = (bool) $active;
         $this->server = $server;
         $this->round_time = $round_time;
+        $this->banIds = $banIds;
+        $this->roleBans();
     }
 
     public function getIp()
@@ -78,5 +83,11 @@ class Ban
     public function setServer(object $server)
     {
         $this->server = $server;
+    }
+    private function roleBans()
+    {
+        if (str_contains($this->role, ', ')) {
+            $this->roleBans = true;
+        }
     }
 }

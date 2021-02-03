@@ -19,7 +19,7 @@ class BanRepository
         round_id as `round`,
         ban.server_ip,
         ban.server_port,
-        `role`,
+        GROUP_CONCAT(role SEPARATOR ', ') as `role`,
         bantime,
         expiration_time as `expiration`,
         reason,
@@ -59,7 +59,9 @@ class BanRepository
     public function getBansByCkey($ckey)
     {
         foreach (
-            $this->db->run("$this->columns WHERE ckey = ?", $ckey) as $ban
+            $this->db->run("$this->columns WHERE ckey = ? 
+        GROUP BY bantime, ckey, `server_port`
+        ORDER BY bantime DESC", $ckey) as $ban
         ) {
             $bans[] = Ban::fromDb($ban);
         }
@@ -67,6 +69,34 @@ class BanRepository
     }
     public function getSingleBanByCkey($ckey, $id)
     {
-        return $this->factory->buildBan($this->db->row("$this->columns WHERE ckey = ? AND ban.id = ?", $ckey, $id));
+        return $this->factory->buildBan($this->db->row("SELECT 
+        ban.id,
+        ban.round_id as `round`,
+        ban.server_ip,
+        ban.server_port,
+        GROUP_CONCAT(r.role SEPARATOR ', ') as `role`,
+        GROUP_CONCAT(r.id SEPARATOR ', ') as `banIds`,
+        ban.bantime,
+        ban.expiration_time as `expiration`,
+        ban.reason,
+        ban.ckey,
+        ban.a_ckey as `admin`,
+        ban.unbanned_ckey,
+        ban.unbanned_datetime,
+        CASE
+            WHEN ban.expiration_time IS NOT NULL THEN TIMESTAMPDIFF(MINUTE, ban.bantime, ban.expiration_time)
+            ELSE 0
+        END AS `minutes`,
+        CASE 
+            WHEN ban.expiration_time < NOW() THEN 0
+            WHEN ban.unbanned_ckey IS NOT NULL THEN 0
+            ELSE 1 
+        END as `active`,
+        round.initialize_datetime AS round_time
+        FROM ban
+        LEFT JOIN `round` ON round_id = round.id
+        INNER JOIN ban r ON r.bantime = ban.bantime AND r.ckey = ban.ckey
+        WHERE ban.ckey = ? AND ban.id = ? 
+        GROUP BY ban.bantime, ban.ckey, `server_port`", $ckey, $id));
     }
 }

@@ -80,7 +80,8 @@ class Authenticate extends Service
     public function destroySession()
     {
         $this->session->invalidate();
-        $this->payload->setRedirect($this->auth->getLogoutRedirect());
+        $this->payload->setRouteRedirect('home');
+        $this->session->getFlashBag()->add('Success', "You have been logged out");
         return $this->payload;
     }
 

@@ -7,6 +7,18 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.2.3] - 2021-02-03 • nfreader
+
+### Added
+
+- A small disclaimer to the end of the appeal form, indicating that the appeal was generated with Banbus
+
+### Changed
+
+- Groups bans that target multiple roles into one view
+
+---
+
 ## [0.2.2] - 2021-02-02 • nfreader
 
 ### Fixed

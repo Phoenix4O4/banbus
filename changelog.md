@@ -7,6 +7,20 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+-
+
+## [0.2.4] - 2021-02-03 • nfreader
+
+### Added
+
+- Rank icons and color functionality, will be deployed on bans shortly.
+
+### Fixed
+
+- Non-existent bans now correctly return a 404 error.
+
+---
+
 ## [0.2.3] - 2021-02-03 • nfreader
 
 ### Added

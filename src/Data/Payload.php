@@ -11,10 +11,12 @@ class Payload
 
     protected $redirect = false;
     protected $routeRedirect = false;
-    
+
     protected $error = false;
     protected $errorCode = 500;
     protected $error_template = 'error/error.twig';
+
+    protected $statusCode = 200;
 
     public function __construct()
     {
@@ -96,6 +98,11 @@ class Payload
         return $this->template;
     }
 
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
+
     public function addMessage(string $message = "Message")
     {
         $this->messages[] = [
@@ -117,7 +124,7 @@ class Payload
     public function throwError(int $code = 500, string $message = "Error")
     {
         $this->error = true;
-        $this->errorCode = $code;
+        $this->statusCode = $code;
         $this->messages[] = [
             'type' => 'danger',
             'color' => 'red',

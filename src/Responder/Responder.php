@@ -67,8 +67,9 @@ final class Responder
      *
      * @return ResponseInterface The response
      */
-    public function withTemplate(ResponseInterface $response, string $template, array $data = []): ResponseInterface
+    public function withTemplate(ResponseInterface $response, string $template, array $data = [], $code = 200): ResponseInterface
     {
+        $response = $response->withStatus($code);
         return $this->twig->render($response, $template, $data);
     }
 
@@ -157,17 +158,14 @@ final class Responder
                 $payload->getRouteRedirect()
             );
         }
-        if ($payload->hasError()) {
-            $template = $payload->getErrorTemplate();
-        }
-        // if ($_GET['json']) {
-        //     return $this->withJson($response, $payload->getData());
-        // }
+
         if (isset($this->template)) {
             $template = $this->template;
+        } elseif ($payload->hasError()) {
+            $template = $payload->getErrorTemplate();
         } else {
             $template = $payload->getTemplate();
         }
-        return $this->withTemplate($response, $template, $payload->getData());
+        return $this->withTemplate($response, $template, $payload->getData(), $payload->getStatusCode());
     }
 }

@@ -19,6 +19,15 @@ class UserFactory
 
     public function buildUser($ckey, $rank)
     {
-        return new User($ckey, $this->ranks[$rank]);
+        if (!in_array($rank, array_keys($this->ranks))) {
+            $rank = new \stdclass();
+            $rank->title = 'Player';
+            $rank->backColor = '#ececec';
+            $rank->foreColor = 'black';
+            $rank->icon = 'user';
+        } else {
+            $rank = $this->ranks[$rank];
+        }
+        return new User($ckey, $rank);
     }
 }

@@ -17,7 +17,7 @@ class UserFactory
         }
     }
 
-    public function buildUser($ckey, $rank)
+    public function buildUser($ckey, $rank): User
     {
         if (!in_array($rank, array_keys($this->ranks))) {
             $rank = new \stdclass();

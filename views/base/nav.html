@@ -1,14 +1,11 @@
 <header class="px-4 md:px-0 text-gray-800">
   <div
-    class="container mx-auto flex items-center justify-between py-3 max-w-screen-md"
+    class="container mx-auto flex items-center justify-between py-3 max-w-screen-lg"
   >
-    <span
-      class="font-extrabold text-4xl tracking-wide uppercase"
-      id="nav_branding"
-    >
+    <span class="font-extrabold tracking-wide uppercase" id="nav_branding">
       <a
         href="{{url_for('home')}}"
-        class="transition hover:text-gray-500 duration-700 ease-in-out"
+        class="transition hover:text-gray-500 duration-700 ease-in-out text-4xl"
       >
         <i class="fas fa-gavel text-yellow-800"></i>
         {{app.name}}</a
@@ -28,6 +25,11 @@
         >Your Bans</a
       >
       {% endif %}
+      <a
+        href="{{url_for('mytickets')}}"
+        class="transition duration-700 ease-in-out hover:text-gray-500 p-3"
+        >Your Tickets</a
+      >
     </nav>
   </div>
 </header>

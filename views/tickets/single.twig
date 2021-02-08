@@ -1,0 +1,60 @@
+{% extends 'base/site.html' %}
+{% block title %}
+	{{app.name}}
+	{{app.version}}
+{% endblock %}
+{% block page %}
+{% from 'macros/macros.twig' import userBadge %}
+<div class="text-2xl py-4">Ticket #{{tickets[0].ticket}} from <a href="https://sb.atlantaned.space/rounds/{{tickets[0].round}}" class="text-blue-400 hover:text-blue-800" target="_blank" rel="noopener noreferrer">
+			<i class="fas fa-circle"></i>
+			{{tickets[0].round}}
+			<i class="fas fa-external-link-alt"></i>
+		</a>
+</div>
+<hr class="mb-4">
+<div class="flex flex-col relative">
+<div class="border-r-4 border-gray-400 absolute top-0 bottom-5 left-4 z-0"></div>
+{% for ticket in tickets %}
+{% if ticket.interval %}<p class="text-right mb-2 font-mono text-pink-500 bg-white"><i class="fas fa-stopwatch"></i> {{ticket.interval}}</p>{% endif %}
+{% if ticket.isAction %}
+{% include 'tickets/components/action.twig' %}
+{% else %}
+	<div href="#" class="border block relative overflow-hidden p-2 pt-12 rounded mb-2 z-10 bg-white {% if 'success' == ticket.class %}
+		border-green-500
+		{% elseif 'warning' == ticket.class %}
+		border-yellow-500
+		{% elseif 'danger' == ticket.class %}
+		border-red-500
+		{% elseif 'info' == ticket.class %}
+		border-blue-500
+    {% elseif 'secondary' == ticket.class %}
+		border-black
+		{% endif %}">
+  <div class="text-lg inset-x-0 top-0 p-2 absolute border-b bg-gray-50 {% if 'success' == ticket.class %}
+		border-green-500
+		{% elseif 'warning' == ticket.class %}
+		border-yellow-500
+		{% elseif 'danger' == ticket.class %}
+		border-red-500
+		{% elseif 'info' == ticket.class %}
+		border-blue-500
+    {% elseif 'secondary' == ticket.class %}
+		border-black
+		{% endif %}"><i class="fas fa-fw fa-{{ticket.icon}} {% if 'success' == ticket.class %}
+		text-green-500
+		{% elseif 'warning' == ticket.class %}
+		text-yellow-500
+		{% elseif 'danger' == ticket.class %}
+		text-red-500
+		{% elseif 'info' == ticket.class %}
+		text-blue-500
+		{% endif %}"></i> 
+    {% include 'tickets/components/ticket_header.twig' %}
+    </div>
+    <p class="mx-5 py-2">{{ticket.message}}</p>
+
+	</div>
+  {% endif %}
+{% endfor %}
+</div>
+{% endblock %}

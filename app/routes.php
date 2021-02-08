@@ -22,4 +22,8 @@ return function (App $app) {
       ->setName('bans');
     $app->get('/bans/{id:[0-9]+}', \App\Action\Bans\ViewSingleBan::class)
       ->setName('ban.single');
+    $app->get('/mytickets[/page/{page}]', \App\Action\Ticket\ViewMyTickets::class)
+      ->setName('mytickets');
+    $app->get('/mytickets/{round:[0-9]+}/{ticket:[0-9]+}', \App\Action\Ticket\ViewMySingleTicket::class)
+      ->setName('mytickets.single');
 };

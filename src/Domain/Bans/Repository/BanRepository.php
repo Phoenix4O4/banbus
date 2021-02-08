@@ -25,7 +25,7 @@ class BanRepository
         expiration_time as `expiration`,
         reason,
         ckey,
-        a_ckey as `admin`,
+        a_ckey,
         unbanned_ckey,
         unbanned_datetime,
         CASE
@@ -82,9 +82,12 @@ class BanRepository
             ban.expiration_time as `expiration`,
             ban.reason,
             ban.ckey,
-            ban.a_ckey as `admin`,
+            c.rank as `c_rank`,
+            ban.a_ckey,
+            a.rank as `a_rank`,
             ban.unbanned_ckey,
             ban.unbanned_datetime,
+            u.rank as `u_rank`,
             CASE
                 WHEN ban.expiration_time IS NOT NULL THEN TIMESTAMPDIFF(MINUTE, ban.bantime, ban.expiration_time)
                 ELSE 0
@@ -97,6 +100,9 @@ class BanRepository
             round.initialize_datetime AS round_time
             FROM ban
             LEFT JOIN `round` ON round_id = round.id
+            LEFT JOIN `admin` AS c ON c.ckey = ban.ckey	
+            LEFT JOIN `admin` AS a ON a.ckey = ban.a_ckey
+            LEFT JOIN `admin` AS u ON u.ckey = ban.unbanned_ckey
             INNER JOIN ban r ON r.bantime = ban.bantime AND r.ckey = ban.ckey
             WHERE ban.ckey = ? AND ban.id = ? 
             GROUP BY ban.bantime, ban.ckey, `server_port`", $ckey, $id)

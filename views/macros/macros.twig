@@ -1,0 +1,47 @@
+{% macro userBadge(user, extraClasses = '') %}
+<span
+class="rounded-sm p-0.5 mr-1 whitespace-nowrap align-middle leading-none {{extraClasses}}"
+style="background: {{user.rank.backColor}}; color:{{user.rank.foreColor}}"
+title="{{user.rank.title}}">
+  <i class="fas fa-{{user.rank.icon}}"></i> {{user.displayName}}
+</span>
+{% endmacro %}
+
+{% macro pagination(nbPages = 1, currentPage = 1, url = 'home') %}
+{% set classes = 'px-3 py-2 block text-blue-600 border-blue-400 border border-collapse hover:bg-blue-400 hover:text-white' %}
+  {% set param = '' %}
+  {% if not query %}
+      {% set query = '' %}
+  {% endif %}
+  {% if nbPages > 1 %}
+
+      {# Number of page around current page+1 #}
+      {% set nearbyPagesLimit = 4 %}
+
+      <div class="mb-4">
+          <ul class="pagination list-reset text-center">
+              {% if currentPage != 1 %}
+              <li class="page-item inline-block">
+                  <a class="page-link {{classes}}" href="{{url}}{{query}}">First</a>
+              </li>
+              {% endif %}
+              {% for i in 1..nbPages %}
+                  {% if 0 == (currentPage - nearbyPagesLimit) - loop.index %} {# dot before #}
+                  {% elseif 0 == (currentPage + nearbyPagesLimit) - loop.index %} {# dot after #}
+                  {% elseif 0 < (currentPage - nearbyPagesLimit) - loop.index %} {# hide all before #}
+                  {% elseif 0 > (currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
+                  {% else %}
+                      <li class="page-item inline-block">
+                          <a class="page-link {{classes}}" href="{{url}}{{param}}/page/{{loop.index}}{{query}}">{{ loop.index }}</a>
+                      </li>
+                  {% endif %}
+              {% endfor %}
+              {% if currentPage != nbPages %}
+              <li class="page-item inline-block">
+                  <a class="page-link {{classes}} {% if currentPage == loop.index  %} {% endif %}" href="{{url}}{{param}}/page/{{nbPages}}{{query}}">Last</a>
+              </li>
+              {% endif %}
+          </ul>
+      </div>
+  {% endif %}
+{% endmacro %}

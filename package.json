@@ -15,4 +15,5 @@
     "watch": "watch 'npm run build:css' ./views",
     "build:css": "npx postcss assets/css/* -o public/assets/css/style.css"
   }
+
 }

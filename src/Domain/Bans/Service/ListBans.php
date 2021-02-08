@@ -45,10 +45,13 @@ class ListBans extends Service
 
     public function getSingleBanForCurrentUser($id)
     {
+        //Module disabled kick out
         if (!$this->modules['personal_bans']) {
             $this->payload->throwError(500, "This module is not enabled");
             return $this->payload;
         }
+
+        //Not logged in kick out
         if (!$this->session->get('user')) {
             $this->payload->throwError(403, "You must be logged in to access this page.");
             return $this->payload;

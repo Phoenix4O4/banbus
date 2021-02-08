@@ -24,6 +24,10 @@ abstract class Action
         ResponseInterface $response,
         array $args = []
     ): ResponseInterface {
-        return $this->responder->processPayload($response, $this->action($args), $this->template);
+        try {
+            return $this->responder->processPayload($response, $this->action($args), $this->template);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
     }
 }

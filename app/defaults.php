@@ -71,6 +71,8 @@ $settings['db'] = [
     ]
 ];
 
+$settings['results_per_page'] = 60;
+
 $settings['servers'] = null;
 $settings['ranks'] = null;
 

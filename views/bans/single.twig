@@ -1,35 +1,35 @@
 {% extends 'base/site.html' %}
 {% block page %}
+{% from 'macros/macros.twig' import userBadge %}
 	<p class="text-xl">#{{ban.id}}:</p>
 	<p class="text-center text-4xl">
-		<strong>{{ban.ckey}}</strong>
+		<strong>{{userBadge(ban.target)}}</strong>
 		banned from
 		<strong>{{ban.role}}</strong>
 		by
-		<strong>{{ban.admin}}</strong>
+		<strong>{{userBadge(ban.admin)}}</strong>
 	</p>
 
 	<p class="text-2xl py-1 my-6 pl-3 ml-3 border-l-4 border-gray-300 text-gray-600 leading-loose">{{ban.reason}}</p>
 
-	<p class="text-xl">This ban is
+	<p class="text-xl">This ban 
 		{% if ban.active %}
-			<strong class="bg-red-500 text-white p-2 rounded-lg">Active</strong>
+			is <strong class="bg-red-500 text-white p-2 rounded-lg">Active</strong>
 			and
 			{% if not ban.expiration %}
 				<strong class="uppercase font-extrabold text-white tracking-widest bg-pink-500 p-2 rounded-lg">permanent</strong>
 			{% else %}
-				expires at
-				<strong>{{ban.expiration}}</strong>
+				expires 
+				<strong><time>{{ban.expiration}}</time></strong>
 			{% endif %}
 		{% else %}
 			{% if ban.unbanned_ckey %}
-				<strong class="bg-blue-500 text-white p-2 rounded-lg">Inactive</strong>
+				is <strong class="bg-blue-500 text-white p-2 rounded-lg">Inactive</strong>
 				and was lifted by
-				<strong>{{ban.unbanned_ckey}}</strong>
+				<strong>{{userBadge(ban.unbanner)}}</strong> <time>{{ban.unbanned_datetime}}</time>
 			{% else %}
 				<strong class="bg-green-500 text-white p-2 rounded-lg">Expired</strong>
-				(as of
-				{{ban.expiration}})
+				<time>{{ban.expiration}}</time>
 			{% endif %}
 		{% endif %}
 	</p>
@@ -38,7 +38,7 @@
 			<i class="fas fa-circle"></i>
 			{{ban.round}}
 			<i class="fas fa-external-link-alt"></i>
-		</a> on {{ban.server.name}} at {{ban.bantime}}
+		</a> on {{ban.server.name}} <time>{{ban.bantime}}</time>
 	</p>
 	<p class="text-gray-400">
 	{% if ban.logs %}

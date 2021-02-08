@@ -1,3 +1,4 @@
+{% from 'macros/macros.twig' import userBadge %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,11 +20,11 @@
   </head>
   <body class="font-sans">
     {% include 'base/nav.html' %}
-    <main id="main" class="container mx-auto pt-4 px-2 md:px-0 max-w-screen-md">
+    <main id="main" class="container mx-auto pt-4 px-2 md:px-0 max-w-screen-lg">
       {% include 'base/components/messages.twig' %} {% block page %}No content
       defined for this block{% endblock %}
     </main>
-    <footer class="container mx-auto pt-4 px-2 md:px-0 max-w-screen-md py-4">
+    <footer class="container mx-auto pt-4 px-2 md:px-0 max-w-screen-lg py-4">
       <hr class="mb-4" />
       <div class="flex justify-between">
         <p class="text-gray-500 text-sm">
@@ -38,15 +39,7 @@
           >
         </p>
         <p class="text-gray-500 text-sm">
-          {% if user %} Logged in as
-          <span
-            class="rounded-sm p-1 text-xs"
-            style="background: {{user.rank.backColor}}; color:{{user.rank.foreColor}}"
-            title="{{user.rank.title}}"
-          >
-            <i class="fas fa-{{user.rank.icon}}"></i> {{user.displayName}}</span
-          >
-          |
+          {% if user %} Logged in as {{userBadge(user)}} |
           <a
             href="{{url_for('logout')}}"
             class="text-blue-500 hover:text-blue-900"
@@ -57,5 +50,29 @@
       </div>
       {% if debug %}{{dump()}}{% endif %}
     </footer>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js"
+      integrity="sha512-0fcCRl828lBlrSCa8QJY51mtNqTcHxabaXVLPgw/jPA5Nutujh6CbTdDgRzl9aSPYW/uuE7c4SffFUQFBAy6lg=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/utc.min.js"
+      integrity="sha512-m00bfmYnAl3plEBlQfeQUhw/U2uvmw29V2+jxSWpAjankMWS+zAsjezbKWDEJNXqWq9o9qQZSOiA2RKDpa4D5w=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/relativeTime.min.js"
+      integrity="sha512-BQqXM2ye6+98YyRQzE676pY2Bc4d3o/fBNlBQyKv2J9oKwp9K/4BVqFWIJBx1zKlAJ8M0PIJR5Yp51FsnSUynQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      dayjs.extend(window.dayjs_plugin_utc);
+      dayjs.extend(window.dayjs_plugin_relativeTime);
+      const timestamps = document.querySelectorAll("time");
+      timestamps.forEach(function (ts) {
+        ts.setAttribute("title", ts.textContent);
+        ts.textContent = dayjs(ts.textContent).utc().fromNow();
+      });
+    </script>
   </body>
 </html>

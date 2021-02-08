@@ -1,0 +1,39 @@
+{% extends 'base/site.html' %}
+{% block title %}
+	{{app.name}}
+	{{app.version}}
+{% endblock %}
+{% block page %}
+{% from 'macros/macros.twig' import userBadge, pagination %}
+<div class="text-2xl py-4">Showing tickets sent to, or started by {{user.getCkey}}
+</div>
+<hr class="mb-4">
+{{pagination(pagination.pages, pagination.currentPage, url_for('mytickets'))}}
+<div class="flex flex-col">
+{% for ticket in tickets %}
+	<a href="{{url_for('mytickets.single',{round: ticket.round, ticket: ticket.ticket})}}" class="border border-gray-200 hover:bg-gray-100 -mb-px block relative overflow-hidden p-4 {% if loop.first %}first:rounded-t{% endif %} {% if loop.last %}last:rounded-b{% endif %}">
+	{# <span class="text-red-500 text-8xl absolute transform rotate-12 z-0 font-extrabold tracking-widest uppercase opacity-20 right-20">*bwoink*</span> #}
+	<div class="flex justify-between items-center z-10 relative">
+		<div class="text-3xl"><i class="fas fa-{{ticket.icon}}
+		{% if 'success' == ticket.class %}
+		text-green-500
+		{% elseif 'warning' == ticket.class %}
+		text-yellow-500
+		{% elseif 'danger' == ticket.class %}
+		text-red-500
+		{% elseif 'info' == ticket.class %}
+		text-blue-500
+		{% endif %}
+		"></i></div>
+		<div class="flex-grow mx-4">
+			<p>{{ticket.message}} {% if ticket.isBwoink() %}
+			<span class="bg-red-100 border border-red-600 text-red-600 font-bold uppercase py-0.5 px-1 rounded-md text-xxs">*bwoink*</span>
+			{% endif %}</p>
+			<p class="text-gray-500 text-xs mt-4">#{{ticket.round}}-{{ticket.ticket}} by {{userBadge(ticket.sender)}} {% if ticket.recipient %} to {{userBadge(ticket.recipient)}} {% endif %} <time class="tooltip">{{ticket.timestamp}}</time></p>
+		</div>
+		<div class="whitespace-nowrap text-gray-500"><i class="fas fa-comment pr-1"></i>{{ticket.replies}}</div>
+	</div>
+	</a>
+{% endfor %}
+</div>
+{% endblock %}

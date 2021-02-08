@@ -1,0 +1,16 @@
+<div class="z-10 relative">
+<div class="text-4xl"><i class="bg-white fas fa-{{ticket.icon}} {% if 'success' == ticket.class %}
+		text-green-500
+		{% elseif 'warning' == ticket.class %}
+		text-yellow-500
+		{% elseif 'danger' == ticket.class %}
+		text-red-500
+		{% elseif 'info' == ticket.class %}
+		text-blue-500
+    {% elseif 'secondary' == ticket.class %}
+		text-black
+		{% endif %}"></i>
+    {{ticket.message}}
+    <span class="text-gray-400 text-xl"><time>{{ticket.timestamp}}</time>
+    </div>
+</div>

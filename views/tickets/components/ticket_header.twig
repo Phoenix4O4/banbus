@@ -1,8 +1,8 @@
 {% from 'macros/macros.twig' import userBadge %}
 {% if ticket.isBwoink %}
-{{userBadge(ticket.sender, 'text-tiny')}} bwoinked {{userBadge(ticket.recipient, 'text-tiny')}}
+{{userBadge(ticket.sender, 'text-xxs')}} bwoinked {{userBadge(ticket.recipient, 'text-xxs')}}
 {% elseif 'Ticket Opened' == ticket.action %}
-{{userBadge(ticket.sender, 'text-tiny')}} Opened Ticket
+{{userBadge(ticket.sender, 'text-xxs')}} Opened Ticket
 {% else %}
-{{userBadge(ticket.sender, 'text-tiny')}} {{ticket.action_label}} {{userBadge(ticket.recipient, 'text-tiny')}}
+{{userBadge(ticket.sender, 'text-xxs')}} {{ticket.action_label}} {{userBadge(ticket.recipient, 'text-xxs')}}
 {% endif %} <time class="tooltip">{{ticket.timestamp}}</time>

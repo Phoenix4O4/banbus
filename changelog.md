@@ -7,7 +7,22 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
--
+## Upcoming
+
+### Added
+
+- Flag your tickets as public and generate unique links to them
+
+---
+
+## [0.3.0] - 2021-02-07 • nfreader
+
+### Added
+
+- Tickets! Logged in players can now see tickets (ahelps) that they started, or that were sent to them.
+- Timestamps are now dynamically converted to relative time (e.g. "six months ago") on the front end.
+
+---
 
 ## [0.2.4] - 2021-02-03 • nfreader
 

@@ -33,7 +33,12 @@ class GetTickets extends Service
 
     public function getTicketsForCurrentUser($page)
     {
-        $ckey = $this->session->get('user')->getCkey();
+        if (!$this->currentUser) {
+            $this->payload->throwError(403, "You must be logged in to access this page.");
+            return $this->payload;
+        }
+
+        $ckey = $this->currentUser->getCkey();
         $tickets = $this->ticketRepo->getTicketsByCkey($ckey, $page, $this->per_page)->getResults();
         $tickets = $this->ticketRepo->getResults();
         $tickets = $this->ticketFactory->buildTickets($tickets);

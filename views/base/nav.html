@@ -24,12 +24,13 @@
         class="transition duration-700 ease-in-out hover:text-gray-500 p-3"
         >Your Bans</a
       >
-      {% endif %}
+      {% endif %} {% if user %}
       <a
         href="{{url_for('mytickets')}}"
         class="transition duration-700 ease-in-out hover:text-gray-500 p-3"
         >Your Tickets</a
       >
+      {% endif %}
     </nav>
   </div>
 </header>

@@ -130,5 +130,6 @@ class Payload
             'color' => 'red',
             'text' => $message
         ];
+        $this->setTemplate($this->getErrorTemplate());
     }
 }

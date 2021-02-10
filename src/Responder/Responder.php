@@ -70,6 +70,7 @@ final class Responder
     public function withTemplate(ResponseInterface $response, string $template, array $data = [], $code = 200): ResponseInterface
     {
         $response = $response->withStatus($code);
+        $data['response_code'] = $code;
         return $this->twig->render($response, $template, $data);
     }
 

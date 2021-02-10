@@ -1,3 +1,4 @@
 {% extends 'base/site.html' %}
 {% block page %}
+{% include 'error/codes/' ~ response_code ~ '.twig' ignore missing %}
 {% endblock %}

@@ -15,6 +15,14 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.3.1] - 2021-02-09 • nfreader
+
+### Added
+
+- A link to authenticate on 403 errors.
+
+---
+
 ## [0.3.0] - 2021-02-07 • nfreader
 
 ### Added

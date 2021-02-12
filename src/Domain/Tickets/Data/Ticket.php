@@ -36,7 +36,7 @@ class Ticket
         }
         if ($this->lastTimestamp) {
             $interval = date('U', strtotime($this->timestamp)) - date('U', strtotime($this->lastTimestamp));
-            $this->interval = date('i:s', $interval);
+            $this->interval = date('H:i:s', $interval);
         }
     }
 

@@ -5,6 +5,7 @@ namespace App\Action;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use App\Data\Payload;
 
 abstract class Action
 {
@@ -26,8 +27,10 @@ abstract class Action
     ): ResponseInterface {
         try {
             return $this->responder->processPayload($response, $this->action($args), $this->template);
-        } catch (Exception $e) {
-            die($e->getMessage());
+        } catch (\Exception $e) {
+            $payload = new Payload();
+            $payload->throwError(500, $e->getMessage());
+            return $this->responder->processPayload($response, $payload, $this->template);
         }
     }
 }

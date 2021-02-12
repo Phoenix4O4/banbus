@@ -14,6 +14,8 @@ return function (App $app) {
 
     $app->get('/banbus', \App\Action\Banbus\BanbusIndex::class)
       ->setName('banbus.index');
+    $app->get('/banbus/', \App\Action\Banbus\BanbusIndex::class)
+      ->setName('banbus.index');
     $app->get('/banbus/mybans', \App\Action\Bans\ViewMyBans::class)
       ->setName('mybans');
     $app->get('/banbus/mybans/{id:[0-9]+}', \App\Action\Bans\ViewSingleMyBan::class)

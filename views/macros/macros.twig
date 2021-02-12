@@ -1,9 +1,9 @@
 {% macro userBadge(user, extraClasses = '') %}
 <span
-class="rounded-sm p-0.5 mr-1 whitespace-nowrap align-middle leading-none {{extraClasses}}"
+class="rounded-sm px-1 py-0.5 mr-1 whitespace-nowrap align-middle leading-none {{extraClasses}}"
 style="background: {{user.rank.backColor}}; color:{{user.rank.foreColor}}"
 title="{{user.rank.title}}">
-  <i class="fas fa-{{user.rank.icon}}"></i> {{user.displayName}}
+  <i class="fas fa-fw fa-{{user.rank.icon}}"></i> {{user.displayName}}
 </span>
 {% endmacro %}
 

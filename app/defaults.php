@@ -14,7 +14,7 @@ $settings['public'] = $settings['root'] . '/public';
 $settings['basepath'] = false;
 
 $settings['app'] = [
-  'name' => 'Banbus',
+  'name' => 'SS13 Tools',
   'timezone' => 'UTC',
   'github' => 'nfreader/banbus'
 ];
@@ -76,5 +76,22 @@ $settings['results_per_page'] = 60;
 $settings['servers'] = null;
 $settings['ranks'] = null;
 
+$settings['perm_flags'] = [
+    'BUILD'       => (1 << 0),
+    'ADMIN'       => (1 << 1),
+    'BAN'         => (1 << 2),
+    'FUN'         => (1 << 3),
+    'SERVER'      => (1 << 4),
+    'DEBUG'       => (1 << 5),
+    'POSSESS'     => (1 << 6),
+    'PERMISSIONS' => (1 << 7),
+    'STEALTH'     => (1 << 8),
+    'POLL'        => (1 << 9),
+    'VAREDIT'     => (1 << 10),
+    'SOUND'       => (1 << 11),
+    'SPAWN'       => (1 << 12),
+    'AUTOADMIN'   => (1 << 13),
+    'DBRANKS'     => (1 << 14)
+];
 
 return $settings;

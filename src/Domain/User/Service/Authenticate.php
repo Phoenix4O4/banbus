@@ -23,8 +23,8 @@ class Authenticate extends Service
         $this->session = $session;
         $this->auth = $auth;
         if (!$this->session->get('site_private_token')) {
-            $this->session->invalidate();
-            $this->session->start();
+            // $this->session->invalidate();
+            // $this->session->start();
             $this->session->set('site_private_token', $this->generateToken());
         }
         $this->user = $user;
@@ -70,15 +70,18 @@ class Authenticate extends Service
         if ("OK" != $response->status) {
             die($response->error);
         }
+        $userData = $this->user->getUserByCkey($response->byond_ckey);
         $user = $this->userFactory->BuildUser(
             $response->byond_ckey,
-            $this->user->getUserRank($response->byond_ckey)
+            $userData->rank,
+            $userData->flags
         );
         $this->payload->addData('user', $user);
         $this->session->set('user', $user);
         $this->session->getFlashBag()->add('Success', "You have logged in as $user->displayName");
-        if (!$this->modules['public_bans']) {
-            $this->payload->setRouteRedirect('mybans');
+        if ($this->session->has('destination_route')) {
+            $this->payload->setRouteRedirect($this->session->get('destination_route'));
+            $this->session->remove('destination_route');
         }
         return $this->payload;
     }

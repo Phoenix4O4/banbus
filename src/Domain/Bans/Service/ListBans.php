@@ -53,6 +53,7 @@ class ListBans extends Service
 
         //Not logged in kick out
         if (!$this->session->get('user')) {
+            $this->session->set('destination_route', 'banbus.index');
             $this->payload->throwError(403, "You must be logged in to access this page.");
             return $this->payload;
         }
@@ -98,7 +99,8 @@ class ListBans extends Service
     public function bansHomepage()
     {
         if (!$this->session->get('user') && !$this->modules['public_bans']) {
-            $this->payload->setTemplate('home/home.twig');
+            $this->payload->setTemplate('banbus/banbus.twig');
+            $this->session->set('destination_route', 'banbus.index');
             return $this->payload;
         } elseif ($this->session->get('user') && $this->modules['personal_bans']) {
             return $this->getBansForCurrentUser();

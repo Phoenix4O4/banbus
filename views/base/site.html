@@ -19,20 +19,24 @@
     <title>{% block title %}{{app.name}}{% endblock %}</title>
   </head>
   <body class="font-sans">
-    {% include 'base/nav.html' %}
-    <main id="main" class="container mx-auto pt-4 px-2 md:px-0 max-w-screen-lg">
-      {% include 'base/components/messages.twig' %} {% block page %}No content
-      defined for this block{% endblock %}
+    <header>
+      <div class="container mx-auto px-4">
+        {% include 'base/components/messages.twig' %} {% include
+        [current_url()|split('/')[1] ~ '/header.twig', 'base/header.twig'] %}
+      </div>
+    </header>
+    <main id="main" class="container mx-auto px-4">
+      {% block page %}No content defined for this block{% endblock %}
     </main>
-    <footer class="container mx-auto pt-4 px-2 md:px-0 max-w-screen-lg py-4">
-      <hr class="mb-4" />
+    <footer class="container mx-auto px-4">
+      <hr class="my-4 border-gray-300" />
       <div class="flex justify-between">
         <p class="text-gray-500 text-sm">
           {{app.name}} {{app.version}}<br />
           Report issues on
           <a
             href="https://github.com/{{app.github}}/issues"
-            class="text-blue-500 hover:text-blue-900"
+            class="link"
             target="_blank"
             rel="noopener noreferrer"
             ><i class="fab fa-github"></i> GitHub</a
@@ -40,11 +44,7 @@
         </p>
         <p class="text-gray-500 text-sm">
           {% if user %} Logged in as {{userBadge(user)}} |
-          <a
-            href="{{url_for('logout')}}"
-            class="text-blue-500 hover:text-blue-900"
-            >Logout</a
-          >
+          <a href="{{url_for('logout')}}" class="link">Logout</a>
           {% endif %}
         </p>
       </div>

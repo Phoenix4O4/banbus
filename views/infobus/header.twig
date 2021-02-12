@@ -1,0 +1,21 @@
+
+  <div class="md:flex items-center justify-between">
+    <span class="font-extrabold tracking-wide uppercase" id="nav_branding">
+      <a
+        href="{{url_for('infobus')}}"
+        class="transition hover:text-gray-500 duration-700 ease-in-out text-4xl"
+      >
+        <i class="fas fa-info-circle text-blue-800"></i>
+        Infobus</a
+      >
+    </span>
+    <nav class="text-lg font-bold">
+      <a
+        href="{{url_for('adminwho')}}"
+        class="link md:pl-3"
+        >Admin Roster</a
+      >
+    </nav>
+    </div>
+    <a href="{{url_for('home')}}" class="link text-sm"><i class="fas fa-home"></i> {{app.name}}</a>
+<hr class="border-gray-300 my-4">

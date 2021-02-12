@@ -5,4 +5,5 @@
 {{userBadge(ticket.sender, 'text-xxs')}} Opened Ticket
 {% else %}
 {{userBadge(ticket.sender, 'text-xxs')}} {{ticket.action_label}} {{userBadge(ticket.recipient, 'text-xxs')}}
-{% endif %} <time class="tooltip">{{ticket.timestamp}}</time>
+{% endif %}
+<time class="tooltip">{{ticket.timestamp}}</time>

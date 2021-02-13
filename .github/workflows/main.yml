@@ -1,7 +1,7 @@
 name: CI
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   workflow_dispatch:
 jobs:
   build:
@@ -16,17 +16,17 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v2
         with:
-          node-version: '12'
+          node-version: "12"
           check-latest: true
 
       - name: Run node scripts
         run: npm install && npm run build:css
         env:
-          NODE_ENV: 'production'
-      
+          NODE_ENV: "production"
+
       - name: Delete un-needed node files
         run: rm -rf ./node_modules/
-      
+
       - name: Pushing artifact to deployment server
         uses: appleboy/scp-action@master
         with:
@@ -46,4 +46,5 @@ jobs:
             echo "Copying files from staging"
             sudo rsync -aqz ~/staging/ /var/www/atlantaned.space/banbus/
             sudo mv /var/www/atlantaned.space/banbus/public/* /var/www/atlantaned.space/public/
+            sudo sed -i 's/\/app/\/..\/banbus\/app/g' /var/www/atlantaned.space/public/banbus/index.php
             sudo chown -R www-data:www-data /var/www/atlantaned.space

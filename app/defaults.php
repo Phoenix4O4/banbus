@@ -94,4 +94,8 @@ $settings['perm_flags'] = [
     'DBRANKS'     => (1 << 14)
 ];
 
+$settings['site_perms'] = [
+  'tgdb' => 'ADMIN'
+];
+
 return $settings;

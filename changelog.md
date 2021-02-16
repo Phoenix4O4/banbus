@@ -15,6 +15,22 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.5.0] - 2021-02-15 • nfreader
+
+### Added
+
+- TGDB scaffold with admin links to tickets by ckey, an oft-requested feature
+
+---
+
+## [0.4.0] - 2021-02-11 • nfreader
+
+### Added
+
+- Infobus, with information about the current admin roster
+
+---
+
 ## [0.3.1] - 2021-02-09 • nfreader
 
 ### Added

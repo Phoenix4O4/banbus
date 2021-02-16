@@ -2,23 +2,21 @@
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
-use DI\Container;
 use Slim\App;
 use Slim\Factory\AppFactory;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use GuzzleHttp\Client as Guzzle;
 use App\Provider\ExternalAuth;
-use App\Service\Service;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Utilities\UrlGenerator;
 use ParagonIE\EasyDB\EasyDB;
 use App\Factory\SettingsFactory;
+use App\Middleware\UserMiddleware;
 
 return [
   //Settings
@@ -56,6 +54,7 @@ return [
 
     // Twig templates
     Twig::class => function (ContainerInterface $container) {
+        $session = $container->get(Session::class);
         $config = (array)$container->get('settings');
         $settings = $config['twig'];
         $options = $settings['options'];
@@ -68,8 +67,6 @@ return [
         if ($loader instanceof FilesystemLoader) {
             $loader->addPath($publicPath, 'public');
         }
-
-        $session = $container->get(Session::class);
         $twig->addExtension(new \Twig\Extension\DebugExtension());
         $twig->getEnvironment()->addGlobal('debug', $config['debug']);
         $twig->getEnvironment()->addGlobal('app', $config['app']);
@@ -93,7 +90,7 @@ return [
     ExternalAuth::class => function (ContainerInterface $container) {
         return new ExternalAuth($container->get(Guzzle::class), $container->get(UrlGenerator::class));
     },
-    UrlGenerator::class => function (ContainerInterface $container) {
+    UrlGenerator::class => function () {
         return new UrlGenerator();
     },
     SettingsFactory::class => function (ContainerInterface $container) {
@@ -113,6 +110,12 @@ return [
         }
         $db->debug = $container->get('settings')['debug'];
         return $db;
-    }
+    },
+
+    UserMiddleware::class => function (ContainerInterface $container) {
+        $user = $container->get(Session::class)->get('user');
+        $settings = $container->get('settings')['site_perms'];
+        return new UserMiddleware($user, $settings);
+    },
 
 ];

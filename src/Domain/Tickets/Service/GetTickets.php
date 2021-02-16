@@ -86,6 +86,42 @@ class GetTickets extends Service
         return $this->payload;
     }
 
+    public function getTicketsForCkey(string $ckey, int $page = 1)
+    {
+        $tickets = $this->ticketRepo->getTicketsByCkey($ckey, $page, $this->per_page)->getResults();
+        $tickets = $this->ticketRepo->getResults();
+        $tickets = $this->ticketFactory->buildTickets($tickets);
+        $this->payload->addData(
+            'tickets',
+            $tickets
+        );
+        $this->payload->addData(
+            'ckey',
+            $ckey
+        );
+        $this->payload->addData(
+            'pagination',
+            [
+                'pages' => $this->ticketRepo->getPages(),
+                'currentPage' => $page
+            ]
+        );
+        $this->payload->setTemplate('tickets/playertickets.twig');
+        return $this->payload;
+    }
+
+    public function getSingleTicket(int $round, int $ticket)
+    {
+        $tickets = $this->ticketRepo->getSingleTicket($round, $ticket)->getResults();
+        $tickets = $this->ticketFactory->buildTickets($tickets);
+        if (!$tickets) {
+            $this->payload->throwError(404, "This ticket could not be located");
+        }
+        $this->payload->addData('tickets', $tickets);
+        $this->payload->setTemplate('tickets/single.twig');
+        return $this->payload;
+    }
+
     private function getTicketCkeys($tickets)
     {
         foreach ($tickets as $t) {

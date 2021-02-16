@@ -1,0 +1,18 @@
+{% extends 'base/site.html' %}
+{% block title %}
+	{{app.name}}
+	{{app.version}}
+{% endblock %}
+{% block page %}
+{% from 'macros/macros.twig' import pagination %}
+<div class="text-2xl py-4">Showing tickets sent to, or started by <a href="{{url_for('tgdb.player', {ckey: ckey})}}" class="link">{{ckey}}</a>
+</div>
+<hr class="mb-4">
+{{pagination(pagination.pages, pagination.currentPage, url_for('tgdb.player.tickets',{ckey:ckey}))}}
+<div class="flex flex-col">
+{% set url = 'tgdb.ticket' %}
+{% for ticket in tickets %}
+  {% include 'tickets/components/listing.twig' %}
+{% endfor %}
+</div>
+{% endblock %}

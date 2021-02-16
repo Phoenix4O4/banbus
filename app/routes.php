@@ -1,6 +1,8 @@
 <?php
 
+use App\Middleware\UserMiddleware;
 use Slim\App;
+use Slim\Routing\RouteCollectorProxy;
 
 return function (App $app) {
     $app->get('/', \App\Action\Home\Home::class)
@@ -31,4 +33,20 @@ return function (App $app) {
 
     $app->get('/infobus', \App\Action\Infobus\InfobusIndex::class)->setName('infobus');
     $app->get('/infobus/adminwho', \App\Action\Admins\AdminWho::class)->setName('adminwho');
+
+    $app->group('/tgdb', function (RouteCollectorProxy $app) {
+        $app->get('', \App\Action\Tgdb\Index::class)
+        ->setName('tgdb');
+
+        $app->post('/ckeysearch', \App\Action\Tgdb\CkeySuggest::class)
+        ->setName('ckeysuggest');
+
+        $app->get('/player/{ckey:[a-z0-9@]+}', \App\Action\Tgdb\Player\AdminViewPlayer::class)
+        ->setName('tgdb.player');
+        $app->get('/player/{ckey:[a-z0-9@]+}/tickets[/page/{page}]', \App\Action\Tgdb\Player\ViewPlayerTickets::class)
+        ->setName('tgdb.player.tickets');
+
+        $app->get('/ticket/{round:[0-9]+}/{ticket:[0-9]+}', \App\Action\Tgdb\Ticket\ViewSingleTicket::class)
+        ->setName('tgdb.ticket');
+    })->add(UserMiddleware::class);
 };

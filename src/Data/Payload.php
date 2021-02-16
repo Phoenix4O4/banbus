@@ -67,11 +67,8 @@ class Payload
 
     public function addData(string $key, $data)
     {
-        if (is_array($data) || is_object($data)) {
-            $this->data[$key] = $data;
-            return true;
-        }
-        return false;
+        $this->data[$key] = $data;
+        return true;
     }
 
     public function getData()

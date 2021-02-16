@@ -25,11 +25,11 @@
     </span>
     <span class="absolute block text-center inset-x-0 bottom-2 text-gray-500 tracking-widest uppercase text-xs font-bold">Legacy Edition</span>
   </a>
-  {% if user.hasPermission('BAN') %}
-    <a class="relative opacity-50 border bg-red-50 border-gray-300 rounded-lg p-4 text-center block">
+  {% if user.hasPermission('ADMIN') %}
+    <a href="{{url_for('tgdb')}}" class="relative border bg-red-100 hover:bg-red-50 border-gray-300 rounded-lg p-4 text-center block">
       <span class="text-4xl font-extrabold tracking-wide uppercase">
         <i class="fas fa-user-secret text-red-400"></i>
-        Adminbus
+        Tee Gee Dee Bee
     </span>
     <span class="absolute block text-center inset-x-0 bottom-2 text-gray-500 tracking-widest uppercase text-xs font-bold">Secret Club</span>
   </a>

@@ -78,10 +78,11 @@ class Authenticate extends Service
         );
         $this->payload->addData('user', $user);
         $this->session->set('user', $user);
-        $this->session->getFlashBag()->add('Success', "You have logged in as $user->displayName");
+        $this->payload->addSuccessMessage("You have logged in as $user->displayName");
         if ($this->session->has('destination_route')) {
             $this->payload->setRouteRedirect($this->session->get('destination_route'));
             $this->session->remove('destination_route');
+            $this->session->getFlashBag()->add('Success', "You have logged in as $user->displayName");
         }
         return $this->payload;
     }

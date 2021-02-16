@@ -16,7 +16,7 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v2
         with:
-          node-version: "12"
+          node-version: "15"
           check-latest: true
 
       - name: Run node scripts
@@ -46,5 +46,5 @@ jobs:
             echo "Copying files from staging"
             sudo rsync -aqz ~/staging/ /var/www/atlantaned.space/banbus/
             sudo mv /var/www/atlantaned.space/banbus/public/* /var/www/atlantaned.space/public/
-            sudo sed -i 's/\/app/\/..\/banbus\/app/g' /var/www/atlantaned.space/public/index.php
+            sudo sed -i 's/\/app/\/banbus\/app/g' /var/www/atlantaned.space/public/index.php
             sudo chown -R www-data:www-data /var/www/atlantaned.space

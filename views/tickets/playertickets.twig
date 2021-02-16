@@ -13,6 +13,8 @@
 {% set url = 'tgdb.ticket' %}
 {% for ticket in tickets %}
   {% include 'tickets/components/listing.twig' %}
+	{% else %}
+	<p class="text-gray-500 font-bold text-center">« No Results »</p>
 {% endfor %}
 </div>
 {% endblock %}

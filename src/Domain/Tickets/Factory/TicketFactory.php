@@ -34,6 +34,7 @@ class TicketFactory
     }
     public function buildTickets(array $tickets)
     {
+        $return = [];
         foreach ($tickets as $t) {
             $t->lastTimestamp = $this->lastTimestamp;
             $return[] = $this->buildTicket($t);

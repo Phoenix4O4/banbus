@@ -15,6 +15,14 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.5.1] - 2021-02-15 • nfreader
+
+### Fixed
+
+- Ticket pages without any results weren't being properly handled, this has been fixed.
+
+---
+
 ## [0.5.0] - 2021-02-15 • nfreader
 
 ### Added

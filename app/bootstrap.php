@@ -14,9 +14,10 @@ $app = $container->get(App::class);
 
 date_default_timezone_set($container->get('settings')['app']['timezone']);
 
-(require __DIR__ . '/middleware.php')($app);
 (require __DIR__ . '/routes.php')($app);
+(require __DIR__ . '/middleware.php')($app);
 
+//Move this to the container and middleware.php
 $error = $container->get('settings')['error'];
 $errorMiddleware = $app->addErrorMiddleware(
     $error['display_error_details'],

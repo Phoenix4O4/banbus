@@ -21,3 +21,7 @@ th.sticky {
 table tbody tr td {
   @apply p-2 border border-gray-300;
 }
+
+.autoComplete_selected {
+  @apply text-blue-600 font-bold bg-gray-100;
+}

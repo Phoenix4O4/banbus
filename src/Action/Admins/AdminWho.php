@@ -5,6 +5,7 @@ namespace App\Action\Admins;
 use App\Action\Action;
 use App\Responder\Responder;
 use App\Domain\Admins\Service\AdminInfo as Admin;
+use App\Data\Payload;
 
 class AdminWho extends Action
 {
@@ -17,7 +18,7 @@ class AdminWho extends Action
         $this->admin = $admin;
     }
 
-    public function action(array $args = [])
+    public function action(array $args = []): Payload
     {
         return $this->admin->getAdminInfo();
     }

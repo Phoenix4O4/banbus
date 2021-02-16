@@ -5,6 +5,7 @@ namespace App\Action\Banbus;
 use App\Action\Action;
 use App\Responder\Responder;
 use App\Domain\Bans\Service\ListBans as Bans;
+use App\Data\Payload;
 
 /**
  * Action.
@@ -18,7 +19,7 @@ final class BanbusIndex extends Action
         $this->bans = $bans;
     }
 
-    public function action()
+    public function action(array $args = []): Payload
     {
         return $this->bans->bansHomepage();
     }

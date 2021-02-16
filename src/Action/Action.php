@@ -18,13 +18,14 @@ abstract class Action
         $this->responder = $responder;
     }
 
-    abstract protected function action();
+    abstract protected function action(array $args = []): Payload;
 
     public function __invoke(
         ServerRequestInterface $request,
         ResponseInterface $response,
         array $args = []
     ): ResponseInterface {
+        $this->request = $request;
         try {
             return $this->responder->processPayload($response, $this->action($args), $this->template);
         } catch (\Exception $e) {

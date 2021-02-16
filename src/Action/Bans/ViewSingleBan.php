@@ -5,6 +5,7 @@ namespace App\Action\Bans;
 use App\Action\Action;
 use App\Responder\Responder;
 use App\Domain\Bans\Service\ListBans as Bans;
+use App\Data\Payload;
 
 class ViewSingleBan extends Action
 {
@@ -16,7 +17,7 @@ class ViewSingleBan extends Action
         $this->bans = $bans;
     }
 
-    public function action($args = [])
+    public function action(array $args = []): Payload
     {
         $id = (int) $args['id'];
         return $this->bans->getBan($id);

@@ -16,7 +16,7 @@ final class InfobusIndex extends Action
         parent::__construct($responder);
     }
 
-    public function action()
+    public function action(array $args = []): Payload
     {
         $payload = new Payload();
         $payload->setTemplate('infobus/infobus.twig');

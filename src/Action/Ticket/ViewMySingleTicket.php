@@ -5,6 +5,7 @@ namespace App\Action\Ticket;
 use App\Action\Action;
 use App\Responder\Responder;
 use App\Domain\Tickets\Service\GetTickets as Ticket;
+use App\Data\Payload;
 
 class ViewMySingleTicket extends Action
 {
@@ -17,7 +18,7 @@ class ViewMySingleTicket extends Action
         $this->ticket = $ticket;
     }
 
-    public function action($args = [])
+    public function action(array $args = []): Payload
     {
         $round = (int) $args['round'];
         $ticket = (int) $args['ticket'];

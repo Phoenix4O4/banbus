@@ -10,7 +10,7 @@ use App\Data\Payload;
  */
 final class Home extends Action
 {
-    public function action()
+    public function action(array $args = []): Payload
     {
         return new Payload();
     }

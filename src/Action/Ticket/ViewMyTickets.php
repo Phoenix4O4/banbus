@@ -5,6 +5,7 @@ namespace App\Action\Ticket;
 use App\Action\Action;
 use App\Responder\Responder;
 use App\Domain\Tickets\Service\GetTickets as Ticket;
+use App\Data\Payload;
 
 class ViewMyTickets extends Action
 {
@@ -17,7 +18,7 @@ class ViewMyTickets extends Action
         $this->ticket = $ticket;
     }
 
-    public function action(array $args = [])
+    public function action(array $args = []): Payload
     {
         $page = ($args) ? (int) $args['page'] : 1;
         return $this->ticket->getTicketsForCurrentUser($page);

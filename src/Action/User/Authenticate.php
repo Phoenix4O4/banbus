@@ -5,6 +5,7 @@ namespace App\Action\User;
 use App\Action\Action;
 use App\Responder\Responder;
 use App\Domain\User\Service\Authenticate as Auth;
+use App\Data\Payload;
 
 class Authenticate extends Action
 {
@@ -15,7 +16,7 @@ class Authenticate extends Action
         $this->user = $user;
     }
 
-    public function action()
+    public function action(array $args = []): Payload
     {
         return $this->user->beginAuthentication();
     }

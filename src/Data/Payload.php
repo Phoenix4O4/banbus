@@ -18,6 +18,8 @@ class Payload
 
     protected $statusCode = 200;
 
+    protected $returnAsJson = false;
+
     public function __construct()
     {
     }
@@ -101,6 +103,17 @@ class Payload
     public function getStatusCode()
     {
         return $this->statusCode;
+    }
+
+    public function asJson(): self
+    {
+        $this->returnAsJson = true;
+        return $this;
+    }
+
+    public function isJson(): bool
+    {
+        return $this->returnAsJson;
     }
 
     public function addMessage(string $message = "Message")

@@ -159,7 +159,7 @@ final class Responder
                 $payload->getRouteRedirect()
             );
         }
-        if (isset($_GET['json'])) {
+        if (isset($_GET['json']) || $payload->isJson()) {
             return $this->withJson($response, $payload->getData(), JSON_PRETTY_PRINT);
         }
         if (isset($this->template)) {

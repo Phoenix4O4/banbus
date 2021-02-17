@@ -15,6 +15,19 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.5.2] - 2021-02-16 • nfreader
+
+### Added
+
+- Admin rank change log
+
+### Changed
+
+- TGDB Player pages have more information and scaffolding for later functionality
+- Ticket listings now have IDs set, so you can highlight an individual ticket on the listing
+
+---
+
 ## [0.5.1] - 2021-02-15 • nfreader
 
 ### Fixed

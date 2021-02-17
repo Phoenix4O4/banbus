@@ -33,6 +33,8 @@ return function (App $app) {
 
     $app->get('/infobus', \App\Action\Infobus\InfobusIndex::class)->setName('infobus');
     $app->get('/infobus/adminwho', \App\Action\Admins\AdminWho::class)->setName('adminwho');
+    $app->get('/infobus/adminlogs[/page/{page}]', \App\Action\Admins\AdminLogs::class)->setName('adminlogs');
+
 
     $app->group('/tgdb', function (RouteCollectorProxy $app) {
         $app->get('', \App\Action\Tgdb\Index::class)

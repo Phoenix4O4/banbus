@@ -10,17 +10,13 @@ use App\Factory\SettingsFactory;
 
 class AdminInfo extends Service
 {
-    private $session;
     private $repository;
-    private $modules;
 
     public function __construct(SettingsFactory $settings, Repository $repository, UserFactory $userFactory)
     {
         parent::__construct($settings);
         $this->repository = $repository;
         $this->userFactory = $userFactory;
-        $this->payload = new Payload();
-        $this->modules = $this->settings->getSettingsByKey('modules');
     }
 
     public function getAdminInfo()

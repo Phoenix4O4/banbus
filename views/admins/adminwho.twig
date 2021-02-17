@@ -7,11 +7,11 @@
 {% from 'macros/macros.twig' import userBadge %}
 <h1 class="text-4xl font-bold">Admin Roster</h1>
 <hr class="border-gray-300 mt-2 mb-4">
-<table class="border-collapse text-sm relative">
+<table class="border-collapse relative">
   <thead>
     <tr>
-      <th class="sticky top-0">Admin</th>
-      <th class="sticky top-0">Feedback</th>
+      <th class="sticky top-0 align-bottom">Admin</th>
+      <th class="sticky top-0 align-bottom">Feedback</th>
       {% for p in perms|keys %}
       <th class="sticky top-0 text-right align-text-bottom"><span class="transform rotate-180" style="writing-mode: vertical-lr">{{p}}</span></th>
       {% endfor %}

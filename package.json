@@ -11,7 +11,12 @@
     "watch": "^1.0.2"
   },
   "scripts": {
-    "watch": "watch 'npm run build:css' ./views",
-    "build:css": "npx postcss assets/css/* -o public/assets/css/style.css"
+    "start": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "laravel-mix": "^6.0.11",
+    "webpack": "^5.22.0",
+    "webpack-cli": "^4.5.0"
   }
 }

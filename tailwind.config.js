@@ -27,6 +27,11 @@ module.exports = {
   variants: {
     extend: {
       borderRadius: ["first", "last"],
+      ringColor: ["active"],
+      ringOffsetColor: ["active"],
+      ringOffsetWidth: ["active"],
+      ringOpacity: ["active"],
+      ringWidth: ["active"],
     },
   },
   plugins: [

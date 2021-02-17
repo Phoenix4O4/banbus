@@ -12,7 +12,6 @@ class ListBans extends Service
 {
     private $session;
     private $banRepository;
-    private $modules;
 
     public function __construct(Session $session, Repository $banRepository, SettingsFactory $settings)
     {
@@ -20,7 +19,6 @@ class ListBans extends Service
         $this->banRepository = $banRepository;
         $this->payload = new Payload();
         parent::__construct($settings);
-        $this->modules = $this->settings->getSettingsByKey('modules');
     }
 
     public function getBansForCurrentUser()

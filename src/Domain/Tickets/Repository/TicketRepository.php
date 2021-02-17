@@ -30,6 +30,7 @@ class TicketRepository extends Database
         $this->setResults(
             $this->db->run(
                 "SELECT 
+                t.id,
                 t.server_ip,
                 t.server_port as port,
                 t.round_id as round,
@@ -74,6 +75,7 @@ class TicketRepository extends Database
             $this->setResults(
                 $this->db->run(
                     "SELECT 
+                    t.id,
                     t.server_ip,
                     t.server_port as `port`,
                     t.round_id as `round`,

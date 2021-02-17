@@ -14,6 +14,7 @@ class Ticket
 
 
     public function __construct(
+        public int $id = 0,
         public int $server_ip = 0,
         public int $port = 0,
         public int $round = 0,

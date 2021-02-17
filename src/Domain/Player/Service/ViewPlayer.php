@@ -23,17 +23,21 @@ class ViewPlayer
     public function getPlayerInformation(string $ckey): Payload
     {
         $player = $this->ViewPlayerRepository->getPlayerByCkey($ckey);
-        // $player = $this->userFactory->BuildUser(
-        //     $player->ckey,
-        //     $player->rank,
-        //     $player->perms
-        // );
+        $player->userData = $this->userFactory->BuildUser(
+            $player->ckey,
+            $player->rank,
+            $player->perms
+        );
 
+        if (!$player) {
+            $this->payload->throwError(404, "This ckey could not be found");
+            return $this->payload;
+        }
         $this->payload->addData(
             'player',
             $player
         );
-        $this->payload->setTemplate('tgdb/player.twig');
+        $this->payload->setTemplate('player/player.twig');
         return $this->payload;
     }
 }

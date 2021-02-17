@@ -1,6 +1,6 @@
 {% macro userBadge(user, extraClasses = '') %}
 <span
-class="rounded-sm px-1 py-0.5 mr-1 whitespace-nowrap align-middle leading-none text-xxs {{extraClasses}}"
+class="badge {{extraClasses}}"
 style="background: {{user.rank.backColor}}; color:{{user.rank.foreColor}}"
 title="{{user.rank.title}}">
   <i class="fas fa-fw fa-{{user.rank.icon}}"></i> {{user.displayName}}

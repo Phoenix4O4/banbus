@@ -19,12 +19,18 @@
       integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
       crossorigin="anonymous"
     />
-    <title>{% block title %}{{app.name}}{% endblock %}</title>
+    <title>{% block title %}{{app.name}} - {{app.version}}{% endblock %}</title>
   </head>
   <body class="font-sans">
     <header>
       <div class="container mx-auto px-4">
-        {% include 'base/components/messages.twig' %} {% include
+      {% if '' != (current_url()|split('/')[1]) %}
+        <a href="{{url_for('home')}}" class="link py-2 px-4 text-sm bg-gray-50 border-b border-l border-r border-gray-300 rounded-b">
+        <i class="fas fa-home"></i>
+        {{app.name}}</a>
+        {% endif %}
+        {% include 'base/components/messages.twig' %}
+        {% include
         [current_url()|split('/')[1] ~ '/header.twig', 'base/header.twig'] %}
       </div>
     </header>

@@ -17,4 +17,6 @@
 	<p class="text-gray-500 font-bold text-center">« No Results »</p>
 {% endfor %}
 </div>
+{{pagination(pagination.pages, pagination.currentPage, url_for('mytickets'))}}
+
 {% endblock %}

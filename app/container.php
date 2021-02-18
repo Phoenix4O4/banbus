@@ -16,6 +16,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Utilities\UrlGenerator;
 use ParagonIE\EasyDB\EasyDB;
 use App\Factory\SettingsFactory;
+use App\Responder\Responder;
 use App\Middleware\UserMiddleware;
 
 return [
@@ -68,6 +69,7 @@ return [
             $loader->addPath($publicPath, 'public');
         }
         $twig->addExtension(new \Twig\Extension\DebugExtension());
+        $twig->addExtension(new \buzzingpixel\twigswitch\SwitchTwigExtension());
         $twig->getEnvironment()->addGlobal('debug', $config['debug']);
         $twig->getEnvironment()->addGlobal('app', $config['app']);
         $twig->getEnvironment()->addGlobal('modules', $config['modules']);
@@ -112,10 +114,19 @@ return [
         return $db;
     },
 
+    Responder::class => function (ContainerInterface $container) {
+        $twig = $container->get(Twig::class);
+        $routeParserInterface = $container->get(RouteParserInterface::class);
+        $responseFactoryInterface = $container->get(ResponseFactoryInterface::class);
+        return new Responder($twig, $routeParserInterface, $responseFactoryInterface);
+    },
+
     UserMiddleware::class => function (ContainerInterface $container) {
         $user = $container->get(Session::class)->get('user');
+        $responder = $container->get(Responder::class);
+        $session = $container->get(Session::class);
         $settings = $container->get('settings')['site_perms'];
-        return new UserMiddleware($user, $settings);
+        return new UserMiddleware($user, $responder, $session, $settings);
     },
 
 ];

@@ -145,7 +145,7 @@ final class Responder
         return $response;
     }
 
-    public function processPayload(ResponseInterface $response, Payload $payload, $template)
+    public function processPayload(ResponseInterface $response, Payload $payload)
     {
         if ($payload->checkForRedirect()) {
             return $this->withRedirect(

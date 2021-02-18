@@ -20,7 +20,18 @@
   </thead>
   <tbody>
   {% for l in logs %}
-    <tr class="tr-{{l.class}}" id="{{l.id}}">
+  {% set class = '' %}
+  {% switch l.class %}
+    {% case 'success' %}
+      {% set class = 'tr-success' %}
+    {% case 'danger' %}
+      {% set class = 'tr-danger' %}
+    {% case 'info' %}
+      {% set class = 'tr-info' %}
+    {% case 'primary' %}
+      {% set class = 'tr-primary' %}
+  {% endswitch %}
+    <tr class="{{class}}" id="{{l.id}}">
       <td class="whitespace-nowrap"><a href="#{{l.id}}" class="link">{{l.id}}</th>
       <td class="whitespace-nowrap"><time>{{l.datetime}}</time></td>
       <td class="whitespace-nowrap">{{userBadge(l.admin)}}</td>

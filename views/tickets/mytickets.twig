@@ -7,7 +7,7 @@
 {% from 'macros/macros.twig' import pagination %}
 <div class="text-2xl py-4">Showing tickets sent to, or started by {{user.getCkey}}
 </div>
-<hr class="mb-4">
+<hr class="mb-4 border-gray-300">
 {{pagination(pagination.pages, pagination.currentPage, url_for('mytickets'))}}
 <div class="flex flex-col">
 {% set url = 'mytickets.single' %}
@@ -15,4 +15,6 @@
 	{% include 'tickets/components/listing.twig' %}
 {% endfor %}
 </div>
+{{pagination(pagination.pages, pagination.currentPage, url_for('mytickets'))}}
+
 {% endblock %}

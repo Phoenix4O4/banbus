@@ -84,6 +84,12 @@ class Authenticate extends Service
             $this->session->remove('destination_route');
             $this->session->getFlashBag()->add('Success', "You have logged in as $user->displayName");
         }
+        if ($this->session->has('destination_uri')) {
+            $this->payload->setRedirect($this->session->get('destination_uri'));
+            $this->session->remove('destination_uri');
+            $this->session->getFlashBag()->add('Success', "You have logged in as $user->displayName");
+        }
+
         return $this->payload;
     }
 

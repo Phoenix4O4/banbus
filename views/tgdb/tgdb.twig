@@ -4,70 +4,18 @@
 	{{app.version}}
 {% endblock %}
 {% block page %}
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-  <div class="relative border border-gray-300 rounded-lg p-4 block">
-    <form action="{{url_for('ckeysuggest')}}" method="POST" id="ckeySuggest">
-    <label for="ckey" class="text-gray-700 text-left font-bold">Search for a ckey</label>
-    <div class="autoComplete_wrapper">
-    <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="ckey" name="ckey" id="autoComplete"  tabindex="1">
-    </div>
-    </form>
-  </div>
-</div>
+	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+		<div class="relative border border-gray-300 rounded-lg p-4 block">
+			<form action="{{url_for('ckeysuggest')}}" method="POST" id="ckeySuggest">
+				<label for="ckey" class="text-gray-700 text-left font-bold">Search for a ckey</label>
+				<div class="autoComplete_wrapper">
+					<input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="ckey" name="ckey" id="autoComplete" tabindex="1">
+				</div>
+			</form>
+		</div>
+	</div>
 {% endblock %}
 
 {% block script %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tarekraafat-autocomplete.js/8.3.2/js/autoComplete.min.js" integrity="sha512-Hd2YN8gzNjW87bKpQSn1LYtLaVdR5CKc0y4rrUWx+x90kYymhefwlJgWj24mSy4gH0LlQw9FQG2pwXczMJRmHQ==" crossorigin="anonymous"></script>
-<script>
-// autoComplete.js input eventListener for search results event
-document.querySelector("#autoComplete").addEventListener("results", (event) => {
-	console.log(event);
-});
-
-// The autoComplete.js Engine instance creator
-const autoCompleteJS = new autoComplete({
-	name: "ckey search",
-	data: {
-      src: async () => {
-        const query = document.querySelector("#autoComplete").value;
-        const source = await fetch(`{{url_for('ckeysuggest')}}`,{
-          method: 'post',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ckey: document.querySelector("#autoComplete").value})
-        });
-        const data = await source.json();
-        return data.ckeys;
-      },
-      key: ["ckey"],
-      cache: false,
-    },
-  trigger: {
-    event: ["input", "focus"],
-  },
-  highlight: true,
-  resultsList: {
-    destination: "#autoComplete",
-    position: "afterend",
-    element: "ul",
-    className: "autoComplete_list border border-gray-300 mt-1 rounded-lg"
-  },
-  resultItem: {
-    className: "autoComplete_result p-3 font-bold"
-  },
-  onSelection: (feedback) => {
-    document.querySelector("#autoComplete").blur();
-    // Prepare User's Selected Value
-    const selection = feedback.selection.value[feedback.selection.key];
-    // Render selected choice to selection div
-    // Replace Input value with the selected value
-    document.querySelector("#autoComplete").value = selection;
-    window.location = "tgdb/player/"+document.querySelector("#autoComplete").value
-    // Console log autoComplete data feedback
-    console.log(feedback);
-  }    
-})
-</script>
+	{% include 'tgdb/components/ckey_search.html' %}
 {% endblock %}

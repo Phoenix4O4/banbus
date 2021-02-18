@@ -1,34 +1,16 @@
-
-  <div class="md:flex items-center justify-between">
-    <span class="font-extrabold tracking-wide uppercase" id="nav_branding">
-      <a
-        href="{{url_for('banbus.index')}}"
-        class="transition hover:text-gray-500 duration-700 ease-in-out text-4xl"
-      >
-        <i class="fas fa-gavel text-yellow-800"></i>
-        Banbus</a
-      >
-    </span>
-    <nav class="text-lg font-bold">
-      {% if modules.public_bans %}
-      <a
-        href="{{url_for('bans')}}"
-        class="transition duration-700 ease-in-out hover:text-gray-500 md:pl-3"
-        >Public Bans</a
-      >
-      {% endif %} {% if modules.personal_bans and user%}
-      <a
-        href="{{url_for('mybans')}}"
-        class="transition duration-700 ease-in-out hover:text-gray-500 md:pl-3"
-        >Your Bans</a
-      >
-      {% endif %} {% if user %}
-      <a
-        href="{{url_for('mytickets')}}"
-        class="transition duration-700 ease-in-out hover:text-gray-500 md:pl-3"
-        >Your Tickets</a
-      >
-      {% endif %}
-    </nav>
-    </div>
-    <a href="{{url_for('home')}}" class="link text-sm"><i class="fas fa-home"></i> {{app.name}}</a>
+<div class="md:flex items-center justify-between mt-4">
+	<a href="{{url_for('banbus.index')}}" class="font-extrabold tracking-wide uppercase transition hover:text-gray-500 duration-700 ease-in-out text-xl md:text-2xl xl:text-4xl">
+		<i class="fas fa-gavel text-yellow-800"></i>
+		Banbus</a>
+	<nav class="text-lg font-bold">
+		{% if modules.public_bans %}
+			<a href="{{url_for('bans')}}" class="transition duration-700 ease-in-out hover:text-gray-500 md:pl-3">Public Bans</a>
+		{% endif %}
+		{% if modules.personal_bans and user%}
+			<a href="{{url_for('mybans')}}" class="transition duration-700 ease-in-out hover:text-gray-500 md:pl-3">Your Bans</a>
+		{% endif %}
+		{% if user %}
+			<a href="{{url_for('mytickets')}}" class="transition duration-700 ease-in-out hover:text-gray-500 md:pl-3">Your Tickets</a>
+		{% endif %}
+	</nav>
+</div>

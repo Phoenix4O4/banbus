@@ -50,5 +50,10 @@ return function (App $app) {
 
         $app->get('/ticket/{round:[0-9]+}/{ticket:[0-9]+}', \App\Action\Tgdb\Ticket\ViewSingleTicket::class)
         ->setName('tgdb.ticket');
+
+        $app->get('/ticket/live/', \App\Action\Tgdb\Ticket\LiveTickets::class)
+        ->setName('tgdb.ticket.live');
+        $app->post('/ticket/live/poll/', \App\Action\Tgdb\Ticket\TicketFeed::class)
+        ->setName('tgdb.ticket.live.update');
     })->add(UserMiddleware::class);
 };

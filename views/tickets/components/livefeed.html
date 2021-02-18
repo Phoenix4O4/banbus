@@ -1,0 +1,47 @@
+<script>
+  const pollUrl = "{{ url_for('tgdb.ticket.live.update') }}?json=true";
+  const LiveTickets = {
+    delimiters: ["${", "}"],
+    data() {
+      return { message: "Hello Vue.js!", tickets: [], lastId: 0, muted: false };
+    },
+    methods: {
+      mute() {
+        this.muted = !this.muted
+      },
+      pollForTickets() {
+        this.lastId = document.getElementsByClassName("ticket")[0].id;
+        fetch(pollUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ lastId: this.lastId }),
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            if (0 < res.tickets.length) {
+              this.bwoink();
+            }
+            this.tickets = [...res.tickets, ...this.tickets];
+          });
+      },
+      bwoink() {
+        if (!this.muted) {
+          var audio = new Audio("/assets/sound/adminhelp.ogg");
+          audio.muted = this.muted;
+          audio.play();
+        }
+      },
+    },
+    mounted() {
+      this.interval = setInterval(
+        function () {
+          this.pollForTickets();
+        }.bind(this),
+        10000
+      );
+    }
+  };
+  Vue.createApp(LiveTickets).mount("#ticket_feed");
+</script>

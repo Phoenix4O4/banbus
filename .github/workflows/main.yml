@@ -20,7 +20,8 @@ jobs:
           check-latest: true
 
       - name: Build node assets
-        run: npm install && npm run mix:prod
+        run: npm install && npm run mix:dev 
+        #FOR SOME REASON DEV WORKS BETTER THAN PROD AAAAAAAAAAAAAAAA
 
       - name: Delete un-needed node files
         run: rm -rf ./node_modules/

@@ -12,6 +12,10 @@
     @apply text-blue-500 hover:text-blue-900;
   }
 
+  .link\:disabled {
+    @apply text-blue-500 opacity-80 cursor-not-allowed;
+  }
+
   .xdebug-var-dump {
     @apply overflow-x-auto;
   }
@@ -59,5 +63,8 @@
   }
   .text-warning {
     @apply text-yellow-500;
+  }
+  .text-info {
+    @apply text-blue-500;
   }
 }

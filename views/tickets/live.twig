@@ -3,6 +3,9 @@
 	{{app.name}}
 	{{app.version}}
 {% endblock %}
+{% block meta %}
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' http: https: data: blob: 'unsafe-inline' 'unsafe-eval'">
+{% endblock %}
 {% block page %}
 	<h3 class="border-b border-gray-300 pb-4 mb-4 text-2xl font-bold">Live Ticket Feed</h3>
 	<div id="ticket_feed">

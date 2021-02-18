@@ -12,6 +12,15 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 ### Added
 
 - Flag your tickets as public and generate unique links to them
+- Live ticket feed for admins under tgdb
+
+---
+
+## [0.5.3] - 2021-02-18 • nfreader
+
+### Changed
+- Consistent header across all application modules
+- Better redirection after authentication
 
 ---
 

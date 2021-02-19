@@ -18,8 +18,13 @@ class Authenticate extends Service
     private $user;
     private $userFactory;
 
-    public function __construct(Session $session, ExternalAuth $auth, CurrentUser $user, SettingsFactory $settings, UserFactory $userFactory)
-    {
+    public function __construct(
+        Session $session,
+        ExternalAuth $auth,
+        CurrentUser $user,
+        SettingsFactory $settings,
+        UserFactory $userFactory
+    ) {
         $this->session = $session;
         $this->auth = $auth;
         if (!$this->session->get('site_private_token')) {

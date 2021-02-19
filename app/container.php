@@ -7,6 +7,7 @@ use Slim\Factory\AppFactory;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
+use Twig\Loader\FilesystemLoader;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
@@ -102,7 +103,8 @@ return [
         $config = (array) $container->get('settings')['db'];
         try {
             $db = \ParagonIE\EasyDB\Factory::fromArray([
-            $config['method'] . ':host=' . $config['host'] . ';port=' . $config['port'] . ';dbname=' . $config['database'],
+            $config['method'] . ':host=' . $config['host'] .
+            ';port=' . $config['port'] . ';dbname=' . $config['database'],
             $config['username'],
             $config['password'],
             $config['flags']

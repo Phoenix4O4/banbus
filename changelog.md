@@ -12,7 +12,13 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 ### Added
 
 - Flag your tickets as public and generate unique links to them
-- Live ticket feed for admins under tgdb
+
+---
+
+## [0.5.4] - 2021-02-18 • nfreader
+
+### Changed
+- The admin ticket feed is now a vue application!
 
 ---
 

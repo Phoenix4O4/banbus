@@ -43,7 +43,7 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             echo "Copying files from staging"
-            sudo rsync -aqz ~/staging/ /var/www/atlantaned.space/banbus/
+            sudo rsync -aqz --delete ~/staging/ /var/www/atlantaned.space/banbus/
             sudo rm -rf /var/www/atlantaned.space/tmp/twig/*
             sudo rm -rf /var/www/atlantaned.space/public/*
             sudo mv /var/www/atlantaned.space/banbus/public/* /var/www/atlantaned.space/public/

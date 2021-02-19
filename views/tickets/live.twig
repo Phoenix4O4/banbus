@@ -8,31 +8,7 @@
 {% endblock %}
 {% block page %}
 	<h3 class="border-b border-gray-300 pb-4 mb-4 text-2xl font-bold">Live Ticket Feed</h3>
-	<div id="ticket_feed">
-		<button v-on:click="mute" class="bg-green-600 text-white block w-full p-2 text-center text-xl font-bold mb-4 hover:bg-green-400 rounded">
-
-			<i class="fa fa-fw " :class="[muted ? 'fa-volume-mute' : 'fa-volume-up']"></i>
-			${muted ? 'Unmute Sound' : 'Mute Sound'}</button>
-
-		<dl v-for="t in tickets" class="flex mb-4 pb-4 border-b border-gray-300 ticket added" :id="t.id">
-			<dt class="whitespace-nowrap text-right pr-3 tabular-nums">
-				<a class="link" :href="'tgdb/ticket/'+ t.round +'/' + t.ticket">#${t.round}-${t.ticket}</a>
-				<span class="block text-gray-500 text-xs ">${t.timestamp}
-					<br>on ${t.server.name}
-				</span>
-			</dt>
-			<dd>
-				<span class="whitespace-nowrap">
-					<i class="fa fa-fw pr-3" :class="['fa-'+t.icon, 'text-'+t.class]"></i>
-					<strong v-if="t.sender">
-						${t.sender.displayName}</strong>
-					<strong v-else>
-						${t.recipient.displayName}</strong>
-				</span>
-				${t.message}
-			</dd>
-		</dl>
-	</div>
+	<div id="ticket_feed"></div>
 	<div class="flex flex-col">
 
 		{% for t in tickets %}
@@ -70,29 +46,5 @@
 {% endblock %}
 
 {% block script %}
-
-	{% if debug %}
-		<style>
-			@keyframes added {
-				from {
-					background: #fff9c4;
-				}
-
-				to {
-					background: transparent;
-				}
-			}
-			.added {
-				background: #fff9c4;
-				animation-name: added;
-				animation-duration: 2s;
-				animation-fill-mode: forwards;
-			}
-		</style>
-		<script src="https://unpkg.com/vue@next"></script>
-	{% else %}
-		<script src="https://unpkg.com/vue@3.0.5/dist/vue.global.prod.js"></script>
-	{% endif %}
-	{% include 'tickets/components/livefeed.html' %}
-
+	<script src="/assets/js/ticketfeed/feed.js"></script>
 {% endblock %}

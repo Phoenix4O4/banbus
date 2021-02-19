@@ -15,6 +15,14 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.5.5] - 2021-02-19 • nfreader
+
+### Changed
+- Various refinements to the live ticket feed. I wish players could see this, it's so cool.
+- The tgdb header now has a ckey search form on all pages
+
+---
+
 ## [0.5.4] - 2021-02-18 • nfreader
 
 ### Changed

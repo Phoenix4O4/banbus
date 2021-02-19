@@ -3,6 +3,8 @@
     <button
       v-on:click="mute"
       class="bg-green-600 text-white block w-full p-2 text-xl font-bold mb-4 hover:bg-green-400 rounded"
+      target="_blank"
+      rel="noopener noreferrer"
     >
       <i
         class="fa fa-fw"
@@ -10,7 +12,7 @@
       ></i>
       {{ muted ? "Unmute Sound" : "Mute Sound" }}
     </button>
-
+    <p class="text-xs text-gray-300 text-center mb-4">{{ messages.text }}</p>
     <dl
       v-for="t in tickets"
       :key="t.id"
@@ -45,7 +47,15 @@ const initialTicketUrl = "?json=true";
 const pollUrl = "/tgdb/ticket/live/poll/?json=true";
 export default {
   data() {
-    return { tickets: [], lastId: 0, muted: true };
+    return {
+      tickets: [],
+      lastId: 0,
+      muted: true,
+      messages: {
+        type: "info",
+        text: "Checking for new tickets...",
+      },
+    };
   },
   methods: {
     mute() {
@@ -64,6 +74,7 @@ export default {
         });
     },
     pollForTickets() {
+      this.changeMessage("Checking for new tickets...");
       this.lastId = document.getElementsByClassName("ticket")[0].id;
       fetch(pollUrl, {
         method: "POST",
@@ -78,6 +89,7 @@ export default {
             this.bwoink();
           }
           this.tickets = [...res.tickets, ...this.tickets];
+          this.changeMessage(res.messages[0].text);
         });
     },
     bwoink() {
@@ -86,6 +98,11 @@ export default {
         audio.muted = this.muted;
         audio.play();
       }
+    },
+    changeMessage(m) {
+      this.messages = {
+        text: m,
+      };
     },
   },
   mounted() {

@@ -42,8 +42,14 @@ class LatestTicketRepository extends Database
         return $this;
     }
 
-    public function getTicketsSinceId(int $id)
+    public function getTicketsSinceId(int $id, ?string $type = null)
     {
+        $args[] = $id;
+        $and = null;
+        if ($type) {
+            $and = "AND t.action = ?";
+            $args[] = $type;
+        }
         $this->setResults(
             $this->db->run(
                 "SELECT 
@@ -65,8 +71,9 @@ class LatestTicketRepository extends Database
                 LEFT JOIN `admin` AS r ON r.ckey = t.recipient	
                 LEFT JOIN `admin` AS s ON s.ckey = t.sender
                 WHERE t.id > ?
+                $and
                 ORDER BY `timestamp` DESC",
-                $id
+                ...$args
             )
         );
         return $this;

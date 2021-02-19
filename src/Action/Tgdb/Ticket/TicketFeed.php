@@ -19,7 +19,9 @@ class TicketFeed extends Action
 
     public function action(array $args = []): Payload
     {
-        $id = (int) $this->request->getParsedBody()['lastId'];
-        return $this->ticket->pollForNewTickets($id);
+        $args = $this->request->getParsedBody();
+        $id = (int) $args['lastId'];
+        $type = (bool) $args['newTickets'];
+        return $this->ticket->pollForNewTickets($id, $type);
     }
 }

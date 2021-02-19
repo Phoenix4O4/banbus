@@ -39,6 +39,7 @@ class Ticket
             $interval = date('U', strtotime($this->timestamp)) - date('U', strtotime($this->lastTimestamp));
             $this->interval = date('H:i:s', $interval);
         }
+        $this->message = urldecode(htmlentities($this->message, ENT_QUOTES, 'UTF-8', false));
     }
 
     public static function fromDb(object $ticket)

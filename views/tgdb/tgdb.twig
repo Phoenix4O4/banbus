@@ -4,18 +4,13 @@
 	{{app.version}}
 {% endblock %}
 {% block page %}
-	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-		<div class="relative border border-gray-300 rounded-lg p-4 block">
-			<form action="{{url_for('ckeysuggest')}}" method="POST" id="ckeySuggest">
-				<label for="ckey" class="text-gray-700 text-left font-bold">Search for a ckey</label>
-				<div class="autoComplete_wrapper">
-					<input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="ckey" name="ckey" id="autoComplete" tabindex="1">
-				</div>
-			</form>
-		</div>
-	</div>
+	<nav class="grid md:grid-cols-4 gap-2">
+		<a href="{{url_for('tgdb.ticket.live')}}" class="link hover:bg-gray-50 p-3 border border-gray-300 rounded-lg text-center font-bold flex items-center justify-between">
+			<span>Live Ticket Feed</span>
+			<i class="fas fa-circle text-red-500 animate-pulse"></i>
+		</a>
+	</nav>
+
 {% endblock %}
 
-{% block script %}
-	{% include 'tgdb/components/ckey_search.html' %}
-{% endblock %}
+{% block script %}{% endblock %}

@@ -11,3 +11,4 @@ mix.postCss("assets/css/style.css", "public/assets/css", [
     defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
   }),
 ]);
+mix.copyDirectory('assets/sound', 'public/assets/sound');

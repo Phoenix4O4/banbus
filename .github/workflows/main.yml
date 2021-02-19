@@ -42,10 +42,20 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
-            echo "Copying files from staging"
-            sudo rsync -aqz ~/staging/ /var/www/atlantaned.space/banbus/
+            echo "Stashing configuration files..."
+            sudo mv /var/www/atlantaned.space/banbus/app/conf /var/www/atlantaned.space/
+            echo "Copying files from staging..."
+            sudo rsync -aqz --delete ~/staging/ /var/www/atlantaned.space/banbus/
+            echo "Wiping old template configuration..."
             sudo rm -rf /var/www/atlantaned.space/tmp/twig/*
+            echo "Cleaning public directory..."
             sudo rm -rf /var/www/atlantaned.space/public/*
+            echo "Moving newer assets into public directory..."
             sudo mv /var/www/atlantaned.space/banbus/public/* /var/www/atlantaned.space/public/
+            echo "Restoring configuration..."
+            sudo mv /var/www/atlantaned.space/conf /var/www/atlantaned.space/banbus/app/
+            echo "Updating index script location..."
             sudo sed -i 's/\/app/\/banbus\/app/g' /var/www/atlantaned.space/public/index.php
+            echo "Restoring file ownership..."
             sudo chown -R www-data:www-data /var/www/atlantaned.space
+            echo "Done!"

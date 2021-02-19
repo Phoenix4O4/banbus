@@ -15,9 +15,11 @@
 			${muted ? 'Unmute Sound' : 'Mute Sound'}</button>
 
 		<dl v-for="t in tickets" class="flex mb-4 pb-4 border-b border-gray-300 ticket added" :id="t.id">
-			<dt class="whitespace-nowrap text-right pr-3 text-xs tabular-nums">
-				#${t.round}-${t.ticket} (${t.id})
-				<span class="block text-gray-500">${t.timestamp}</span>
+			<dt class="whitespace-nowrap text-right pr-3 tabular-nums">
+				<a class="link" :href="'tgdb/ticket/'+ t.round +'/' + t.ticket">#${t.round}-${t.ticket}</a>
+				<span class="block text-gray-500 text-xs ">${t.timestamp}
+					<br>on ${t.server.name}
+				</span>
 			</dt>
 			<dd>
 				<span class="whitespace-nowrap">

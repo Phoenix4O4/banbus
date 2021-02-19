@@ -1,14 +1,29 @@
 const purgecss = require("@fullhuman/postcss-purgecss");
-let mix = require("laravel-mix");
+const mix = require("laravel-mix");
 
-mix.setPublicPath("public/assets");
-mix.postCss("assets/css/style.css", "public/assets/css", [
-  require("postcss-import"),
-  require("tailwindcss")("./tailwind.config.js"),
-  require("autoprefixer"),
-  purgecss({
-    content: ["./views/**/*.twig", "./views/**/*.html"],
-    defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
-  }),
-]);
-mix.copyDirectory('assets/sound', 'public/assets/sound');
+mix
+  .copyDirectory("./assets/sound", "./public/assets/sound")
+  .js("./assets/js/ticketfeed/feed.js", "./public/assets/js/ticketfeed")
+  .vue()
+  .postCss("./assets/css/style.css", "public/assets/css")
+  .options(
+    {
+      postCss: [
+        require('tailwindcss')
+      ]
+    }
+  )
+
+
+
+// mix.postCss("assets/css/style.css", "public/assets/css", [
+//   require("postcss-import"),
+//   require("tailwindcss")("./tailwind.config.js"),
+//   require("autoprefixer"),
+//   purgecss({
+//     content: [
+//       "./views/**/*.{twig,html}",
+//       "./assets/**/*.{vue,js,ts,jsx,tsx}",
+//     ],
+//   }),
+// ]);

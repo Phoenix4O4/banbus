@@ -53,6 +53,7 @@ jobs:
             echo "Moving newer assets into public directory..."
             sudo mv /var/www/atlantaned.space/banbus/public/* /var/www/atlantaned.space/public/
             echo "Restoring configuration..."
+            sudo rm -rf /var/www/atlantaned.space/banbus/app/conf/
             sudo mv /var/www/atlantaned.space/conf /var/www/atlantaned.space/banbus/app/
             echo "Updating index script location..."
             sudo sed -i 's/\/app/\/banbus\/app/g' /var/www/atlantaned.space/public/index.php

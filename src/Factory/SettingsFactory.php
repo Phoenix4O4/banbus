@@ -2,11 +2,8 @@
 
 namespace App\Factory;
 
-use App\Service\Service;
-
 class SettingsFactory
 {
-
     private $settings;
 
     public function __construct($settings)
@@ -14,7 +11,7 @@ class SettingsFactory
         $this->settings = $this->sanitizeSettings($settings);
     }
 
-    private function sanitizeSettings($settings) 
+    private function sanitizeSettings($settings)
     {
         unset($settings['db']);
         return $settings;
@@ -24,5 +21,4 @@ class SettingsFactory
     {
         return $this->settings[$key];
     }
-
 }

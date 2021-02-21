@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Factory\SettingsFactory;
 use ParagonIE\EasyDB\EasyDB;
 
 class Database

@@ -2,18 +2,14 @@
 
 namespace App\Domain\Tickets\Repository;
 
-use ParagonIE\EasyDB\EasyDB;
 use App\Repository\Database;
 use App\Domain\Tickets\Factory\TicketFactory;
 
 class TicketRepository extends Database
 {
-    private $ticketFactory;
-
-    public function __construct(EasyDB $db, TicketFactory $ticketFactory)
+    public function __construct($db)
     {
         parent::__construct($db);
-        $this->ticketFactory = $ticketFactory;
     }
 
     public function getTicketsByCkey(string $ckey, int $page = 1, int $per_page = 60): self

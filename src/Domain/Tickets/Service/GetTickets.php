@@ -3,7 +3,6 @@
 namespace App\Domain\Tickets\Service;
 
 use App\Service\Service;
-use App\Data\Payload;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Domain\Tickets\Repository\TicketRepository as Repository;
 use App\Domain\Tickets\Factory\TicketFactory;
@@ -21,13 +20,10 @@ class GetTickets extends Service
         SettingsFactory $settings,
         TicketFactory $ticketFactory
     ) {
+        parent::__construct($settings);
         $this->session = $session;
         $this->ticketRepo = $ticketRepo;
         $this->ticketFactory = $ticketFactory;
-        $this->payload = new Payload();
-        parent::__construct($settings);
-        $this->modules = $this->settings->getSettingsByKey('modules');
-        $this->per_page = $this->settings->getSettingsByKey('results_per_page');
         $this->currentUser = $this->session->get('user');
     }
 

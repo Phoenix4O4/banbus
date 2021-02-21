@@ -2,17 +2,10 @@
 
 namespace App\Domain\Tickets\Repository;
 
-use ParagonIE\EasyDB\EasyDB;
 use App\Repository\Database;
-use App\Domain\Tickets\Factory\TicketFactory;
 
 class LatestTicketRepository extends Database
 {
-    public function __construct(EasyDB $db)
-    {
-        parent::__construct($db);
-    }
-
     public function getLatestTickets(): self
     {
         $this->setResults(

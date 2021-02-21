@@ -6,11 +6,9 @@ use App\Service\Service;
 use App\Factory\SettingsFactory;
 use App\Domain\Tickets\Repository\LatestTicketRepository as Repository;
 use App\Domain\Tickets\Factory\TicketFactory;
-use App\Domain\User\Data\User;
 
 class LatestTickets extends Service
 {
-    private $currentUser;
     private $ticketFactory;
 
     public function __construct(

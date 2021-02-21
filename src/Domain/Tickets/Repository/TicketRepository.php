@@ -3,15 +3,9 @@
 namespace App\Domain\Tickets\Repository;
 
 use App\Repository\Database;
-use App\Domain\Tickets\Factory\TicketFactory;
 
 class TicketRepository extends Database
 {
-    public function __construct($db)
-    {
-        parent::__construct($db);
-    }
-
     public function getTicketsByCkey(string $ckey, int $page = 1, int $per_page = 60): self
     {
         $this->setPages((int) ceil($this->db->cell(

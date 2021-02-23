@@ -1,4 +1,3 @@
-const purgecss = require("@fullhuman/postcss-purgecss");
 const mix = require("laravel-mix");
 
 mix

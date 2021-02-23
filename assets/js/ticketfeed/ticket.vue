@@ -11,8 +11,6 @@
       <button
         v-on:click="mute"
         class="bg-green-600 text-white block w-full p-2 text-xl font-bold hover:bg-green-400 rounded"
-        target="_blank"
-        rel="noopener noreferrer"
       >
         <i
           class="fa fa-fw"
@@ -31,11 +29,16 @@
       <dt
         class="whitespace-nowrap text-right pr-3 tabular-nums border-r border-gray-300 mr-3"
       >
-        <a class="link" :href="'/tgdb/ticket/' + t.round + '/' + t.ticket"
+        <a
+          class="link"
+          :href="'/tgdb/ticket/' + t.round + '/' + t.ticket"
+          target="_blank"
+          rel="noopener noreferrer"
           >#{{ t.round }}-{{ t.ticket }}</a
         >
         <span class="block text-gray-500 text-xs"
-          >{{ t.timestamp }} <br />on {{ t.server.name }}
+          ><time>{{ t.timestamp || moment("from") }}</time> <br />on
+          <gameLink :server="t.server"></gameLink>
         </span>
       </dt>
       <dd>
@@ -63,10 +66,12 @@
 const initialTicketUrl = "?json=true";
 const pollUrl = "/tgdb/ticket/live/poll/?json=true";
 import userBadge from "./../common/userBadge.vue";
+import gameLink from "./../common/gameLink.vue";
 
 export default {
   components: {
     userBadge,
+    gameLink,
   },
   data() {
     return {
@@ -139,6 +144,8 @@ export default {
       };
     },
   },
+  //https://developers.google.com/web/updates/2012/01/Web-Audio-FAQ#q_i%E2%80%99ve_made_an_awesome_web_audio_api_application_but_whenever_the_tab_its_running_in_goes_in_the_background_sounds_go_all_weird
+  // mounted() -> setInterval() {runs in the same context as setTimeout, async) -> pollForTickets() [async] -> bwoink() -> new Audio().play()
   mounted() {
     this.fetchInitialTickets();
     this.interval = setInterval(

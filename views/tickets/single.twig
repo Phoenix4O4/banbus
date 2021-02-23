@@ -19,36 +19,39 @@
 {% if ticket.isAction %}
 {% include 'tickets/components/action.twig' %}
 {% else %}
-	<div href="#" class="border block relative overflow-hidden p-2 pt-12 rounded mb-2 z-10 bg-white {% if 'success' == ticket.class %}
+	<div href="#" class="border block relative overflow-hidden p-2 pt-12 rounded mb-2 z-10 bg-white {% switch ticket.class %}
+		{% case 'success' %}
 		border-green-500
-		{% elseif 'warning' == ticket.class %}
+		{% case 'warning' %}
 		border-yellow-500
-		{% elseif 'danger' == ticket.class %}
+		{% case 'danger' %}
 		border-red-500
-		{% elseif 'info' == ticket.class %}
+		{% case 'info' %}
 		border-blue-500
-    {% elseif 'secondary' == ticket.class %}
+    {% case 'secondary' %}
 		border-black
-		{% endif %}">
-  <div class="text-lg inset-x-0 top-0 p-2 absolute border-b bg-gray-50 {% if 'success' == ticket.class %}
+		{% endswitch %}">
+  <div class="text-lg inset-x-0 top-0 p-2 absolute border-b bg-gray-50 {% switch ticket.class %} 
+		{% case 'success' %}
 		border-green-500
-		{% elseif 'warning' == ticket.class %}
+		{% case 'warning' %}
 		border-yellow-500
-		{% elseif 'danger' == ticket.class %}
+		{% case 'danger' %}
 		border-red-500
-		{% elseif 'info' == ticket.class %}
+		{% case 'info'  %}
 		border-blue-500
-    {% elseif 'secondary' == ticket.class %}
+    {% case 'secondary' %}
 		border-black
-		{% endif %}"><i class="fas fa-fw fa-{{ticket.icon}} {% if 'success' == ticket.class %}
+		{% endswitch %}"><i class="fas fa-fw fa-{{ticket.icon}} {% switch ticket.class %}
+		{% case 'success'  %}
 		text-green-500
-		{% elseif 'warning' == ticket.class %}
+		{% case 'warning' %}
 		text-yellow-500
-		{% elseif 'danger' == ticket.class %}
+		{% case 'danger' %}
 		text-red-500
-		{% elseif 'info' == ticket.class %}
+		{% case 'info' %}
 		text-blue-500
-		{% endif %}"></i> 
+		{% endswitch %}"></i> 
     {% include 'tickets/components/ticket_header.twig' %}
     </div>
     <p class="mx-5 py-2">{{ticket.message}}</p>

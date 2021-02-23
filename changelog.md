@@ -20,6 +20,10 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 ### Added 
 - The changelog is now available on the site
 - A privacy policy
+- Additional templates support for displaying pages without a header, and narrower pages
+
+### Changed
+- Game server links on the live ticket feed now link to the game servers
 
 ---
 

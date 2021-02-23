@@ -24,6 +24,7 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ### Changed
 - Game server links on the live ticket feed now link to the game servers
+- Application sessions now live for a day, instead of closing when you leave the site
 
 ---
 

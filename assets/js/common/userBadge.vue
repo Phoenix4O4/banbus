@@ -5,6 +5,7 @@
       backgroundColor: user.rank.backColor,
       color: user.rank.foreColor,
     }"
+    :title="user.rank.title"
   >
     <i class="fa fa-fw" :class="['fa-' + user.rank.icon]"></i>
     {{ user.displayName }}

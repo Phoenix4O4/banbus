@@ -14,7 +14,7 @@
     @apply opacity-0;
   }
   [title]:hover:before  {
-    @apply rounded-sm px-1 py-0.5 whitespace-nowrap bg-black text-white font-bold absolute left-0 transition-all opacity-100 duration-75 ease-in-out;
+    @apply rounded-sm px-1 py-0.5 whitespace-nowrap bg-black text-white font-bold absolute left-0 transition-all opacity-100 duration-75 ease-in-out z-50;
     content: attr(title);
     top: -20px;
   }
@@ -92,6 +92,10 @@
   }
   .text-info {
     @apply text-blue-500;
+  }
+
+  .ticket:last-child {
+    border-color: transparent;
   }
  
 }

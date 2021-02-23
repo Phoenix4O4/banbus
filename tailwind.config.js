@@ -31,11 +31,11 @@ module.exports = {
                 backgroundColor: theme("colors.gray.600"),
               },
               hr: {
-                borderColor: theme("colors.gray.200"),
+                borderColor: theme("colors.gray.700"),
               },
               blockquote: {
                 color: theme("colors.gray.200"),
-                borderLeftColor: theme("colors.gray.600"),
+                borderLeftColor: theme("colors.gray.700"),
               },
               h1: {
                 color: theme("colors.white"),

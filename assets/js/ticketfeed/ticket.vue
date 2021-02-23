@@ -1,6 +1,8 @@
 <template>
   <section>
-    <h3 class="border-b border-gray-300 dark:border-gray-700 pb-4 mb-4 text-2xl font-bold">
+    <h3
+      class="border-b border-gray-300 dark:border-gray-700 pb-4 mb-4 text-2xl font-bold"
+    >
       Live Ticket Feed <i class="fas fa-circle text-red-500 animate-pulse"></i>
     </h3>
     <div class="flex itens-center mb-4">
@@ -42,7 +44,9 @@
         </span>
       </dt>
       <dd>
-        <span class="whitespace-nowrap border-b border-gray-30 pb-2">
+        <span
+          class="whitespace-nowrap border-b border-gray-300 dark:border-gray-700 pb-2"
+        >
           <i
             class="fa fa-fw pr-3"
             :class="['fa-' + t.icon, 'text-' + t.class]"

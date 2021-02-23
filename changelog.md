@@ -13,6 +13,15 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 - Flag your tickets as public and generate unique links to them
 
+
+---
+
+## [0.5.7] - 2021-02-22
+
+### Added 
+- A mediaquery based dark mode!
+  - Dark mode will respect your devices dark mode setting.
+
 ---
 
 ## [0.5.6] - 2021-02-22

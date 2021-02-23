@@ -25,7 +25,7 @@
   </head>
   <body class="font-sans">
     <header>
-      <div class="container mx-auto px-4">
+      <div class="{{ wide ? '' : narrow ? 'max-w-3xl lg:max-w-4xl xl:max-w-6xl' : 'container' }} mx-auto px-4">
         <nav id="global_nav" class="flex items-start justify-between">
       {% if '' != current_subsite %}
         <a href="{{url_for('home')}}" class="link py-2 px-4 text-sm bg-gray-50 border-b border-l border-r border-gray-300 rounded-b">
@@ -40,14 +40,14 @@
         [current_subsite ~ '/header.twig', 'base/header.twig'] %}
       </div>
     </header>
-    <main id="main" class="container mx-auto px-4">
+    <main id="main" class="{{ wide ? '' : narrow ? 'max-w-3xl lg:max-w-4xl xl:max-w-6xl' : 'container' }} mx-auto px-4">
       {% block page %}No content defined for this block{% endblock %}
     </main>
-    <footer class="container mx-auto px-4 pb-4">
+    <footer class="{{ wide ? '' : narrow ? 'max-w-3xl lg:max-w-4xl xl:max-w-6xl' : 'container' }} mx-auto px-4 pb-4">
       <hr class="my-4 border-gray-300" />
-      <div class="flex justify-between">
+      <div class="md:flex justify-between">
         <p class="text-gray-500 text-sm">
-          {{app.name}} {{app.version}}<br />
+         <a class="link" href="{{url_for('home')}}">{{app.name}}</a> {{app.version}} | <a href="{{url_for('changelog')}}" class="link">Changelog</a> | <a href="{{url_for('privacy')}}" class="link">Privacy Policy</a><br />
           Report issues on
           <a
             href="https://github.com/{{app.github}}/issues"

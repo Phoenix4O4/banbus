@@ -1,0 +1,16 @@
+{% extends 'base/site.html' %}
+{% block title %}
+	{{app.name}}
+	{{app.version}}
+{% endblock %}
+{% block page %}
+<hr class="my-16 border-gray-300">
+<article class="prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto">
+{% apply markdown_to_html %}
+
+{{changelog}}
+
+{% endapply %}
+</article>
+
+{% endblock %}

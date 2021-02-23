@@ -15,7 +15,15 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.5.5] - 2021-02-19 • nfreader
+## [0.5.6] - 2021-02-22
+
+### Added 
+- The changelog is now available on the site
+- A privacy policy
+
+---
+
+## [0.5.5] - 2021-02-19
 
 ### Changed
 - Various refinements to the live ticket feed. I wish players could see this, it's so cool.
@@ -23,14 +31,14 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.5.4] - 2021-02-18 • nfreader
+## [0.5.4] - 2021-02-18
 
 ### Changed
 - The admin ticket feed is now a vue application!
 
 ---
 
-## [0.5.3] - 2021-02-18 • nfreader
+## [0.5.3] - 2021-02-18
 
 ### Changed
 - Consistent header across all application modules
@@ -38,7 +46,7 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.5.2] - 2021-02-16 • nfreader
+## [0.5.2] - 2021-02-16
 
 ### Added
 
@@ -51,7 +59,7 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.5.1] - 2021-02-15 • nfreader
+## [0.5.1] - 2021-02-15
 
 ### Fixed
 
@@ -59,7 +67,7 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.5.0] - 2021-02-15 • nfreader
+## [0.5.0] - 2021-02-15
 
 ### Added
 
@@ -67,7 +75,7 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.4.0] - 2021-02-11 • nfreader
+## [0.4.0] - 2021-02-11
 
 ### Added
 
@@ -75,7 +83,7 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.3.1] - 2021-02-09 • nfreader
+## [0.3.1] - 2021-02-09
 
 ### Added
 
@@ -83,7 +91,7 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.3.0] - 2021-02-07 • nfreader
+## [0.3.0] - 2021-02-07
 
 ### Added
 
@@ -92,7 +100,7 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.2.4] - 2021-02-03 • nfreader
+## [0.2.4] - 2021-02-03
 
 ### Added
 
@@ -104,7 +112,7 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.2.3] - 2021-02-03 • nfreader
+## [0.2.3] - 2021-02-03
 
 ### Added
 
@@ -116,7 +124,7 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.2.2] - 2021-02-02 • nfreader
+## [0.2.2] - 2021-02-02
 
 ### Fixed
 
@@ -124,7 +132,7 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.2.1] - 2021-02-02 • nfreader
+## [0.2.1] - 2021-02-02
 
 ### Added
 
@@ -132,7 +140,7 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.2.0] - 2021-02-01 • nfreader
+## [0.2.0] - 2021-02-01
 
 ### Added
 
@@ -145,6 +153,6 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.1.0] - 2021-02-01 • nfreader
+## [0.1.0] - 2021-02-01
 
 Initial release

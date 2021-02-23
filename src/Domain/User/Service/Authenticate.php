@@ -94,7 +94,7 @@ class Authenticate extends Service
             $this->session->remove('destination_uri');
             $this->session->getFlashBag()->add('Success', "You have logged in as $user->displayName");
         }
-
+        $this->session->migrate(false, 60 * 60 * 24); //One day
         return $this->payload;
     }
 

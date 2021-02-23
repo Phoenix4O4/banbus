@@ -1,5 +1,5 @@
 {% from 'macros/macros.twig' import userBadge %}
-<a href="{{url_for(url,{round: ticket.round, ticket: ticket.ticket})}}" class="border border-gray-300 hover:bg-gray-100 -mb-px block relative overflow-hidden p-4 {% if loop.first %}first:rounded-t{% endif %} {% if loop.last %}last:rounded-b{% endif %}" id="{{ticket.id}}">
+<a href="{{url_for(url,{round: ticket.round, ticket: ticket.ticket})}}" class="border border-gray-300 dark:border-gray-700 dark:hover:bg-gray-800 hover:bg-gray-50 -mb-px block relative overflow-hidden p-4 {% if loop.first %}first:rounded-t{% endif %} {% if loop.last %}last:rounded-b{% endif %}" id="{{ticket.id}}">
 	<div class="flex justify-between items-center z-10 relative">
 		<div class="text-3xl"><i class="fas fa-{{ticket.icon}}
 		{% if 'success' == ticket.class %}

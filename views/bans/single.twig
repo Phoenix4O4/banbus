@@ -10,7 +10,7 @@
 		<strong>{{userBadge(ban.admin)}}</strong>
 	</p>
 
-	<p class="text-2xl py-1 my-6 pl-3 ml-3 border-l-4 border-gray-300 text-gray-600 leading-loose">{{ban.reason}}</p>
+	<p class="text-2xl py-1 my-6 pl-3 ml-3 border-l-4 border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-200 leading-loose">{{ban.reason}}</p>
 
 	<p class="text-xl">This ban 
 		{% if ban.active %}
@@ -53,9 +53,9 @@
 	{% endif %}
 	<hr class="my-8 block">
 	<p class="mb-2">Interested in appealing this ban? Copy and paste the text below to get started:</p>
-	<p class="p-4 bg-gray-100 text-gray-600 border-2 border-gray-400 rounded-lg select-all leading-loose relative">
+	<p class="p-4 bg-gray-100 text-gray-600 dark:text-gray-100 dark:bg-gray-800 border border-gray-300 rounded-lg select-all leading-loose relative">
 		<span>
-			<i class="fas fa-copy text-gray-400 absolute right-3 select-none"></i>
+			<i class="fas fa-copy text-gray-400  absolute right-3 select-none"></i>
 		</span>
 		[b]<strong>BYOND account:</strong>[/b]
 		{{ban.ckey}}<br>

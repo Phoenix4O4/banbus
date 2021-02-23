@@ -6,40 +6,40 @@
 {% block page %}
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 {% if not user %}
-  <a href="{{url_for('auth')}}" class="relative border border-gray-300 rounded-lg p-4 text-center block hover:bg-gray-50">
+  <a href="{{url_for('auth')}}" class="big-nav-btn">
     <span class="text-4xl font-extrabold tracking-wide uppercase">
         <i class="fas fa-id-badge text-green-800"></i>
         Authenticate
     </span>
   </a>
   {% endif %}
-  <a href="{{url_for('banbus.index')}}" class="relative border border-gray-300 rounded-lg p-4 text-center block hover:bg-gray-50">
-    <span class="text-4xl font-extrabold tracking-wide uppercase">
+  <a href="{{url_for('banbus.index')}}" class="big-nav-btn">
+    <span class="title">
         <i class="fas fa-gavel text-yellow-800"></i>
         Banbus
     </span>
   </a>
-  <a href="{{url_for('infobus')}}" class="relative border border-gray-300 rounded-lg p-4 text-center block hover:bg-gray-50">
-      <span class="text-4xl font-extrabold tracking-wide uppercase">
+  <a href="{{url_for('infobus')}}" class="big-nav-btn">
+      <span class="title">
         <i class="fas fa-info-circle text-blue-400"></i>
         Infobus
     </span>
-    <span class="absolute block text-center inset-x-0 bottom-2 text-gray-500 tracking-widest uppercase text-xs font-bold">Pardon Our Dust</span>
+    <span class="subtitle">Pardon Our Dust</span>
   </a>
-  <a href="https://sb.atlantaned.space" class="relative border border-gray-300 rounded-lg p-4 text-center block hover:bg-gray-50" target="_blank" rel="noopener noreferrer">
-    <span class="text-4xl font-extrabold tracking-wide uppercase">
+  <a href="https://sb.atlantaned.space" class="big-nav-btn" target="_blank" rel="noopener noreferrer">
+    <span class="title">
         <i class="fas fa-chart-line text-green-300"></i>
         Statbus
     </span>
-    <span class="absolute block text-center inset-x-0 bottom-2 text-gray-500 tracking-widest uppercase text-xs font-bold">Legacy Edition</span>
+    <span class="subtitle">Legacy Edition</span>
   </a>
   {% if user.hasPermission('ADMIN') %}
-    <a href="{{url_for('tgdb')}}" class="relative border bg-red-100 hover:bg-red-50 border-gray-300 rounded-lg p-4 text-center block">
-      <span class="text-4xl font-extrabold tracking-wide uppercase">
+    <a href="{{url_for('tgdb')}}" class="big-nav-btn">
+      <span class="title">
         <i class="fas fa-user-secret text-red-400"></i>
         Tee Gee Dee Bee
     </span>
-    <span class="absolute block text-center inset-x-0 bottom-2 text-gray-500 tracking-widest uppercase text-xs font-bold">Secret Club</span>
+    <span class="subtitle">Secret Club</span>
   </a>
   {% endif %}
 </div>

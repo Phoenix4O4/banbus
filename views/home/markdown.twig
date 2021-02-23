@@ -4,8 +4,8 @@
 	{{app.version}}
 {% endblock %}
 {% block page %}
-<hr class="my-16 border-gray-300">
-<article class="prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto">
+<hr class="my-16 border-gray-300 dark:border-gray-700">
+<article class="prose dark:prose-light mx-auto lg:prose-lg xl:prose-2xl">
 {% apply markdown_to_html %}
 
 {{changelog}}

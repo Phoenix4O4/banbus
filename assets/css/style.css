@@ -4,12 +4,37 @@
 
 @layer components {
   .badge {
-    @apply rounded-sm px-1 py-0.5 mr-1 whitespace-nowrap font-bold;
+    @apply rounded-sm px-1 py-0.5 mr-1 whitespace-nowrap font-bold relative;
     font-size: 75%;
+  }
+  [title] {
+    @apply relative;
+  }
+  [title]:before {
+    @apply opacity-0;
+  }
+  [title]:hover:before  {
+    @apply rounded-sm px-1 py-0.5 whitespace-nowrap bg-black text-white font-bold absolute left-0 transition-all opacity-100 duration-75 ease-in-out;
+    content: attr(title);
+    top: -20px;
+  }
+
+  .big-nav-btn {
+    @apply relative border border-gray-300 dark:border-gray-700 rounded-lg p-4 text-center block hover:bg-gray-50 dark:hover:bg-gray-800
+  }
+  .big-nav-btn .title {
+    @apply text-4xl font-extrabold tracking-wide uppercase;
+  }
+  .big-nav-btn .subtitle {
+    @apply absolute block text-center inset-x-0 bottom-2 text-gray-500 tracking-widest uppercase text-xs font-bold;
+  }
+
+  .small-nav-btn {
+    @apply hover:bg-gray-50 dark:hover:bg-gray-800 p-3 border border-gray-300 dark:border-gray-700 rounded-lg text-center font-bold flex items-center justify-between text-blue-500 hover:text-blue-700 dark:hover:text-blue-300;
   }
 
   .link {
-    @apply text-blue-500 hover:text-blue-900;
+    @apply text-blue-500 hover:text-blue-700 dark:hover:text-blue-300;
   }
 
   .link\:disabled {
@@ -21,15 +46,16 @@
   }
 
   table thead tr th {
-    @apply p-2 border border-gray-300 bg-gray-50;
+    @apply p-2 border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-gray-100;
   }
 
   th.sticky {
+    @apply z-50 border-gray-300 dark:border-gray-700;
     box-shadow: 0px 1px 0 0px rgba(209, 213, 219, var(--tw-border-opacity));
   }
 
   table tbody tr td {
-    @apply p-2 border border-gray-300;
+    @apply p-2 border border-gray-300 dark:border-gray-700;
   }
 
   .autoComplete_selected {
@@ -37,19 +63,19 @@
   }
 
   .tr-success td {
-    @apply text-green-900 bg-green-100;
+    @apply text-green-900 bg-green-100 dark:bg-green-900 dark:text-green-100;
   }
 
   .tr-info td {
-    @apply text-blue-900 bg-blue-100;
+    @apply text-blue-900 bg-blue-100 dark:bg-blue-900 dark:text-blue-100;
   }
 
   .tr-danger td {
-    @apply text-red-900 bg-red-100;
+    @apply text-red-900 bg-red-100 dark:bg-red-900 dark:text-red-100;
   }
 
   .tr-primary td {
-    @apply text-purple-900 bg-purple-100;
+    @apply text-purple-900 bg-purple-100 dark:bg-purple-900 dark:text-purple-100;
   }
 
   .text-success {
@@ -67,4 +93,5 @@
   .text-info {
     @apply text-blue-500;
   }
+ 
 }

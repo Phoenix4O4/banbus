@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h3 class="border-b border-gray-300 pb-4 mb-4 text-2xl font-bold">
+    <h3 class="border-b border-gray-300 dark:border-gray-700 pb-4 mb-4 text-2xl font-bold">
       Live Ticket Feed <i class="fas fa-circle text-red-500 animate-pulse"></i>
     </h3>
     <div class="flex itens-center mb-4">
@@ -24,10 +24,10 @@
       v-for="t in tickets"
       :key="t.id"
       :id="t.id"
-      class="flex mb-4 pb-4 border-b border-gray-300 ticket added transition"
+      class="flex mb-4 pb-4 border-b border-gray-300 dark:border-gray-700 ticket added transition"
     >
       <dt
-        class="whitespace-nowrap text-right pr-3 tabular-nums border-r border-gray-300 mr-3"
+        class="whitespace-nowrap text-right pr-3 tabular-nums border-r border-gray-300 dark:border-gray-700 mr-3"
       >
         <a
           class="link"

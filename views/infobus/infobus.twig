@@ -1,14 +1,14 @@
 {% extends 'base/site.html' %}
 {% block page %}
 	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-		<a href="{{url_for('adminwho')}}" class="relative border border-gray-300 rounded-lg p-4 text-center block hover:bg-gray-50">
-			<span class="text-4xl font-extrabold tracking-wide uppercase">
+		<a href="{{url_for('adminwho')}}" class="big-nav-btn">
+			<span class="title">
 				<i class="fas fa-user-shield text-pink-800"></i>
 				Admin Roster
 			</span>
 		</a>
-		<a href="{{url_for('adminlogs')}}" class="relative border border-gray-300 rounded-lg p-4 text-center block hover:bg-gray-50">
-			<span class="text-4xl font-extrabold tracking-wide uppercase">
+		<a href="{{url_for('adminlogs')}}" class="big-nav-btn">
+			<span class="title">
 				<i class="fas fa-user-plus text-indigo-800"></i>
 				Admin Rank Logs
 			</span>

@@ -18,7 +18,7 @@
 {% if ticket.isAction %}
 {% include 'tickets/components/action.twig' %}
 {% else %}
-	<div href="#" class="border block relative overflow-hidden p-2 pt-12 rounded mb-2 z-10 bg-white dark:bg-gray-800 {% switch ticket.class %}
+	<div class="panel {% switch ticket.class %}
 		{% case 'success' %}
 		border-green-500
 		{% case 'warning' %}
@@ -30,7 +30,7 @@
     {% case 'secondary' %}
 		border-black
 		{% endswitch %}">
-  <div class="text-lg inset-x-0 top-0 p-2 absolute border-b bg-gray-50 dark:bg-gray-700 {% switch ticket.class %} 
+  <div class="panel-header {% switch ticket.class %} 
 		{% case 'success' %}
 		border-green-500
 		{% case 'warning' %}
@@ -53,7 +53,7 @@
 		{% endswitch %}"></i> 
     {% include 'tickets/components/ticket_header.twig' %}
     </div>
-    <p class="mx-5 py-2">{{ticket.message}}</p>
+    <div class="panel-body">{{ticket.message}}</div>
 
 	</div>
   {% endif %}

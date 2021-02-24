@@ -97,5 +97,17 @@
   .ticket:last-child {
     border-color: transparent;
   }
+
+  .panel {
+    @apply border block rounded mb-2 bg-white z-10 dark:bg-gray-800;
+  }
+
+  .panel-header {
+    @apply text-lg p-2 border-b rounded-t bg-gray-100 dark:bg-gray-700 ;
+  }
+
+  .panel-body {
+    @apply mx-5 py-2;
+  }
  
 }

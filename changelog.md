@@ -13,6 +13,15 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 - Flag your tickets as public and generate unique links to them
 
+---
+
+## [0.5.8] - 2021-02-23
+
+### Added
+- Ban appeals template now links the round ID, added version number to the made by banbus footer
+
+### Fixed 
+- Tickets weren't displaying properly on small screens
 
 ---
 

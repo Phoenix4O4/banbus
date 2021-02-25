@@ -15,6 +15,14 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.5.9] - 2021-02-24
+
+### Added
+- Messages for players and admins in TGDB
+- A better popover script (hover over a relative timestamp like '8 Hours Ago')
+
+---
+
 ## [0.5.8] - 2021-02-23
 
 ### Added

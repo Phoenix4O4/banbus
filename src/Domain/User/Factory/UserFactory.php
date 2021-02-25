@@ -23,7 +23,7 @@ class UserFactory
         if (!in_array($rank, array_keys($this->ranks))) {
             $rank = new \stdclass();
             $rank->title = 'Player';
-            $rank->backColor = '#ececec';
+            $rank->backColor = '#CCC';
             $rank->foreColor = 'black';
             $rank->icon = 'user';
         } else {

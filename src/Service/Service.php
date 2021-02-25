@@ -18,4 +18,9 @@ class Service
         $this->per_page = $this->settings->getSettingsByKey('results_per_page');
         $this->payload = new Payload();
     }
+
+    protected function mapServer(int $ip, int $port)
+    {
+        return (object) $this->servers[array_search($port, array_column($this->servers, 'port'))];
+    }
 }

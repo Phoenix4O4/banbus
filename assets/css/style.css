@@ -5,20 +5,19 @@
 @layer components {
   .badge {
     @apply rounded-sm px-1 py-0.5 mr-1 whitespace-nowrap font-bold relative;
-    font-size: 75%;
   }
-  [title] {
-    @apply relative;
+  .badge-danger {
+    @apply bg-red-600 text-white;
   }
-  [title]:before {
-    @apply opacity-0;
+  .badge-warning {
+    @apply bg-yellow-400 text-white;
   }
-  [title]:hover:before  {
-    @apply rounded-sm px-1 py-0.5 whitespace-nowrap bg-black text-white font-bold absolute left-0 transition-all opacity-100 duration-75 ease-in-out z-50;
-    content: attr(title);
-    top: -20px;
+  .badge-info {
+    @apply bg-blue-400 text-white;
   }
-
+  .badge-success {
+    @apply bg-green-400 text-white;
+  }
   .big-nav-btn {
     @apply relative border border-gray-300 dark:border-gray-700 rounded-lg p-4 text-center block hover:bg-gray-50 dark:hover:bg-gray-800
   }
@@ -34,7 +33,7 @@
   }
 
   .link {
-    @apply text-blue-500 hover:text-blue-700 dark:hover:text-blue-300;
+    @apply text-blue-600 hover:text-blue-900 dark:text-blue-500 dark:hover:text-blue-100;
   }
 
   .link\:disabled {
@@ -99,15 +98,31 @@
   }
 
   .panel {
-    @apply border block rounded mb-2 bg-white z-10 dark:bg-gray-800;
+    @apply border block rounded mb-2 bg-white z-10 dark:bg-gray-800 border-gray-300 dark:border-gray-500;
   }
 
   .panel-header {
     @apply text-lg p-2 border-b rounded-t bg-gray-100 dark:bg-gray-700 ;
   }
-
+  
   .panel-body {
     @apply mx-5 py-2;
   }
- 
+
+  .pagination a{
+    @apply px-3 py-2 text-blue-400 border-blue-400 border border-collapse hover:bg-blue-400 hover:text-white text-lg;
+  }
+
+  .panel-footer {
+    @apply text-lg p-2 border-t rounded-b bg-gray-100 dark:bg-gray-700 ;
+  }
+
+  .pagination a:last-child {
+    @apply rounded-r;
+  }
+
+  .pagination a:first-child {
+    @apply rounded-l;
+  }
+  
 }

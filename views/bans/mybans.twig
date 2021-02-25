@@ -1,6 +1,6 @@
 {% extends 'base/site.html' %}
 {% block page %}
-	<div class="border-b-2 border-gray-200 text-2xl py-4 mb-4">Showing {{bans|length}} bans attached to {{user.displayName}}
+	<div class="border-b border-gray-300 dark:border-gray-700 text-2xl py-4 mb-4">Showing {{bans|length}} bans attached to {{user.displayName}}
 	</div>
 		{% set url = 'mybans.single' %}
 		{% for ban in bans %}

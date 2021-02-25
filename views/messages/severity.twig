@@ -1,0 +1,14 @@
+{% if m.severity %}
+Severity: <span class="badge text-sm
+{% switch m.severity %}
+{% case 'minor' %}
+  badge-info
+{% case 'high' %}
+  badge-danger
+{% default %}
+  badge-success
+{% endswitch %}
+">
+{{m.severity|title}}
+</span>
+{% endif %}

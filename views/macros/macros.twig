@@ -7,23 +7,24 @@ title="{{user.rank.title}}">
 </span>
 {% endmacro %}
 
-{% macro pagination(nbPages = 1, currentPage = 1, url = 'home') %}
-{% set classes = 'px-3 py-2 block text-blue-600 border-blue-400 border border-collapse hover:bg-blue-400 hover:text-white' %}
+{% macro roundLink(id) %}
+<a class="link" href="https://sb.atlantaned.space/rounds/{{id}}"><i class="fa fa-fw fa-circle"></i> {{id}}</a>
+{% endmacro %}
+
+{% macro pagination(nbPages = 5, currentPage = 1, url = 'home') %}
+<div class="pagination_container flex justify-between items-center my-4">
+    <span class="">Page <strong>{{currentPage}}</strong> of <strong>{{nbPages}}</strong></span>
+{% set classes = '' %}
   {% set param = '' %}
   {% if not query %}
       {% set query = '' %}
   {% endif %}
   {% if nbPages > 1 %}
-
       {# Number of page around current page+1 #}
-      {% set nearbyPagesLimit = 4 %}
-
-      <div class="my-4">
-          <ul class="pagination list-reset text-center">
+      {% set nearbyPagesLimit = 5 %}
+          <nav class="pagination inline-flex -space-x-px float-right">
               {% if currentPage != 1 %}
-              <li class="page-item inline-block">
-                  <a class="page-link {{classes}}" href="{{url}}{{query}}">First</a>
-              </li>
+                  <a class="{{classes}}" href="{{url}}{{query}}">First</a>
               {% endif %}
               {% for i in 1..nbPages %}
                   {% if 0 == (currentPage - nearbyPagesLimit) - loop.index %} {# dot before #}
@@ -31,17 +32,13 @@ title="{{user.rank.title}}">
                   {% elseif 0 < (currentPage - nearbyPagesLimit) - loop.index %} {# hide all before #}
                   {% elseif 0 > (currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
                   {% else %}
-                      <li class="page-item inline-block">
-                          <a class="page-link {{classes}}" href="{{url}}{{param}}/page/{{loop.index}}{{query}}">{{ loop.index }}</a>
-                      </li>
+                          <a class="{{classes}}" href="{{url}}{{param}}/page/{{loop.index}}{{query}}">{{ loop.index }}</a>
                   {% endif %}
               {% endfor %}
               {% if currentPage != nbPages %}
-              <li class="page-item inline-block">
-                  <a class="page-link {{classes}} {% if currentPage == loop.index  %} {% endif %}" href="{{url}}{{param}}/page/{{nbPages}}{{query}}">Last</a>
-              </li>
+                  <a class="{{classes}} {% if currentPage == loop.index  %} {% endif %}" href="{{url}}{{param}}/page/{{nbPages}}{{query}}">Last</a>
               {% endif %}
-          </ul>
-      </div>
+          </nav>
   {% endif %}
+</div>
 {% endmacro %}

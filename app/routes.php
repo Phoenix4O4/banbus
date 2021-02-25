@@ -47,6 +47,14 @@ return function (App $app) {
     ->setName("mytickets.single");
 
     $app
+    ->get(
+        "/banbus/mymessages[/page/{page}]",
+        \App\Action\Messages\ViewMyMessages::class
+    )
+    ->setName("mymessages");
+
+
+    $app
     ->get("/infobus", \App\Action\Infobus\InfobusIndex::class)
     ->setName("infobus");
     $app
@@ -81,6 +89,14 @@ return function (App $app) {
             \App\Action\Tgdb\Player\ViewPlayerTickets::class
         )
         ->setName("tgdb.player.tickets");
+
+        $app
+        ->get(
+            "/player/{ckey:[a-z0-9@]+}/messages[/page/{page}]",
+            \App\Action\Tgdb\Player\ViewPlayerMessages::class
+        )
+        ->setName("tgdb.player.messages");
+
 
         $app
         ->get(

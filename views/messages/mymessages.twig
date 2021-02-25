@@ -1,0 +1,14 @@
+{% extends 'base/site.html' %}
+{% block title %}
+	{{app.name}}
+	{{app.version}}
+{% endblock %}
+{% block page %}
+{% from 'macros/macros.twig' import pagination %}
+<div class="border-b border-gray-300 dark:border-gray-700 text-2xl py-4 mb-4">Showing messages for {{user.displayName}}
+</div>
+{% set url = url_for('mymessages') %}
+{{pagination(pagination.pages, pagination.currentPage, url)}}
+  {% include 'messages/listing.twig' %}
+{{pagination(pagination.pages, pagination.currentPage, url)}}
+{% endblock %}

@@ -80,6 +80,8 @@
       integrity="sha512-BQqXM2ye6+98YyRQzE676pY2Bc4d3o/fBNlBQyKv2J9oKwp9K/4BVqFWIJBx1zKlAJ8M0PIJR5Yp51FsnSUynQ=="
       crossorigin="anonymous"
     ></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
     <script>
       dayjs.extend(window.dayjs_plugin_utc);
       dayjs.extend(window.dayjs_plugin_relativeTime);
@@ -88,6 +90,22 @@
         ts.setAttribute("title", ts.textContent);
         ts.textContent = dayjs(ts.textContent).utc().fromNow();
       });
+      tippy('[title]', {
+        content(reference) {
+          const title = reference.getAttribute('title');
+          reference.removeAttribute('title');
+          return title;
+        },
+      })
+      tippy('.popover', {
+        content(reference) {
+          const id = reference.getAttribute('data-template');
+          const template = document.getElementById(id);
+          template.style.display = 'block';
+          return template;
+        },
+        allowHTML: true,
+      })
     </script>
     {% block script %} {% endblock %}
   </body>

@@ -15,6 +15,16 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.6.0] - 2021-02-27
+
+### Added
+- Players can now mark tickets as public or private!
+  - Public tickets are only visible at a uniquely generated URL
+  - A ticket can be made public if you are the recipient of a ticket started by an admin OR if you open a ticket to an admin. 
+  - Administrators can NOT change ticket publicity status
+
+---
+
 ## [0.5.10] - 2021-02-26
 
 ### Added

@@ -4,14 +4,9 @@ namespace App\Domain\Bans\Repository;
 
 use App\Repository\Database;
 use App\Domain\Bans\Data\Ban;
-use ParagonIE\EasyDB\EasyDB;
-use App\Domain\Bans\Factory\BanFactory;
 
-class BanRepository
+class BanRepository extends Database
 {
-    private $db;
-    private $factory;
-
     private $table = 'ban';
 
     private $columns = "SELECT 
@@ -41,12 +36,6 @@ class BanRepository
         FROM ban
         LEFT JOIN `round` ON round_id = round.id";
 
-    public function __construct(EasyDB $db, BanFactory $factory)
-    {
-        $this->db = $db;
-        $this->factory = $factory;
-    }
-
     public function getPublicBans()
     {
         return $this->db->run("$this->columns ORDER BY bantime DESC;");
@@ -64,7 +53,7 @@ class BanRepository
         GROUP BY bantime, ckey, `server_port`
         ORDER BY bantime DESC", $ckey) as $ban
         ) {
-            $bans[] = Ban::fromDb($ban);
+            $bans[] = Ban::fromDb($ban); //TODO: Move to service
         }
         return $bans;
     }
@@ -109,6 +98,6 @@ class BanRepository
         ) {
             return false;
         }
-        return $this->factory->buildBan($ban);
+        return $ban;
     }
 }

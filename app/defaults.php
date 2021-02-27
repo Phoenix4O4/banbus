@@ -49,7 +49,7 @@ $settings['session'] = [
 
 $settings['db'] = [
     'method' => 'mysql',
-    'host' => 'bb_mariadb',
+    'host' => 'localhost',
     'port' => 3306,
     'encoding' => 'utf8mb4',
     'collation' => 'utf8mb4_unicode_ci',
@@ -63,6 +63,24 @@ $settings['db'] = [
     'log' => false,
     // PDO options
     'flags' => [
+        PDO::ATTR_PERSISTENT               => true,
+        PDO::ATTR_ERRMODE                  => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE       => PDO::FETCH_OBJ,
+        PDO::ATTR_STRINGIFY_FETCHES        => false,
+        PDO::ATTR_EMULATE_PREPARES         => false
+    ]
+];
+
+$settings['alt_db'] = [
+  'method' => 'mysql',
+  'host' => 'localhost',
+  'port' => 3306,
+  'encoding' => 'utf8mb4',
+  'collation' => 'utf8mb4_unicode_ci',
+  'timezone' => null,
+  'cacheMetadata' => false,
+  'log' => false,
+  'flags' => [
         PDO::ATTR_PERSISTENT               => true,
         PDO::ATTR_ERRMODE                  => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE       => PDO::FETCH_OBJ,

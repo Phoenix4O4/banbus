@@ -7,17 +7,20 @@ use App\Data\Payload;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Domain\Bans\Repository\BanRepository as Repository;
 use App\Factory\SettingsFactory;
+use App\Domain\Bans\Factory\BanFactory;
 
 class ListBans extends Service
 {
     private $session;
     private $banRepository;
+    private $banFactory;
 
-    public function __construct(Session $session, Repository $banRepository, SettingsFactory $settings)
+    public function __construct(Session $session, Repository $banRepository, SettingsFactory $settings, BanFactory $banFactory)
     {
         $this->session = $session;
         $this->banRepository = $banRepository;
         $this->payload = new Payload();
+        $this->banFactory = $banFactory;
         parent::__construct($settings);
     }
 
@@ -59,6 +62,7 @@ class ListBans extends Service
             $this->session->get('user')->getCkey(),
             $id
         );
+        $ban = $this->banFactory->buildBan($ban);
         $this->payload->setTemplate('bans/single.twig');
         if (!$this->payload->addData('ban', $ban)) {
             $this->payload->throwError(404, "Ban with id $id not found");

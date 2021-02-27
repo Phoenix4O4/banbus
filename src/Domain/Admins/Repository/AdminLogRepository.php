@@ -2,16 +2,10 @@
 
 namespace App\Domain\Admins\Repository;
 
-use ParagonIE\EasyDB\EasyDB;
 use App\Repository\Database;
 
 class AdminLogRepository extends Database
 {
-    public function __construct(EasyDB $db)
-    {
-        parent::__construct($db);
-    }
-
     public function fetchAdminLogs(int $page = 1, int $per_page = 60): self
     {
         $this->setPages((int) ceil($this->db->cell(

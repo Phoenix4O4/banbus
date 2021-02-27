@@ -2,18 +2,10 @@
 
 namespace App\Domain\Admins\Repository;
 
-use ParagonIE\EasyDB\EasyDB;
 use App\Repository\Database;
 
 class AdminRepository extends Database
 {
-    private $userFactory;
-
-    public function __construct(EasyDB $db)
-    {
-        parent::__construct($db);
-    }
-
     public function fetchAllAdmins(): self
     {
         $this->setResults(

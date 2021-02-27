@@ -18,10 +18,10 @@ use GuzzleHttp\Client as Guzzle;
 use App\Provider\ExternalAuth;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Utilities\UrlGenerator;
-use ParagonIE\EasyDB\EasyDB;
 use App\Factory\SettingsFactory;
 use App\Responder\Responder;
 use App\Middleware\UserMiddleware;
+use App\Repository\ConnectionFactory;
 
 return [
   //Settings
@@ -124,7 +124,7 @@ return [
   SettingsFactory::class => function (ContainerInterface $container) {
       return new SettingsFactory($container->get("settings"));
   },
-  EasyDB::class => function (ContainerInterface $container) {
+  'db' => function (ContainerInterface $container) {
       $config = (array) $container->get("settings")["db"];
       try {
           $db = \ParagonIE\EasyDB\Factory::fromArray([
@@ -144,6 +144,32 @@ return [
       }
       $db->debug = $container->get("settings")["debug"];
       return $db;
+  },
+
+  'alt_db' => function (ContainerInterface $container) {
+      $config = (array) $container->get("settings")["alt_db"];
+      try {
+          $db = \ParagonIE\EasyDB\Factory::fromArray([
+        $config["method"] .
+        ":host=" .
+        $config["host"] .
+        ";port=" .
+        $config["port"] .
+        ";dbname=" .
+        $config["database"],
+        $config["username"],
+        $config["password"],
+        $config["flags"],
+      ]);
+      } catch (Exception $e) {
+          die($e->getMessage());
+      }
+      $db->debug = $container->get("settings")["debug"];
+      return $db;
+  },
+
+  ConnectionFactory::class => function (ContainerInterface $container) {
+      return new ConnectionFactory($container->get('db'), $container->get('alt_db'));
   },
 
   Responder::class => function (ContainerInterface $container) {

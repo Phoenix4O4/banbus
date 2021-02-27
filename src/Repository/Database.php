@@ -2,18 +2,20 @@
 
 namespace App\Repository;
 
-use ParagonIE\EasyDB\EasyDB;
+use App\Repository\ConnectionFactory;
 
-class Database
+class Database extends ConnectionFactory
 {
     protected $db;
+    protected $alt_db;
 
     protected $results = null;
     protected $pages = 0;
 
-    public function __construct(EasyDB $db)
+    public function __construct(ConnectionFactory $connection)
     {
-        $this->db = $db;
+        $this->db = $connection->db;
+        $this->alt_db = $connection->alt_db;
     }
 
     protected function setResults($results): void

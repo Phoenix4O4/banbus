@@ -21,7 +21,7 @@ class Database
         $this->results = $results;
     }
 
-    public function getResults(): array
+    public function getResults(): array|object
     {
         return $this->results;
     }

@@ -51,6 +51,7 @@
 	{% if ban.roleBans %}
 	<p class="text-gray-400 my-4"><strong>Head's Up!</strong> This ban applies to multiple roles. The following bans are grouped into this ban: {{ban.banIds}}</p>
 	{% endif %}
+	{% if unbaninfo %}
 	<hr class="my-8 block">
 	<p class="mb-2">Interested in appealing this ban? Copy and paste the text below to get started:</p>
 	<p class="p-4 bg-gray-100 text-gray-600 dark:text-gray-100 dark:bg-gray-800 border border-gray-300 rounded-lg select-all leading-loose relative">
@@ -93,5 +94,15 @@
       <li class="text-gray-500 text-xs mb-2">Not all bans are placed during the round in which the bannable offense occurred. The correct round ID is usually noted in the banning reason.</li>
       <li class="text-gray-500 text-xs mb-2">Your account information is not retained by Banbus, except ephemerally as needed by the webserver in order to facilitate app functionality. This data is linked to your browser via a cookie.</li>
     </ul>
-
+{% endif %}
+{% if not unbaninfo %}
+<h2 class="border-b border-gray-300 dark:border-gray-700 pb-4 my-4 text-3xl font-bold">Edits</h2>
+<section id="edits" class="edits">
+{% for edit in ban.edits %}
+<p class="block mb-4">{{edit|raw}}</p>
+{% else %}
+<p class="text-center text-gray-400">« This ban has not been edited »</p>
+{% endfor %}
+</section>
+{% endif %}
 {% endblock %}

@@ -16,13 +16,16 @@ class BanRepository extends Database
         ban.server_port,
         GROUP_CONCAT(role SEPARATOR ', ') as `role`,
         null as `banIds`,
-        bantime,
-        expiration_time as `expiration`,
-        reason,
-        ckey,
-        a_ckey,
-        unbanned_ckey,
-        unbanned_datetime,
+        ban.bantime,
+        ban.expiration_time as `expiration`,
+        ban.reason,
+        ban.ckey,
+        c.rank as `c_rank`,
+        ban.a_ckey,
+        a.rank as `a_rank`,
+        ban.unbanned_ckey,
+        ban.unbanned_datetime,
+        u.rank as `u_rank`,
         CASE
             WHEN expiration_time IS NOT NULL THEN TIMESTAMPDIFF(MINUTE, bantime, expiration_time)
             ELSE 0
@@ -32,9 +35,13 @@ class BanRepository extends Database
             WHEN unbanned_ckey IS NOT NULL THEN 0
             ELSE 1 
         END as `active`,
-        round.initialize_datetime AS round_time
+        round.initialize_datetime AS round_time,
+        ban.edits
         FROM ban
-        LEFT JOIN `round` ON round_id = round.id";
+        LEFT JOIN `round` ON round_id = round.id
+        LEFT JOIN `admin` AS c ON c.ckey = ban.ckey	
+        LEFT JOIN `admin` AS a ON a.ckey = ban.a_ckey
+        LEFT JOIN `admin` AS u ON u.ckey = ban.unbanned_ckey";
 
     public function getPublicBans()
     {

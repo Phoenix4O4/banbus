@@ -32,7 +32,7 @@
 				<span>Messages</span>
 				<i class="fas fa-envelope-open-text"></i>
 			</a>
-			<a class="link:disabled p-3 border border-gray-300 dark:border-gray-700 rounded-lg text-center font-bold flex items-center justify-between">
+			<a href="{{url_for('tgdb.player.bans',{ckey: player.ckey})}}" class="link hover:bg-gray-50 dark:hover:bg-gray-800 p-3 border border-gray-300 dark:border-gray-700 rounded-lg text-center font-bold flex items-center justify-between">
 				<span>Bans</span>
 				<i class="fas fa-ban"></i>
 			</a>

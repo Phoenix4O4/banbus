@@ -64,6 +64,7 @@ class ListBans extends Service
         );
         $ban = $this->banFactory->buildBan($ban);
         $this->payload->setTemplate('bans/single.twig');
+        $this->payload->addData('unabaninfo', true);
         if (!$this->payload->addData('ban', $ban)) {
             $this->payload->throwError(404, "Ban with id $id not found");
         }
@@ -107,5 +108,28 @@ class ListBans extends Service
         } elseif ($this->session->get('user') && $this->modules['personal_bans']) {
             return $this->getBansForCurrentUser();
         }
+    }
+
+    public function getBansForCkey(string $ckey, int $page = 1)
+    {
+        $this->payload->addData(
+            'bans',
+            $this->banRepository->getBansByCkey($ckey, $page)
+        );
+        $this->payload->setTemplate('bans/bans.twig');
+        return $this->payload;
+    }
+
+    public function getSingleBan(int $id)
+    {
+        $ban = $this->banRepository->getBanById($id);
+        $ban = $this->banFactory->buildBan($ban);
+        $this->payload->addData(
+            'ban',
+            $ban
+        );
+        $this->payload->setTemplate('bans/single.twig');
+
+        return $this->payload;
     }
 }

@@ -108,6 +108,14 @@ return function (App $app) {
         )
         ->setName("tgdb.player.messages");
 
+        $app
+        ->get(
+            "/player/{ckey:[a-z0-9@]+}/bans[/page/{page}]",
+            \App\Action\Tgdb\Player\ViewPlayerBans::class
+        )
+        ->setName("tgdb.player.bans");
+
+
 
         $app
         ->get(
@@ -115,6 +123,13 @@ return function (App $app) {
             \App\Action\Tgdb\Ticket\ViewSingleTicket::class
         )
         ->setName("tgdb.ticket");
+
+        $app
+        ->get(
+            "/ban/{id:[0-9]+}",
+            \App\Action\Tgdb\Ban\TgdbViewSingleBan::class
+        )
+        ->setName("tgdb.ban");
 
         $app
         ->get(

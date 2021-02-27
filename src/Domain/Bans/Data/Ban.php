@@ -36,9 +36,11 @@ class Ban
         public int $minutes = 0,
         public int $active = 0,
         public $round_time = null,
-        public $banIds = null,
+        public $edits = '',
+        public $banIds = null
     ) {
         $this->roleBans();
+        $this->splitEdits();
     }
 
     public function getIp()
@@ -59,6 +61,12 @@ class Ban
     {
         if (str_contains($this->role, ', ')) {
             $this->roleBans = true;
+        }
+    }
+    private function splitEdits()
+    {
+        if ($this->edits) {
+            $this->edits = explode("<hr>", $this->edits);
         }
     }
 }

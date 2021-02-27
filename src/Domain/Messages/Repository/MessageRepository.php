@@ -57,4 +57,38 @@ class MessageRepository extends Database
         ));
         return $this;
     }
+
+    public function getSingleMessageById(int $id): self
+    {
+        $this->setResults(
+            $this->db->row(
+                "SELECT
+                M.id,
+                M.type,
+                M.adminckey,
+                M.targetckey,
+                M.text,
+                M.timestamp,
+                M.round_id AS round,
+                M.server_port,
+                M.server_ip,
+                M.lasteditor,
+                M.severity,
+                M.edits,
+                M.expire_timestamp AS expire,
+                M.secret,
+                A.rank as adminrank,
+                T.rank as targetrank,
+                E.rank as editorrank
+                FROM messages AS M
+                LEFT JOIN admin AS A ON M.adminckey = A.ckey
+                LEFT JOIN admin AS T ON M.targetckey = T.ckey
+                LEFT JOIN admin AS E ON M.lasteditor = E.ckey
+                WHERE M.id = ?
+                ORDER BY M.timestamp DESC",
+                $id
+            )
+        );
+        return $this;
+    }
 }

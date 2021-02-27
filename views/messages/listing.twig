@@ -1,29 +1,8 @@
-{% from 'macros/macros.twig' import userBadge, roundLink %}
   {% for m in notes %}
-    <div class="panel mb-4">
-      <div class="panel-header flex justify-between
-      {% switch m.type %}
-      {% case 'note' %}
-        border-yellow-500
-      {% case 'watchlist entry' %}
-        border-red-500 bg-red-500 text-white
-      {% case 'message sent' %}
-        border-green-500
-      {% endswitch %}
-      ">
-        <span>{{m.type|title}} #{{m.id}} {{m.type == 'message sent' ? 'to' : 'for'}} {{userBadge(m.target)}} by {{userBadge(m.admin)}}</span>
-        {% if m.secret %}<span class="badge badge-danger popover" data-template="secret_message_note">## SECRET ##</span>
-        {% endif %}
-        <span>Posted <time>{{m.timestamp}}</time></span>
-      </div>
-
-      <div class="panel-body">
-      <p class="my-4">{{m.text}}</p>
-      </div>
-      <div class="panel-footer text-sm flex justify-between">
-      <span>During {{roundLink(m.round)}} on {{m.server.name}}</span>
-      <span>{% include 'messages/severity.twig' %}</span>
-      <span>{% if m.editor %}Last edited by {{userBadge(m.editor)}}{% endif %}</span>
-      </div>
-    </div>
+    {% include 'messages/message.twig' with {'link': link} %}
   {% endfor %}
+  <div id="secret_message_note" class="hidden">
+    <strong class="font-bold text-xl"><i class="fas fa-fw fa-eye-slash"></i> Secret Note</strong>
+    <hr class="mb-2">
+    This note is secret, and should not be shared with, or disclosed to non-admins
+  </div>

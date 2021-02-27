@@ -15,6 +15,13 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.5.10] - 2021-02-26
+
+### Added
+- Messages can now be viewed and linked to, instead of just viewing them in a list
+
+---
+
 ## [0.5.9] - 2021-02-24
 
 ### Added

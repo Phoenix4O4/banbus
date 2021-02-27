@@ -53,6 +53,14 @@ return function (App $app) {
     )
     ->setName("mymessages");
 
+    $app
+    ->get(
+        "/banbus/mymessages/{id:[0-9]+}",
+        \App\Action\Messages\ViewMySingleMessage::class
+    )
+    ->setName("mymessages.single");
+
+
 
     $app
     ->get("/infobus", \App\Action\Infobus\InfobusIndex::class)
@@ -104,6 +112,14 @@ return function (App $app) {
             \App\Action\Tgdb\Ticket\ViewSingleTicket::class
         )
         ->setName("tgdb.ticket");
+
+        $app
+        ->get(
+            "/message/{id:[0-9]+}",
+            \App\Action\Tgdb\Message\ViewSingleMessage::class
+        )
+        ->setName("tgdb.message");
+
 
         $app
         ->get("/ticket/live/", \App\Action\Tgdb\Ticket\LiveTickets::class)

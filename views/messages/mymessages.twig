@@ -9,6 +9,6 @@
 </div>
 {% set url = url_for('mymessages') %}
 {{pagination(pagination.pages, pagination.currentPage, url)}}
-  {% include 'messages/listing.twig' %}
+  {% include 'messages/listing.twig' with {'link': 'mymessages.single'} %}
 {{pagination(pagination.pages, pagination.currentPage, url)}}
 {% endblock %}

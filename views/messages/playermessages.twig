@@ -9,11 +9,6 @@
 </div>
 {% set url = url_for('tgdb.player.messages',{ckey:ckey}) %}
 {{pagination(pagination.pages, pagination.currentPage, url)}}
-  {% include 'messages/listing.twig' %}
+  {% include 'messages/listing.twig' with {'link': 'tgdb.message'} %}
 {{pagination(pagination.pages, pagination.currentPage, url)}}
-  <div id="secret_message_note" class="hidden">
-    <strong class="font-bold text-xl">Secret Note</strong>
-    <hr class="mb-2">
-    This note is secret, and should not be shared with, or disclosed to non-admins
-  </div>
 {% endblock %}

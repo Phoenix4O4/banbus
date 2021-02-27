@@ -1,0 +1,29 @@
+
+{% if not link %} {% set link = 'tgdb.message' %} {% endif %}
+{% from 'macros/macros.twig' import userBadge, roundLink %}
+<div class="panel mb-4">
+  <div class="panel-header flex justify-between
+  {% switch m.type %}
+  {% case 'note' %}
+    border-yellow-500
+  {% case 'watchlist entry' %}
+    border-red-500 bg-red-500 text-white
+  {% case 'message sent' %}
+    border-green-500
+  {% endswitch %}
+  ">
+    <span>{{m.type|title}} <a href="{{url_for(link,{id: m.id})}}" class="link">#{{m.id}}</a> {{m.type == 'message sent' ? 'to' : 'for'}} {{userBadge(m.target)}} by {{userBadge(m.admin)}}</span>
+    {% if m.secret %}<span class="badge badge-danger popover" data-template="secret_message_note">## SECRET ##</span>
+    {% endif %}
+    <span>Posted <time>{{m.timestamp}}</time></span>
+  </div>
+
+  <div class="panel-body">
+  <p class="my-4">{{m.text}}</p>
+  </div>
+  <div class="panel-footer text-sm flex justify-between">
+  <span>During {{roundLink(m.round)}} on {{m.server.name}}</span>
+  <span>{% include 'messages/severity.twig' %}</span>
+  <span>{% if m.editor %}Last edited by {{userBadge(m.editor)}}{% endif %}</span>
+  </div>
+</div>

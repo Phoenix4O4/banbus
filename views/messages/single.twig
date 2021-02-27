@@ -1,0 +1,14 @@
+{% extends 'base/site.html' %}
+{% block title %}
+	{{app.name}}
+	{{app.version}}
+{% endblock %}
+{% block page %}
+<div class="border-b border-gray-300 dark:border-gray-700 text-2xl py-4 mb-4"><a href="">{{note.type|title}} #{{note.id}}</a>
+</div>
+  {% include 'messages/message.twig' with {'link': link, 'm':note}%}
+    <div>
+    {{note.edits|raw}}
+    </div>
+{% include 'messages/secret-note.twig' %}
+{% endblock %}

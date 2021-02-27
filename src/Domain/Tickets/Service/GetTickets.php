@@ -5,6 +5,7 @@ namespace App\Domain\Tickets\Service;
 use App\Service\Service;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Domain\Tickets\Repository\TicketRepository as Repository;
+use App\Domain\Tickets\Repository\TicketPublicityRepository as PublicRepo;
 use App\Domain\Tickets\Factory\TicketFactory;
 use App\Factory\SettingsFactory;
 use App\Domain\User\Data\User;
@@ -18,13 +19,15 @@ class GetTickets extends Service
         Session $session,
         Repository $ticketRepo,
         SettingsFactory $settings,
-        TicketFactory $ticketFactory
+        TicketFactory $ticketFactory,
+        PublicRepo $publicRepo
     ) {
         parent::__construct($settings);
         $this->session = $session;
         $this->ticketRepo = $ticketRepo;
         $this->ticketFactory = $ticketFactory;
         $this->currentUser = $this->session->get('user');
+        $this->publicRepo = $publicRepo;
     }
 
     public function getTicketsForCurrentUser($page)
@@ -53,7 +56,7 @@ class GetTickets extends Service
         return $this->payload;
     }
 
-    public function getCurrentUserTicket(int $round, int $ticket)
+    public function getCurrentUserTicket(int $round, int $ticket, bool $toggle = false)
     {
         if (!$this->currentUser) {
             $this->payload->throwError(403, "You do not have permission to view this");
@@ -74,10 +77,36 @@ class GetTickets extends Service
         if (!in_array($ckey, $this->getTicketCkeys($tickets))) {
             $this->payload->throwError(403, "You do not have permission to view this");
         }
+        $canPublicize = false;
+        if (!$tickets[0]->recipient && $ckey === $tickets[0]->sender->getCkey()) {
+            $canPublicize = true;
+        }
+        if ($tickets[0]->recipient && $ckey === $tickets[0]->recipient->getCkey()) {
+            $canPublicize = true;
+        }
+        if ($canPublicize && $toggle) {
+            $this->togglePublicity($tickets[0]->id);
+        }
+        $publicityStatus = $this->publicRepo->getTicketPublicityStatus($tickets[0]->id)->getResults();
+        $this->payload->addData(
+            'publicityStatus',
+            $publicityStatus
+        );
+        $this->payload->addData(
+            'canPublicize',
+            $canPublicize
+        );
         $this->payload->addData(
             'tickets',
             $tickets
         );
+        if ($toggle) {
+            if ($publicityStatus->status) {
+                $this->payload->addSuccessMessage("This ticket has been marked as public.");
+            } else {
+                $this->payload->addSuccessMessage("This ticket has been marked as private.");
+            }
+        }
         $this->payload->setTemplate('tickets/single.twig');
         return $this->payload;
     }
@@ -118,6 +147,24 @@ class GetTickets extends Service
         return $this->payload;
     }
 
+    public function getPublicTicket($identifier)
+    {
+        $status = $this->publicRepo->getStatusByIdent($identifier)->getResults();
+        if (!$status || !$status->status) {
+            $this->payload->throwError(404, "This ticket could not be located");
+        }
+        $tickets = $this->ticketRepo->getTicketfromId($status->ticket)->getResults();
+        $tickets = $this->ticketFactory->buildTickets($tickets);
+        $this->payload->addData('tickets', $tickets);
+        $this->payload->addData('publicityStatus', $status);
+        $this->payload->addData('canPublicize', false);
+        //TODO: For some reason, canPublicize is working out to true in the
+        //template. This needs to be tracked down and fixed
+
+        $this->payload->setTemplate('tickets/publicticket.twig');
+        return $this->payload;
+    }
+
     private function getTicketCkeys($tickets)
     {
         foreach ($tickets as $t) {
@@ -129,5 +176,16 @@ class GetTickets extends Service
             }
         }
         return $ckeys;
+    }
+
+    private function togglePublicity(int $ticket)
+    {
+        $status = $this->publicRepo->getTicketPublicityStatus($ticket)->getResults();
+        if ($status) {
+            $newStatus = !$status->status;
+            $this->publicRepo->changeStatus($ticket, $newStatus);
+        } else {
+            $this->publicRepo->addNewPublicTicket($ticket);
+        }
     }
 }

@@ -92,11 +92,11 @@ module.exports = {
   variants: {
     extend: {
       borderRadius: ["first", "last"],
-      ringColor: ["active"],
-      ringOffsetColor: ["active"],
-      ringOffsetWidth: ["active"],
-      ringOpacity: ["active"],
-      ringWidth: ["active"],
+      ringColor: ["active", "hover"],
+      ringOffsetColor: ["active", "hover"],
+      ringOffsetWidth: ["active", "hover"],
+      ringOpacity: ["active", "hover"],
+      ringWidth: ["active", "hover"],
       typography: ["dark"],
     },
   },

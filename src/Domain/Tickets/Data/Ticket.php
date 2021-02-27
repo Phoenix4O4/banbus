@@ -12,7 +12,6 @@ class Ticket
     public $icon = "times-circle";
     public $isAction = false;
 
-
     public function __construct(
         public int $id = 0,
         public int $server_ip = 0,

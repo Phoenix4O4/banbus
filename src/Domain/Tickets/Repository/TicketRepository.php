@@ -98,4 +98,13 @@ class TicketRepository extends Database
         }
         return $this;
     }
+
+    public function getTicketFromId(int $id): self
+    {
+        $ticket = $this->db->row("SELECT 
+        `round_id` as `round`, ticket 
+        FROM ticket WHERE id = ?", $id);
+        $this->getSingleTicket($ticket->round, $ticket->ticket);
+        return $this;
+    }
 }

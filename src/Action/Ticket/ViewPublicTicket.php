@@ -7,9 +7,9 @@ use App\Responder\Responder;
 use App\Domain\Tickets\Service\GetTickets as Ticket;
 use App\Data\Payload;
 
-class ViewMySingleTicket extends Action
+class ViewPublicTicket extends Action
 {
-    public $template = 'tickets/single.twig';
+    public $template = 'tickets/mytickets.twig';
     private $ticket;
 
     public function __construct(Responder $responder, Ticket $ticket)
@@ -20,9 +20,7 @@ class ViewMySingleTicket extends Action
 
     public function action(array $args = []): Payload
     {
-        $round = (int) $args['round'];
-        $ticket = (int) $args['ticket'];
-        $toggle = ('POST' === $this->request->getMethod() ? true : false);
-        return $this->ticket->getCurrentUserTicket($round, $ticket, $toggle);
+        $identifier = $args['identifier'];
+        return $this->ticket->getPublicTicket($identifier);
     }
 }

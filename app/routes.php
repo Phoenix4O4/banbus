@@ -40,7 +40,10 @@ return function (App $app) {
     )
     ->setName("mytickets");
     $app
-    ->get(
+    ->map(
+        [
+        'GET',
+        'POST'],
         "/banbus/mytickets/{round:[0-9]+}/{ticket:[0-9]+}",
         \App\Action\Ticket\ViewMySingleTicket::class
     )
@@ -60,7 +63,7 @@ return function (App $app) {
     )
     ->setName("mymessages.single");
 
-
+    $app->get('/banbus/ticket/{identifier}', \App\Action\Ticket\ViewPublicTicket::class)->setName("publicticket");
 
     $app
     ->get("/infobus", \App\Action\Infobus\InfobusIndex::class)

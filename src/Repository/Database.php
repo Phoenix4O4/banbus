@@ -23,7 +23,7 @@ class Database extends ConnectionFactory
         $this->results = $results;
     }
 
-    public function getResults(): array|object
+    public function getResults(): array|object|null
     {
         return $this->results;
     }

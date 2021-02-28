@@ -54,26 +54,30 @@
   }
 
   table tbody tr td {
-    @apply p-2 border border-gray-300 dark:border-gray-700;
+    @apply p-2 border border-gray-300 dark:border-gray-600;
   }
 
   .autoComplete_selected {
     @apply text-blue-600 font-bold bg-gray-100;
   }
 
-  .tr-success td {
+  .tr-success td,
+  td.td-success {
     @apply text-green-900 bg-green-100 dark:bg-green-900 dark:text-green-100;
   }
 
-  .tr-info td {
+  .tr-info td,
+  td.td-info {
     @apply text-blue-900 bg-blue-100 dark:bg-blue-900 dark:text-blue-100;
   }
 
-  .tr-danger td {
+  .tr-danger td,
+  td.td-danger {
     @apply text-red-900 bg-red-100 dark:bg-red-900 dark:text-red-100;
   }
 
-  .tr-primary td {
+  .tr-primary,
+  td.td-primary td {
     @apply text-purple-900 bg-purple-100 dark:bg-purple-900 dark:text-purple-100;
   }
 

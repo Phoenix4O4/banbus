@@ -56,7 +56,7 @@ class BanRepository extends Database
     public function getBansByCkey($ckey)
     {
         foreach (
-            $this->db->run("$this->columns WHERE ckey = ? 
+            $this->db->run("$this->columns WHERE ban.ckey = ? 
         GROUP BY bantime, ckey, `server_port`
         ORDER BY bantime DESC", $ckey) as $ban
         ) {

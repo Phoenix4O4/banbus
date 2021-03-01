@@ -1,0 +1,62 @@
+name: CI
+on:
+  push:
+    branches: [test]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Run composer
+        uses: php-actions/composer@v5
+
+      - name: Set up node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "15"
+          check-latest: true
+
+      - name: Build node assets
+        run: npm install && npm run mix:prod 
+
+      - name: Delete un-needed node files
+        run: rm -rf ./node_modules/
+
+      - name: Pushing artifact to deployment server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          source: "./"
+          target: "~/staging"
+          rm: true
+
+      - name: Deploying on remote server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            echo "Stashing configuration files..."
+            sudo mv /var/www/test.atlantaned.space/banbus/app/conf /var/www/test.atlantaned.space/
+            echo "Copying files from staging..."
+            sudo rsync -aqz --delete ~/staging/ /var/www/test.atlantaned.space/banbus/
+            echo "Wiping old template configuration..."
+            sudo rm -rf /var/www/test.atlantaned.space/tmp/twig/*
+            echo "Cleaning public directory..."
+            sudo rm -rf /var/www/test.atlantaned.space/public/*
+            echo "Moving newer assets into public directory..."
+            sudo mv /var/www/test.atlantaned.space/banbus/public/* /var/www/test.atlantaned.space/public/
+            echo "Restoring configuration..."
+            sudo rm -rf /var/www/test.atlantaned.space/banbus/app/conf/
+            sudo mv /var/www/test.atlantaned.space/conf /var/www/test.atlantaned.space/banbus/app/
+            echo "Updating index script location..."
+            sudo sed -i 's/\/app/\/banbus\/app/g' /var/www/test.atlantaned.space/public/index.php
+            echo "Restoring file ownership..."
+            sudo chown -R www-data:www-data /var/www/atlantaned.space
+            echo "Done!"

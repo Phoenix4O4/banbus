@@ -55,7 +55,13 @@
             target="_blank"
             rel="noopener noreferrer"
             ><i class="fab fa-github"></i> GitHub</a
-          >
+          > {% if app.patreon %}| Support Statbus on <a
+            href="{{app.patreon}}"
+            class="link"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fab fa-patreon"></i> Patreon</a
+          >{% endif %}
         </p>
         <p class="text-gray-500 text-sm">
           {% if user %} Logged in as {{userBadge(user)}} |

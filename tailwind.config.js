@@ -98,7 +98,8 @@ module.exports = {
       ringOpacity: ["active", "hover"],
       ringWidth: ["active", "hover"],
       typography: ["dark"],
+      cursor: ["disabled"]
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
 };

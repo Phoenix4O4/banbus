@@ -19,7 +19,7 @@ class BanFactory
         $this->userFactory = $userFactory;
     }
 
-    public function buildBan(object $ban): Ban
+    public function buildBan(object $ban, ?object $appeal): Ban
     {
         $ban = Ban::fromDB($ban);
         $ban->setServer($this->mapServer($ban->getIp(), $ban->getPort()));
@@ -27,6 +27,7 @@ class BanFactory
         $ban->target = $this->userFactory->buildUser($ban->ckey, $ban->c_rank);
         $ban->admin = $this->userFactory->buildUser($ban->a_ckey, $ban->a_rank);
         $ban->unbanner = $this->userFactory->buildUser($ban->unbanned_ckey, $ban->u_rank);
+        $ban->appeal = $appeal;
 
         return $ban;
     }

@@ -1,0 +1,61 @@
+<p class="mb-4 italic">Interested in appealing this ban? Complete the form below to get started</p>
+<form class="form p-4 bg-gray-100 text-gray-600 dark:text-gray-100 dark:bg-gray-800 border border-gray-300 rounded-lg" method="POST" action="{{current_url()}}">
+  <p class="my-2">
+  <i class="fas fa-lightbulb text-yellow-400"></i>
+  Be sure to fill in the fields highlighted with a red <i class="fas fa-asterisk text-red-400"></i> on your own!
+</p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <label class="block">
+      <span>BYOND Account</span>
+      <input type="text" name="ckey" placeholder="BYOND Account" value="{{ban.target.getCkey}}" disabled>
+    </label>
+    <label class="block">
+      <span>Character Name <i class="fas fa-asterisk text-red-400"></i></span>
+      <input type="text" name="character" placeholder="Your character's name">
+    </label>
+    <label class="block">
+      <span>Ban Type</span>
+      <input type="text" name="ban_type" placeholder="What role(s) were you banned from?" value="{{ban.role}}" disabled>
+    </label>
+    <label class="block">
+      <span>Ban Length</span>
+      <input type="text" name="ban_length" placeholder="How long is your ban" value="{{ban.expiration ? ban.minutes ~ ' minutes' : 'Permanent'}}" disabled>
+    </label>
+    <label class="block">
+      <span>Ban Reason</span>
+      <input type="text" name="ban_reason" placeholder="The reason given for your ban" value="{{ban.reason}}" disabled>
+    </label>
+    <label class="block">
+      <span>Time Ban Was Placed</span>
+      <input type="text" name="ban_reason" placeholder="" value="{{ban.bantime}}" disabled>
+    </label>
+    <label class="block">
+      <span>Server The Ban Was Placed On</span>
+      <input type="text" name="ban_reason" placeholder="The reason given for your ban" value="{{ban.server.name}}" disabled>
+    </label>
+    <label class="block">
+      <span>Round ID in which the ban was placed</span>
+      <input type="text" name="ban_reason" placeholder="The reason given for your ban" value="{{ban.round}}" disabled>
+    </label>
+    <label class="block">
+      <span>Your side of the story <i class="fas fa-asterisk text-red-400"></i></span>
+      <textarea type="text" name="story" rows=5></textarea>
+      <p class="text-gray-500 text-right text-xs">You can use Markdown here!</p>
+    </label>
+    <label class="block">
+      <span>Why You Think You Should Be Unbanned <i class="fas fa-asterisk text-red-400"></i></span>
+      <textarea type="text" name="why" rows=5></textarea>
+      <p class="text-gray-500 text-right text-xs">You can use Markdown here!</p>
+    </label>
+    <label class="block">
+      <span>References of Good Conduct <i class="fas fa-asterisk text-red-400"></i></span>
+      <textarea type="text" name="refs" rows=5></textarea>
+      <p class="text-gray-500 text-right text-xs">You can use Markdown here!</p>
+    </label>
+    <label class="block">
+      <span class="block mb-3">If everything looks good...</span>
+      <button class="btn btn-success block w-full text-2xl font-bold uppercase">Begin Appeal</button>
+      <p class="mt-2">Your appeal will be submitted for review by the administration.</p>
+    </label>
+  </div>
+</form>

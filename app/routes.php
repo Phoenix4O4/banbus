@@ -25,7 +25,7 @@ return function (App $app) {
     ->get("/banbus/mybans", \App\Action\Bans\ViewMyBans::class)
     ->setName("mybans");
     $app
-    ->get("/banbus/mybans/{id:[0-9]+}", \App\Action\Bans\ViewSingleMyBan::class)
+    ->map(['GET','POST'], "/banbus/mybans/{id:[0-9]+}", \App\Action\Bans\ViewSingleMyBan::class)
     ->setName("mybans.single");
     $app
     ->get("/banbus/bans", \App\Action\Bans\ViewPublicBans::class)

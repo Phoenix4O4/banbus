@@ -11,9 +11,9 @@ use App\Domain\Bans\Factory\BanFactory;
 
 class ListBans extends Service
 {
-    private $session;
-    private $banRepository;
-    private $banFactory;
+    protected $session;
+    protected $banRepository;
+    protected $banFactory;
 
     public function __construct(Session $session, Repository $banRepository, SettingsFactory $settings, BanFactory $banFactory)
     {
@@ -41,33 +41,6 @@ class ListBans extends Service
             )
         );
         $this->payload->setTemplate('bans/mybans.twig');
-        return $this->payload;
-    }
-
-    public function getSingleBanForCurrentUser($id)
-    {
-        //Module disabled kick out
-        if (!$this->modules['personal_bans']) {
-            $this->payload->throwError(500, "This module is not enabled");
-            return $this->payload;
-        }
-
-        //Not logged in kick out
-        if (!$this->session->get('user')) {
-            $this->session->set('destination_route', 'banbus.index');
-            $this->payload->throwError(403, "You must be logged in to access this page.");
-            return $this->payload;
-        }
-        $ban = $this->banRepository->getSingleBanByCkey(
-            $this->session->get('user')->getCkey(),
-            $id
-        );
-        $ban = $this->banFactory->buildBan($ban);
-        $this->payload->setTemplate('bans/single.twig');
-        $this->payload->addData('unabaninfo', true);
-        if (!$this->payload->addData('ban', $ban)) {
-            $this->payload->throwError(404, "Ban with id $id not found");
-        }
         return $this->payload;
     }
 

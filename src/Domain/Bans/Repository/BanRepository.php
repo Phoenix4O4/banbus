@@ -107,4 +107,25 @@ class BanRepository extends Database
         }
         return $ban;
     }
+
+    public function createNewAppeal(int $ban, array $appeal)
+    {
+        $appeal['ban'] = $ban;
+        try {
+            $this->alt_db->insert('appeals', $appeal);
+        } catch (\Exception $e) {
+            if ($this->alt_db->debug) {
+                return $e->getMessage();
+            } else {
+                return "Your appeal could not be created";
+            }
+        }
+        return true;
+    }
+
+    public function checkForActiveAppeal(int $ban): self
+    {
+        $this->setResults($this->alt_db->row("SELECT * FROM appeals WHERE ban = ?", $ban));
+        return $this;
+    }
 }

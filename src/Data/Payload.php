@@ -131,6 +131,15 @@ class Payload
         ];
     }
 
+    public function addErrorMessage(string $message = "Message")
+    {
+        $this->messages[] = [
+            'type' => 'danger',
+            'color' => 'red',
+            'text' => $message
+        ];
+    }
+
     public function throwError(int $code = 500, string $message = "Error")
     {
         $this->error = true;

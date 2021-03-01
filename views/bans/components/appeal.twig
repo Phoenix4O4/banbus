@@ -1,0 +1,88 @@
+{% from 'macros/macros.twig' import userBadge %}
+<section class="relative" id="appeal">
+  <div class="panel mb-0">
+    <div class="panel-header flex justify-between">
+    <h3 class="text-xl font-bold">This ban is being actively appealed by {{userBadge(ban.target)}}</h3>
+    <span>Opened <time>{{ban.appeal.opened}}</time></span>
+    </div>
+    <div class="panel-body m-0 p-0">
+      <dl class="striped">
+        <div class="stripe">
+          <dd>Character Name</dd>
+          <dt>{{ban.appeal.character}}</dt>
+        </div>
+
+        <div class="stripe">
+          <dd>My Side of the Story</dd>
+          <dt>{{ban.appeal.story}}</dt>
+        </div>
+
+        <div class="stripe">
+          <dd>Why I Think I Should Be Unbanned</dd>
+          <dt>{{ban.appeal.why}}</dt>
+        </div>
+        <div class="stripe">
+          <dd>References of Good Behavior</dd>
+          <dt>{{ban.appeal.refs}}</dt>
+        </div>
+      </dl>
+    </div>
+    <div class="panel-footer">
+    This appeal is <strong>active</strong>. Comments are allowed by players who were present in the round, and any administrator.
+    </div>
+  </div>
+  <div class="appeal-actions-container relative mb-8">
+    <div class="border-r-8 border-gray-300 dark:border-gray-700 absolute top-0 bottom-5 z-0" style="left:21px" id="ban_action_line"></div>
+
+    <div class="ban-action text-lg flex justify-start relative z-50 pt-8 items-center">
+      <span class="fa-stack text-xl">
+        <i class="fas fa-circle fa-stack-2x text-green-500"></i>
+        <i class="fas fa-pen fa-stack-1x fa-inverse text-black"></i>
+      </span>
+      <span>{{userBadge(ban.target)}} opened this appeal <time>{{ban.appeal.opened}}</span>
+    </div>
+
+    <div class="panel mt-8 z-50 relative">
+      <div class="panel-header flex justify-between">
+        <span>{{userBadge(ban.target)}} Commented</span>
+        <span title="This comment was added by the target of this ban">Ban Target</span>
+      </div>
+      <div class="panel-body">This appeal sucks and you suck.</div>
+    </div>
+
+    <div class="panel mt-8 z-50 relative">
+      <div class="panel-header flex justify-between">
+        <span>{{userBadge(ban.target)}} Commented</span>
+        <span title="This comment was added by the target of this ban">Ban Target</span>
+      </div>
+      <div class="panel-body">This appeal sucks and you suck.</div>
+    </div>
+    
+    <div class="ban-action text-lg flex justify-start relative z-50 pt-8 items-center">
+      <span class="fa-stack text-xl">
+        <i class="fas fa-circle fa-stack-2x text-red-500"></i>
+        <i class="fas fa-lock fa-stack-1x fa-inverse text-white"></i>
+      </span>
+      <span>{{userBadge(ban.target)}} restricted new comments to administrators only</span>
+    </div>
+
+    <div class="ban-action text-lg flex justify-start relative z-50 pt-8 items-center">
+      <span class="fa-stack text-xl">
+        <i class="fas fa-circle fa-stack-2x text-green-500"></i>
+        <i class="fas fa-check fa-stack-1x fa-inverse text-white"></i>
+      </span>
+      <span>{{userBadge(ban.target)}} accepted this appeal and lifted the ban</span>
+    </div>
+
+  </div>
+  <div class="border border-gray-400 dark:border-gray-700 p-4 rounded">
+    <strong class="text-lg capitalize">You can Add a new comment</strong>
+    <form class="form">
+      <textarea name="comment" rows="5"></textarea>
+    </form>
+    <div class="flex justify-between mt-4">
+      <button class="btn btn-success">Add Comment</button>
+      <p class="text-gray-500 text-right text-xs">You can use Markdown here!</p> 
+    </div>
+  </div>
+</section>

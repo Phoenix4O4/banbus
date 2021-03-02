@@ -7,11 +7,12 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## Upcoming
+## [0.7.0] - 2021-03-01
 
 ### Added
-
-- Flag your tickets as public and generate unique links to them
+- Content-ful popovers for round links and user badges (but only for admins, sorry!)
+  - This called for a lot of additional functionality as well
+- Added support for Patreon links for reasons.
 
 ---
 

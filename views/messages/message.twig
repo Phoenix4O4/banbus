@@ -22,7 +22,7 @@
   <p class="my-4">{{m.text}}</p>
   </div>
   <div class="panel-footer text-sm flex justify-between">
-  <span>During {{roundLink(m.round)}} on {{m.server.name}}</span>
+  <span>During {{roundLink(m.round, m.server)}} on {{m.server.name}}</span>
   <span>{% include 'messages/severity.twig' %}</span>
   <span>{% if m.editor %}Last edited by {{userBadge(m.editor)}}{% endif %}</span>
   </div>

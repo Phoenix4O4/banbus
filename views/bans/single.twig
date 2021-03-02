@@ -1,6 +1,6 @@
 {% extends 'base/site.html' %}
 {% block page %}
-{% from 'macros/macros.twig' import userBadge %}
+{% from 'macros/macros.twig' import userBadge, roundLink %}
 	<p class="text-xl">#{{ban.id}}:</p>
 	<p class="text-center text-4xl">
 		<strong>{{userBadge(ban.target)}}</strong>
@@ -33,12 +33,7 @@
 			{% endif %}
 		{% endif %}
 	</p>
-	<p class="text-gray-400 my-4">This ban was placed during round
-		<a href="https://sb.atlantaned.space/rounds/{{ban.round}}" class="text-blue-400 hover:text-blue-800" target="_blank" rel="noopener noreferrer">
-			<i class="fas fa-circle"></i>
-			{{ban.round}}
-			<i class="fas fa-external-link-alt"></i>
-		</a> on {{ban.server.name}} <time>{{ban.bantime}}</time>
+	<p class="text-gray-400 my-4">This ban was placed <time>{{ban.bantime}}</time> during {{roundLink(ban.round, ban.server)}} 
 	</p>
 	<p class="text-gray-400">
 	{% if ban.logs %}

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Domain\Messages\Repository;
 
 use App\Repository\Database;
@@ -85,10 +86,20 @@ class MessageRepository extends Database
                 LEFT JOIN admin AS T ON M.targetckey = T.ckey
                 LEFT JOIN admin AS E ON M.lasteditor = E.ckey
                 WHERE M.id = ?
+                AND M.deleted = 0
                 ORDER BY M.timestamp DESC",
                 $id
             )
         );
         return $this;
+    }
+
+    public function countActiveMessagesForPlayer(string $ckey)
+    {
+        return $this->db->run("SELECT id 
+        FROM messages 
+        WHERE targetckey = ? 
+        AND ('expire_timestamp' < NOW() OR 'expire_timestamp' IS NULL) 
+        AND deleted = 0;", $ckey);
     }
 }

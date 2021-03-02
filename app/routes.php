@@ -88,12 +88,14 @@ return function (App $app) {
         ->post("/ckeysearch", \App\Action\Tgdb\CkeySuggest::class)
         ->setName("ckeysuggest");
 
+        //Player Routes
         $app
         ->get(
             "/player/{ckey:[a-z0-9@]+}",
             \App\Action\Tgdb\Player\AdminViewPlayer::class
         )
         ->setName("tgdb.player");
+
         $app
         ->get(
             "/player/{ckey:[a-z0-9@]+}/tickets[/page/{page}]",
@@ -116,7 +118,8 @@ return function (App $app) {
         ->setName("tgdb.player.bans");
 
 
-
+        //Ticket routes
+        //Single Ticket
         $app
         ->get(
             "/ticket/{round:[0-9]+}/{ticket:[0-9]+}",
@@ -124,6 +127,26 @@ return function (App $app) {
         )
         ->setName("tgdb.ticket");
 
+        //Ticket Live Feed
+        $app
+        ->get("/ticket/live/", \App\Action\Tgdb\Ticket\LiveTickets::class)
+        ->setName("tgdb.ticket.live");
+
+        //Ticket Live Feed Polling
+        $app
+        ->post("/ticket/live/poll/", \App\Action\Tgdb\Ticket\TicketFeed::class)
+        ->setName("tgdb.ticket.live.update");
+
+        //Tickets by round
+        $app
+        ->get(
+            "/ticket/{round:[0-9]+}/",
+            \App\Action\Tgdb\Ticket\ViewTicketsForRound::class
+        )
+        ->setName("tgdb.ticket.round");
+
+
+        //Ban routes
         $app
         ->get(
             "/ban/{id:[0-9]+}",
@@ -131,20 +154,13 @@ return function (App $app) {
         )
         ->setName("tgdb.ban");
 
+        //Message routes
         $app
         ->get(
             "/message/{id:[0-9]+}",
             \App\Action\Tgdb\Message\ViewSingleMessage::class
         )
         ->setName("tgdb.message");
-
-
-        $app
-        ->get("/ticket/live/", \App\Action\Tgdb\Ticket\LiveTickets::class)
-        ->setName("tgdb.ticket.live");
-        $app
-        ->post("/ticket/live/poll/", \App\Action\Tgdb\Ticket\TicketFeed::class)
-        ->setName("tgdb.ticket.live.update");
     })
     ->add(UserMiddleware::class);
 };

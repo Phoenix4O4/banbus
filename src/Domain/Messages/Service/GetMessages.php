@@ -113,6 +113,11 @@ class GetMessages extends Service
         return $this->payload;
     }
 
+    public function getPlayerMessageCount(string $ckey)
+    {
+        return $this->repo->countActiveMessagesForPlayer($ckey);
+    }
+
     private function processNote(object $note): object
     {
         $note->target = $this->user->buildUser($note->targetckey, $note->targetrank);

@@ -1,4 +1,6 @@
   {% for m in notes %}
     {% include 'messages/message.twig' with {'link': link} %}
+    {% else %}
+    <p class="text-gray-500 text-center">« No Messages »</p>
   {% endfor %}
   {% include 'messages/secret-note.twig' %}

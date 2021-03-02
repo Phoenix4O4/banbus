@@ -7,8 +7,12 @@
 {% from 'macros/macros.twig' import pagination %}
 <div class="border-b border-gray-300 dark:border-gray-700 text-2xl py-4 mb-4">Showing messages for {{ckey}}
 </div>
+{% if notes %}
 {% set url = url_for('tgdb.player.messages',{ckey:ckey}) %}
 {{pagination(pagination.pages, pagination.currentPage, url)}}
   {% include 'messages/listing.twig' with {'link': 'tgdb.message'} %}
 {{pagination(pagination.pages, pagination.currentPage, url)}}
+{% else %}
+<p class="text-gray-500 text-center">« No Messages »</p>
+{% endif %}
 {% endblock %}

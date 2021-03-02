@@ -7,8 +7,6 @@ use App\Domain\Bans\Data\Ban;
 
 class BanRepository extends Database
 {
-    private $table = 'ban';
-
     private $columns = "SELECT 
         ban.id,
         round_id as `round`,
@@ -55,6 +53,7 @@ class BanRepository extends Database
 
     public function getBansByCkey($ckey)
     {
+        $bans = [];
         foreach (
             $this->db->run("$this->columns WHERE ban.ckey = ? 
         GROUP BY bantime, ckey, `server_port`
@@ -106,5 +105,23 @@ class BanRepository extends Database
             return false;
         }
         return $ban;
+    }
+
+    public function getPlayerStanding(string $ckey): self
+    {
+        $this->setResults(
+            $this->db->run(
+                "
+                SELECT B.role, 
+                B.id,
+                B.expiration_time
+                FROM ban B
+                WHERE ckey = ?
+                AND ((B.expiration_time > NOW() AND B.unbanned_ckey IS NULL)
+                OR (B.expiration_time IS NULL AND B.unbanned_ckey IS NULL))",
+                $ckey
+            )
+        );
+        return $this;
     }
 }

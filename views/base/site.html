@@ -29,12 +29,12 @@ current_url()|split('/')[1] %}
         class="{{ wide ? '' : narrow ? 'max-w-3xl lg:max-w-4xl xl:max-w-6xl' : 'container' }} mx-auto px-4"
       >
         <nav id="global_nav" class="flex items-start justify-between">
-      {% if '' != current_subsite %}
+          {% if '' != current_subsite %}
           <a
             href="{{url_for('home')}}"
             class="link py-2 px-4 text-sm dark:bg-gray-800 bg-gray-50 border-b border-l border-r border-gray-300 dark:border-gray-700 rounded-b"
           >
-        <i class="fas fa-home"></i>
+            <i class="fas fa-home"></i>
             {{app.name}}</a
           >
           {% include [current_subsite ~ '/components/nav_inject.twig'] ignore
@@ -108,22 +108,90 @@ current_url()|split('/')[1] %}
         ts.setAttribute("title", ts.textContent);
         ts.textContent = dayjs(ts.textContent).utc().fromNow();
       });
-      tippy('[title]', {
+      tippy("[title]", {
         content(reference) {
-          const title = reference.getAttribute('title');
-          reference.removeAttribute('title');
+          const title = reference.getAttribute("title");
+          reference.removeAttribute("title");
           return title;
         },
-      })
-      tippy('.popover', {
+      });
+      tippy(".popover", {
         content(reference) {
-          const id = reference.getAttribute('data-template');
+          const id = reference.getAttribute("data-template");
           const template = document.getElementById(id);
-          template.style.display = 'block';
+          template.style.display = "block";
           return template;
         },
         allowHTML: true,
-      })
+      });
+      tippy(".roundPopover", {
+        content(reference) {
+          const id = reference.getAttribute("data-round-id");
+          const template = document.getElementById("round-" + id + "-popover");
+          template.style.display = "block";
+          return template;
+        },
+        allowHTML: true,
+        interactive: true,
+      });
+      {% if user.hasPermission('BAN') %}
+      tippy(".userPopover", {
+        content: "Loading...",
+        onCreate(instance) {
+          // Setup our own custom state properties
+          instance._isFetching = false;
+          instance._src = null;
+          instance._error = null;
+        },
+        onShow(instance) {
+          if (instance._isFetching || instance._src || instance._error) {
+            return;
+          }
+          const ckey = instance.reference.getAttribute("data-target-ckey");
+          instance._isFetching = true;
+          fetch("/tgdb/player/" + ckey + "?format=popover")
+            .then((response) => response.text())
+            .then((html) => {
+              parser = new DOMParser();
+              html = parser.parseFromString(html, 'text/html')
+              const timestamps = html.querySelectorAll("time");
+              timestamps.forEach(function (ts) {
+                ts.setAttribute("title", ts.textContent);
+                ts.textContent = dayjs(ts.textContent).utc().fromNow();
+              });
+              console.log(html)
+              instance.setContent(html.body.outerHTML)
+            })
+            .catch((error) => {
+              instance._error = error;
+              instance.setContent(`Request failed. ${error}`);
+            })
+            .finally(() => {
+              instance._isFetching = false;
+            });
+        },
+        onHidden(instance) {
+          instance.setContent("Loading...");
+          // Unset these properties so new network requests can be initiated
+          instance._src = null;
+          instance._error = null;
+        },
+        allowHTML: true,
+        interactive: true,
+        {% if debug %}
+        hideOnClick: 'toggle',
+        trigger: 'click',
+        {% endif %}
+      });
+      {% else %}
+      tippy("[data-rank]", {
+        content(reference) {
+          const title = reference.getAttribute("data-rank");
+          reference.removeAttribute("data-rank");
+          return title;
+        },
+      });
+      {% endif %}
     </script>
     {% block script %} {% endblock %}
   </body>

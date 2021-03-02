@@ -40,6 +40,10 @@
     @apply text-blue-500 opacity-80 cursor-not-allowed;
   }
 
+  .tippy-content .link {
+    @apply text-blue-100 hover:text-blue-300;
+  }
+
   .xdebug-var-dump {
     @apply overflow-x-auto;
   }

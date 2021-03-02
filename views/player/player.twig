@@ -5,8 +5,8 @@
 {% endblock %}
 {% block page %}
 	{% from 'macros/macros.twig' import userBadge %}
-	<div class="flex items-center">
-	<h2 class="text-2xl inline pr-3">{{userBadge(player.userData)}}</h2>
+	<div class="flex items-center mb-4">
+	<h2 class="text-2xl inline">{{userBadge(player.userData)}}</h2>
 	<span>Last seen
 		<time>{{player.lastseen}}</time>
 		|
@@ -21,24 +21,36 @@
 		<a class="link" href="https://scrubby.melonmesa.com/ckey/{{player.ckey}}" target="_blank" rel="noopener noreferrer">
 			<i class="fas fa-external-link-alt"></i>
 			Scrubby</a>
+		| 
+		<a class="link" href="https://centcom.melonmesa.com/viewer/view/{{player.ckey}}" target="_blank" rel="noopener noreferrer">
+		<i class="fas fa-external-link-alt"></i>
+		CentCom</a>
+		</span>
 	</div>
-		<hr class="border-gray-300 dark:border-gray-700 mb-3 mt-2">
 		<nav class="grid md:grid-cols-4 gap-2">
-			<a href="{{url_for('tgdb.player.tickets',{ckey: player.ckey})}}" class="link hover:bg-gray-50 dark:hover:bg-gray-800 p-3 border border-gray-300 dark:border-gray-700 rounded-lg text-center font-bold flex items-center justify-between">
+			<a href="{{url_for('tgdb.player.tickets',{ckey: player.ckey})}}" class="small-nav-btn">
 				<span>Tickets</span>
 				<i class="fas fa-ticket-alt"></i>
 			</a>
-			<a href="{{url_for('tgdb.player.messages',{ckey: player.ckey})}}" class="link hover:bg-gray-50 dark:hover:bg-gray-800 p-3 border border-gray-300 dark:border-gray-700 rounded-lg text-center font-bold flex items-center justify-between">
-				<span>Messages</span>
+			<a href="{{url_for('tgdb.player.messages',{ckey: player.ckey})}}" class="small-nav-btn">
+				<span>Messages ({{player.messages|length}})</span>
 				<i class="fas fa-envelope-open-text"></i>
 			</a>
-			<a href="{{url_for('tgdb.player.bans',{ckey: player.ckey})}}" class="link hover:bg-gray-50 dark:hover:bg-gray-800 p-3 border border-gray-300 dark:border-gray-700 rounded-lg text-center font-bold flex items-center justify-between">
-				<span>Bans</span>
+			<a href="{{url_for('tgdb.player.bans',{ckey: player.ckey})}}" class="small-nav-btn {% switch player.standing.class %}
+				{% case 'perma' %}
+				text-pink-900 bg-pink-300
+				{% case 'danger' %}
+				text-red-900 bg-red-300
+				{% default %}
+				text-green-900 bg-green-300
+				{% endswitch %}">
+				<span>Bans ({{player.standing.bans|length}} active)</span>
 				<i class="fas fa-ban"></i>
 			</a>
-			<a class="link:disabled p-3 border border-gray-300 dark:border-gray-700 rounded-lg text-center font-bold flex items-center justify-between">
+			<a class="small-nav-btn">
 				<span>Rounds</span>
 				<i class="fas fa-circle"></i>
 			</a>
 		</nav>
+		{{dump(player.standing)}}
 	{% endblock %}

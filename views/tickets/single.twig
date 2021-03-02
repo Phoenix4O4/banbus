@@ -4,11 +4,9 @@
 	{{app.version}}
 {% endblock %}
 {% block page %}
-<div class="text-2xl py-4">Ticket #{{tickets[0].ticket}} from <a href="https://sb.atlantaned.space/rounds/{{tickets[0].round}}" class="text-blue-400 hover:text-blue-800" target="_blank" rel="noopener noreferrer">
-			<i class="fas fa-circle"></i>
-			{{tickets[0].round}}
-			<i class="fas fa-external-link-alt"></i>
-		</a>
+{% from 'macros/macros.twig' import roundLink %}
+
+<div class="text-2xl py-4">Ticket #{{tickets[0].ticket}} from {{roundLink(tickets[0].round, tickets[0].server)}}
 </div>
 <hr class="mb-4">
 <div class="flex flex-col relative">

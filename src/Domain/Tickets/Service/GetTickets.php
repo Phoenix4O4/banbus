@@ -12,8 +12,8 @@ use App\Domain\User\Data\User;
 
 class GetTickets extends Service
 {
-    private $currentUser;
-    private $ticketFactory;
+    protected $currentUser;
+    protected $ticketFactory;
 
     public function __construct(
         Session $session,

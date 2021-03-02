@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use App\Domain\Bans\Repository\BanRepository as Repository;
 use App\Factory\SettingsFactory;
 use App\Domain\Bans\Factory\BanFactory;
+use stdClass;
 
 class ListBans extends Service
 {
@@ -64,7 +65,7 @@ class ListBans extends Service
         );
         $ban = $this->banFactory->buildBan($ban);
         $this->payload->setTemplate('bans/single.twig');
-        $this->payload->addData('unabaninfo', true);
+        $this->payload->addData('unbaninfo', true);
         if (!$this->payload->addData('ban', $ban)) {
             $this->payload->throwError(404, "Ban with id $id not found");
         }
@@ -116,7 +117,8 @@ class ListBans extends Service
             'bans',
             $this->banRepository->getBansByCkey($ckey, $page)
         );
-        $this->payload->setTemplate('bans/bans.twig');
+        $this->payload->addData('ckey', $ckey);
+        $this->payload->setTemplate('bans/tgdblistbans.twig');
         return $this->payload;
     }
 
@@ -131,5 +133,28 @@ class ListBans extends Service
         $this->payload->setTemplate('bans/single.twig');
 
         return $this->payload;
+    }
+
+    public function isPlayerBanned($ckey)
+    {
+        $standing = new stdClass();
+        $standing->bans = $this->banRepository->getPlayerStanding($ckey)->getResults();
+        if (!$standing->bans) {
+            $standing->class = 'success';
+            $standing->text  = 'Not Banned';
+            return $standing;
+        }
+
+        foreach ($standing->bans as $b) {
+            $b->perm = (isset($b->expiration_time)) ? false : true;
+        }
+        if ($b->perm && 'Server' === $b->role) {
+            $standing->class = 'perma';
+            $standing->text = 'Permabanned';
+        } else {
+            $standing->class = 'danger';
+            $standing->text = 'Active Bans';
+        }
+        return $standing;
     }
 }

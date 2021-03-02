@@ -1,0 +1,56 @@
+<span style="background: {{player.userData.rank.backColor}}; color: {{player.userData.rank.foreColor}}" class="block text-center py-1 font-bold"><i class="fas fa-{{player.userData.rank.icon}}"></i> {{player.ckey}}</span>
+<span class="font-bold text-center block
+	  {% switch player.standing.class %}
+	  {% case 'perma' %}
+	  text-pink-900 bg-pink-300 uppercase
+	  {% case 'danger' %}
+	  text-red-900 bg-red-300 uppercase
+    {% default %}
+    text-green-900 bg-green-300
+	  {% endswitch %}
+	  ">{{player.standing.text}}</span>
+<hr class="my-2">
+<dl class="grid grid-cols-2 gap-x-1 text-xs mb-2">
+  <dt>Rank</dt>
+  <dd class="text-right">{{player.userData.rank.title}}</dd>
+
+  <dt>Account Created</dt>
+  <dd class="text-right"><time>{{player.accountjoindate}}</time></dd>
+
+  <dt>First Seen</dt>
+  <dd class="text-right"><time>{{player.firstseen}}</time></dd>
+
+  <dt>Last Seen</dt>
+  <dd class="text-right"><time>{{player.lastseen}}</time></dd>
+</dl>
+<a href="{{url_for('tgdb.player',{ckey: player.ckey})}}" class="link px-3 py-1 border border-gray-300 rounded text-center font-bold flex items-center justify-between mb-1 hover:bg-gray-900">
+	<span>Player Page</span>
+	<i class="fas fa-house-user"></i>
+</a>
+<a href="{{url_for('tgdb.player.tickets',{ckey: player.ckey})}}" class="link px-3 py-1 border border-gray-300 rounded text-center font-bold flex items-center justify-between mb-1 hover:bg-gray-900">
+	<span>Tickets</span>
+	<i class="fas fa-ticket-alt"></i>
+</a>
+<a href="{{url_for('tgdb.player.messages',{ckey: player.ckey})}}" class="link px-3 py-1 border border-gray-300 rounded text-center font-bold flex items-center justify-between mb-1 hover:bg-gray-900">
+	<span>Messages ({{player.messages|length}})</span>
+	<i class="fas fa-envelope-open-text"></i>
+</a>
+<a href="{{url_for('tgdb.player.bans',{ckey: player.ckey})}}" class="link px-3 py-1 border border-gray-300 rounded text-center font-bold flex items-center justify-between mb-1 hover:bg-gray-900">
+	<span>Bans ({{player.standing.bans|length}})</span>
+	<i class="fas fa-ban"></i>
+</a>
+<hr class="my-2">
+<span class="text-xs my-2 grid grid-cols-2">
+	<a class="link" href="http://www.byond.com/members/{{player.ckey}}" target="_blank" rel="noopener noreferrer">
+		<i class="fas fa-external-link-alt"></i>
+		Byond</a>
+	<a class="link" href="https://tgstation13.org/tgdb/playerdetails.php?ckey={{player.ckey}}" target="_blank" rel="noopener noreferrer">
+		<i class="fas fa-external-link-alt"></i>
+		tgdb</a>
+	<a class="link" href="https://scrubby.melonmesa.com/ckey/{{player.ckey}}" target="_blank" rel="noopener noreferrer">
+		<i class="fas fa-external-link-alt"></i>
+		Scrubby</a>
+  <a class="link" href="https://centcom.melonmesa.com/viewer/view/{{player.ckey}}" target="_blank" rel="noopener noreferrer">
+		<i class="fas fa-external-link-alt"></i>
+		CentCom</a>
+</span>

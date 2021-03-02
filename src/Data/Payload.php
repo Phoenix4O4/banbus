@@ -34,9 +34,10 @@ class Payload
         return $this->redirect;
     }
 
-    public function setRouteRedirect(string $route)
+    public function setRouteRedirect(string $route, ?array $args = [])
     {
         $this->routeRedirect = $route;
+        $this->addData('args', $args);
     }
 
     public function getRouteRedirect()

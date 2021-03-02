@@ -15,8 +15,12 @@ class ListBans extends Service
     protected $banRepository;
     protected $banFactory;
 
-    public function __construct(Session $session, Repository $banRepository, SettingsFactory $settings, BanFactory $banFactory)
-    {
+    public function __construct(
+        Session $session,
+        Repository $banRepository,
+        SettingsFactory $settings,
+        BanFactory $banFactory
+    ) {
         $this->session = $session;
         $this->banRepository = $banRepository;
         $this->payload = new Payload();

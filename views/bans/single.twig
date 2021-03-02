@@ -53,21 +53,14 @@
 	<p class="text-gray-400 my-4"><strong>Head's Up!</strong> This ban applies to multiple roles. The following bans are grouped into this ban: {{ban.banIds}}</p>
 	{% endif %}
 
-	{% if unbaninfo %}
-	<hr class="my-4 border-gray-300 dark:border-gray-700">
 	{% if not ban.appeal %}
-	{% include 'bans/components/unban_form.twig' %}
+		{% if unbaninfo %}
+			<hr class="my-4 border-gray-300 dark:border-gray-700">
+			{% include 'bans/components/unban_form.twig' %}
+		{% endif %}
 	{% else %}
-	{% include 'bans/components/appeal.twig' %}
+		{% include 'bans/components/appeal.twig' %}
 	{% endif %}
-	<p class="text-gray-500 text-xs mt-4 mb-2"><strong><i class="fas fa-hand-point-right"></i> Please be advised that:</strong></p>
-	<ul class="pl-2">
-		<li class="text-gray-500 text-xs mb-2">All dates and times are in UTC</li>
-		<li class="text-gray-500 text-xs mb-2">Banbus does not show bans by any criteria other than which ckey they are attached to. Banbus can not pull up bans that are attached solely to an IP address. Please consult an in-game administrator if a ban affecting you is not shown on Banbus.</li>
-		<li class="text-gray-500 text-xs mb-2">Not all bans are placed during the round in which the bannable offense occurred. The correct round ID is usually noted in the banning reason.</li>
-		<li class="text-gray-500 text-xs mb-2">Your account information is not retained by Banbus, except ephemerally as needed by the webserver in order to facilitate app functionality. This data is linked to your browser via a cookie.</li>
-	</ul>
-{% endif %}
 {% if not unbaninfo %}
 <h2 class="border-b border-gray-300 dark:border-gray-700 pb-4 my-4 text-3xl font-bold">Edits</h2>
 <section id="edits" class="edits mb-4 border-b border-gray-300 dark:border-gray-700 pb-4">
@@ -78,8 +71,10 @@
 {% endfor %}
 </section>
 {% endif %}
-{% if ban.appeal %}
-	{% include 'bans/components/appeal.twig' %}
-	{% endif %}
-
+<p class="text-gray-500 text-xs mt-4 mb-2"><strong><i class="fas fa-hand-point-right"></i> Please be advised that:</strong></p>
+<ul class="pl-2">
+	<li class="text-gray-500 text-xs mb-2">All dates and times are in UTC</li>
+	<li class="text-gray-500 text-xs mb-2">Banbus does not show bans by any criteria other than which ckey they are attached to. Banbus can not pull up bans that are attached solely to an IP address. Please consult an in-game administrator if a ban affecting you is not shown on Banbus.</li>
+	<li class="text-gray-500 text-xs mb-2">Not all bans are placed during the round in which the bannable offense occurred. The correct round ID is usually noted in the banning reason.</li>
+</ul>
 {% endblock %}

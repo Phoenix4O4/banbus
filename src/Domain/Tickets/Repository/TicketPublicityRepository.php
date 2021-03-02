@@ -3,7 +3,6 @@
 namespace App\Domain\Tickets\Repository;
 
 use App\Repository\Database;
-use PDO;
 
 class TicketPublicityRepository extends Database
 {

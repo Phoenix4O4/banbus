@@ -12,17 +12,3 @@ mix
       ]
     }
   )
-
-
-
-// mix.postCss("assets/css/style.css", "public/assets/css", [
-//   require("postcss-import"),
-//   require("tailwindcss")("./tailwind.config.js"),
-//   require("autoprefixer"),
-//   purgecss({
-//     content: [
-//       "./views/**/*.{twig,html}",
-//       "./assets/**/*.{vue,js,ts,jsx,tsx}",
-//     ],
-//   }),
-// ]);

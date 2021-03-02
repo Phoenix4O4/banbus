@@ -19,7 +19,7 @@ class BanFactory
         $this->userFactory = $userFactory;
     }
 
-    public function buildBan(object $ban, ?object $appeal): Ban
+    public function buildBan(object $ban, ?object $appeal = null): Ban
     {
         $ban = Ban::fromDB($ban);
         $ban->setServer($this->mapServer($ban->getIp(), $ban->getPort()));

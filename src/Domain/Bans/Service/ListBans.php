@@ -96,7 +96,9 @@ class ListBans extends Service
     public function getSingleBan(int $id)
     {
         $ban = $this->banRepository->getBanById($id);
-        $ban = $this->banFactory->buildBan($ban);
+        $appeal = $this->banRepository->checkForActiveAppeal($ban->id)->getResults();
+        $ban = $this->banFactory->buildBan($ban, $appeal);
+
         $this->payload->addData(
             'ban',
             $ban

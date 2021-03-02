@@ -52,6 +52,7 @@
 	{% if ban.roleBans %}
 	<p class="text-gray-400 my-4"><strong>Head's Up!</strong> This ban applies to multiple roles. The following bans are grouped into this ban: {{ban.banIds}}</p>
 	{% endif %}
+
 	{% if unbaninfo %}
 	<hr class="my-4 border-gray-300 dark:border-gray-700">
 	{% if not ban.appeal %}
@@ -69,7 +70,7 @@
 {% endif %}
 {% if not unbaninfo %}
 <h2 class="border-b border-gray-300 dark:border-gray-700 pb-4 my-4 text-3xl font-bold">Edits</h2>
-<section id="edits" class="edits">
+<section id="edits" class="edits mb-4 border-b border-gray-300 dark:border-gray-700 pb-4">
 {% for edit in ban.edits %}
 <p class="block mb-4">{{edit|raw}}</p>
 {% else %}
@@ -77,4 +78,8 @@
 {% endfor %}
 </section>
 {% endif %}
+{% if ban.appeal %}
+	{% include 'bans/components/appeal.twig' %}
+	{% endif %}
+
 {% endblock %}

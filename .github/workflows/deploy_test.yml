@@ -57,6 +57,8 @@ jobs:
             sudo mv /var/www/test.atlantaned.space/conf /var/www/test.atlantaned.space/banbus/app/
             echo "Updating index script location..."
             sudo sed -i 's/\/app/\/banbus\/app/g' /var/www/test.atlantaned.space/public/index.php
+            echo "Creating tmp directory"
+            sudo mkdir -p /var/www/test.atlantaned.space/banbus/tmp/twig
             echo "Restoring file ownership..."
-            sudo chown -R www-data:www-data /var/www/atlantaned.space
+            sudo chown -R www-data:www-data /var/www/test.atlantaned.space
             echo "Done!"

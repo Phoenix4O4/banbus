@@ -14,7 +14,7 @@
         v-on:change="changeServer"
         class="rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 mr-2"
       >
-        <option value="all">All servers</option>
+        <option value="all">All Servers</option>
         <option v-for="s in servers" v-bind:key="s.port" :value="s.port">
           {{ s.servername }}
         </option>
@@ -143,7 +143,7 @@ export default {
         body: JSON.stringify({
           lastId: this.lastId,
           newTickets: this.newTickets,
-          server: this.server,
+          server: this.server, //TODO: #5 Do filtering clientside
         }),
       })
         .then((res) => res.json())

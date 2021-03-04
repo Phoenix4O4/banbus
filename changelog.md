@@ -7,6 +7,13 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.7.1] - 2021-03-04
+
+### Added
+- Live ticket feed for admins can now filter for ticket actions from a specific server
+
+---
+
 ## [0.7.0] - 2021-03-01
 
 ### Added

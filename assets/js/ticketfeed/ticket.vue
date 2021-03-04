@@ -10,6 +10,15 @@
         <input type="checkbox" v-on:click="toggleNewTickets" />
         <span class="mx-2 whitespace-nowrap">Only Show New Tickets</span>
       </label>
+      <select
+        v-on:change="changeServer"
+        class="rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 mr-2"
+      >
+        <option value="all">All servers</option>
+        <option v-for="s in servers" v-bind:key="s.port" :value="s.port">
+          {{ s.servername }}
+        </option>
+      </select>
       <button
         v-on:click="mute"
         class="bg-green-600 text-white block w-full p-2 text-xl font-bold hover:bg-green-400 rounded"
@@ -69,6 +78,7 @@
 <script>
 const initialTicketUrl = "?json=true";
 const pollUrl = "/tgdb/ticket/live/poll/?json=true";
+const serverUrl = "/servers/";
 import userBadge from "./../common/userBadge.vue";
 import gameLink from "./../common/gameLink.vue";
 
@@ -87,6 +97,8 @@ export default {
         text: "Checking for new tickets...",
       },
       newTickets: false,
+      servers: [],
+      server: "all",
     };
   },
   methods: {
@@ -113,6 +125,13 @@ export default {
           this.tickets = res.tickets;
         });
     },
+    fetchServerList() {
+      fetch(serverUrl)
+        .then((res) => res.json())
+        .then((res) => {
+          this.servers = res.servers;
+        });
+    },
     pollForTickets() {
       this.changeMessage("Checking for new tickets...");
       this.lastId = document.getElementsByClassName("ticket")[0].id;
@@ -124,11 +143,12 @@ export default {
         body: JSON.stringify({
           lastId: this.lastId,
           newTickets: this.newTickets,
+          server: this.server,
         }),
       })
         .then((res) => res.json())
         .then((res) => {
-          if (0 < res.tickets.length) {
+          if (res.tickets && 0 < res.tickets.length) {
             this.bwoink();
           }
           this.tickets = [...res.tickets, ...this.tickets];
@@ -147,11 +167,25 @@ export default {
         text: m,
       };
     },
+    changeServer(event) {
+      this.server = event.target.value;
+      if ("all" === this.server) {
+        this.changeMessage(`Polling for tickets on all servers`);
+        return;
+      }
+      var server = this.servers.filter((obj) => {
+        return obj.port == this.server;
+      })[0];
+      console.log(server);
+
+      this.changeMessage(`Only polling for tickets from ${server.servername}`);
+    },
   },
   //https://developers.google.com/web/updates/2012/01/Web-Audio-FAQ#q_i%E2%80%99ve_made_an_awesome_web_audio_api_application_but_whenever_the_tab_its_running_in_goes_in_the_background_sounds_go_all_weird
   // mounted() -> setInterval() {runs in the same context as setTimeout, async) -> pollForTickets() [async] -> bwoink() -> new Audio().play()
   mounted() {
     this.fetchInitialTickets();
+    this.fetchServerList();
     this.interval = setInterval(
       function () {
         this.pollForTickets();

@@ -35,13 +35,17 @@ class LatestTicketRepository extends Database
         return $this;
     }
 
-    public function getTicketsSinceId(int $id, ?string $type = null)
+    public function getTicketsSinceId(int $id, ?string $type = null, ?int $server = null)
     {
         $args[] = $id;
         $and = null;
         if ($type) {
-            $and = "AND t.action = ?";
+            $and .= "AND t.action = ? ";
             $args[] = $type;
+        }
+        if ($server) {
+            $and .= "AND t.server_port = ? ";
+            $args[] = $server;
         }
         $this->setResults(
             $this->db->run(

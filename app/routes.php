@@ -80,6 +80,8 @@ return function (App $app) {
 
     $app->get("/ticket/{identifier}", \App\Action\Ticket\ViewPublicTicket::class);
 
+    $app->get("/servers/", \App\Action\Servers\GetServers::class);
+
     $app
     ->group("/tgdb", function (RouteCollectorProxy $app) {
         $app->get("", \App\Action\Tgdb\Index::class)->setName("tgdb");

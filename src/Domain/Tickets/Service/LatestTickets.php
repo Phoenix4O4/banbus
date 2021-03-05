@@ -32,13 +32,9 @@ class LatestTickets extends Service
         );
         return $this->payload;
     }
-    public function pollForNewTickets(int $id, bool $newTicketsOnly = false, ?int $server = null)
+    public function pollForNewTickets(int $id)
     {
-        $type = null;
-        if ($newTicketsOnly) {
-            $type = 'Ticket Opened';
-        }
-        $tickets = $this->ticketRepo->getTicketsSinceId($id, $type, $server)->getResults();
+        $tickets = $this->ticketRepo->getTicketsSinceId($id)->getResults();
         $tickets = $this->ticketFactory->buildTickets($tickets);
         $this->payload->addData(
             'tickets',

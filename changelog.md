@@ -7,6 +7,11 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.7.2] - 2021-03-05
+
+### Changed
+- Live ticket feed filtering is now done client-side, and is more robust, allowing admins to better specify which servers to poll from.
+
 ## [0.7.1] - 2021-03-04
 
 ### Added

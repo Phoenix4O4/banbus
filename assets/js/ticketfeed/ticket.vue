@@ -10,15 +10,12 @@
         <input type="checkbox" v-on:click="toggleNewTickets" />
         <span class="mx-2 whitespace-nowrap">Only Show New Tickets</span>
       </label>
-      <select
-        v-on:change="changeServer"
-        class="rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 mr-2"
-      >
-        <option value="all">All Servers</option>
-        <option v-for="s in servers" v-bind:key="s.port" :value="s.port">
-          {{ s.servername }}
-        </option>
-      </select>
+      <label class="inline-flex items-center">
+        <input type="checkbox" v-on:click="toggleNoAdmins" />
+        <span class="mx-2 whitespace-nowrap"
+          >Only Show Actions From Servers Without Any Admins</span
+        >
+      </label>
       <button
         v-on:click="mute"
         class="bg-green-600 text-white block w-full p-2 text-xl font-bold hover:bg-green-400 rounded"
@@ -30,11 +27,62 @@
         {{ muted ? "Unmute Sound" : "Mute Sound" }}
       </button>
     </div>
+    <div class="grid grid-cols-3 gap-2 mx-auto">
+      <span
+        v-for="(s, server) in servers"
+        v-bind:key="s.serverdata.port"
+        @click="toggleServer(server)"
+        class="alert flex justify-between items-center"
+        :class="{
+          'alert-success': '0' === s.gamestate,
+          'alert-success': 1 === s.gamestate,
+          'alert-info': 2 === s.gamestate,
+          'alert-info': 3 === s.gamestate,
+          'alert-danger': 4 === s.gamestate,
+          'alert-danger': s.error,
+          'opacity-50': !s.toggled,
+        }"
+        ><span
+          >{{ s.serverdata.servername }}
+          <span v-if="!s.error"
+            >(<i class="fas fa-user" title="Players"></i> {{ s.players }},
+            <i class="fas fa-user-shield" title="Admins"></i>
+            {{ s.admins }})
+            {{ moment.utc(s.round_duration * 1000).format("HH:mm:ss") }}</span
+          ><br />
+          <span v-if="'idle' != s.shuttle_mode && s.shuttle_mode"
+            ><i class="fas fa-rocket" title="Shuttle Status"></i>
+            {{ moment.utc(s.shuttle_timer * 1000).format("HH:mm:ss") }} -
+            <span class="capitalize">{{ s.shuttle_mode }}</span></span
+          >
+        </span>
+        <span>
+          <i
+            v-if="s.hub"
+            class="fas fa-globe pr-2"
+            tite="Server is On The Hub"
+          ></i>
+          <span v-if="s.security_level">
+            <i
+              class="fas fa-circle"
+              tite="Security Level"
+              :class="{
+                'text-danger': 'red' === s.security_level,
+                'text-info': 'blue' === s.security_level,
+                'text-success': 'green' === s.security_level,
+                'text-yellow-400 animate-ping': 'delta' === s.security_level,
+              }"
+            ></i>
+          </span>
+        </span>
+      </span>
+    </div>
     <p class="text-xs text-gray-300 text-center mb-4">{{ messages.text }}</p>
     <dl
       v-for="t in tickets"
       :key="t.id"
       :id="t.id"
+      :class="{ hidden: t.hide }"
       class="flex mb-4 pb-4 border-b border-gray-300 dark:border-gray-700 ticket added transition"
     >
       <dt
@@ -48,7 +96,7 @@
           >#{{ t.round }}-{{ t.ticket }}</a
         >
         <span class="block text-gray-500 text-xs"
-          ><time>{{ t.timestamp || moment("from") }}</time> <br />on
+          ><time>{{ moment.utc(t.timestamp).fromNow() }}</time> <br />on
           <gameLink :server="t.server"></gameLink>
         </span>
       </dt>
@@ -78,9 +126,10 @@
 <script>
 const initialTicketUrl = "?json=true";
 const pollUrl = "/tgdb/ticket/live/poll/?json=true";
-const serverUrl = "/servers/";
+const serverUrl = "https://tgstation13.org/dynamicimages/serverinfo.json";
 import userBadge from "./../common/userBadge.vue";
 import gameLink from "./../common/gameLink.vue";
+import moment from "moment";
 
 export default {
   components: {
@@ -97,8 +146,10 @@ export default {
         text: "Checking for new tickets...",
       },
       newTickets: false,
+      noAdmins: false,
       servers: [],
-      server: "all",
+      toggledServers: [],
+      canBwoink: false,
     };
   },
   methods: {
@@ -111,6 +162,22 @@ export default {
         this.changeMessage("Only polling for newly opened tickets");
       } else {
         this.changeMessage("Polling for all ticket actions");
+      }
+    },
+    toggleNoAdmins() {
+      this.noAdmins = !this.noAdmins;
+      if (this.noAdmins) {
+        this.changeMessage(
+          "Only polling for actions from servers without any admins"
+        );
+        for (const [key, value] of Object.entries(this.servers)) {
+          if (value.admins > 0 && value.admins) {
+            this.toggleServer(key);
+          }
+        }
+      } else {
+        this.unToggleServers();
+        this.changeMessage("Polling for actions from all servers");
       }
     },
     fetchInitialTickets() {
@@ -129,7 +196,21 @@ export default {
       fetch(serverUrl)
         .then((res) => res.json())
         .then((res) => {
-          this.servers = res.servers;
+          delete res.refreshtime;
+          for (const [key, value] of Object.entries(res)) {
+            res[key].toggled = true;
+            if (this.noAdmins) {
+              if (value.admins > 0 && value.admins) {
+                res[key].toggled = false;
+              } else {
+                res[key].toggled = true;
+              }
+            }
+            if (this.toggledServers[key]) {
+              res[key].toggled = false;
+            }
+          }
+          this.servers = res;
         });
     },
     pollForTickets() {
@@ -142,13 +223,33 @@ export default {
         },
         body: JSON.stringify({
           lastId: this.lastId,
-          newTickets: this.newTickets,
-          server: this.server, //TODO: #5 Do filtering clientside
         }),
       })
         .then((res) => res.json())
         .then((res) => {
-          if (res.tickets && 0 < res.tickets.length) {
+          this.canBwoink = false;
+          for (const [k, v] of Object.entries(res.tickets)) {
+            for (const [key, value] of Object.entries(this.servers)) {
+              if (v.server.port == value.serverdata.port) {
+                if (!value.toggled) {
+                  v.hide = true;
+                  console.log(
+                    `This is a ticket for ${value.serverdata.servername}, but this server is not toggled so we are hiding this ticket`
+                  );
+                } else {
+                  this.canBwoink = true;
+                }
+              }
+            }
+            if (this.newTickets && "Ticket Opened" != v.action) {
+              v.hide = true;
+              this.canBwoink = false;
+              console.log(
+                `Only polling for new tickets. This is not a new ticket, so we are hiding it.`
+              );
+            }
+          }
+          if (this.canBwoink) {
             this.bwoink();
           }
           this.tickets = [...res.tickets, ...this.tickets];
@@ -168,17 +269,35 @@ export default {
       };
     },
     changeServer(event) {
-      this.server = event.target.value;
-      if ("all" === this.server) {
+      var value = event.target.value;
+      if ("all" === value) {
         this.changeMessage(`Polling for tickets on all servers`);
+        this.server.serverdata.port = null;
         return;
       }
-      var server = this.servers.filter((obj) => {
-        return obj.port == this.server;
-      })[0];
-      console.log(server);
-
-      this.changeMessage(`Only polling for tickets from ${server.servername}`);
+      console.log(value);
+      this.server = this.servers[value];
+      this.changeMessage(
+        `Only polling for tickets from ${this.server.serverdata.servername}`
+      );
+    },
+    toggleServer(server) {
+      this.servers[server].toggled = !this.servers[server].toggled;
+      this.toggledServers[server] = !this.toggledServers[server];
+      if (true === this.toggledServers[server]) {
+        this.changeMessage(`Hiding new actions from ${server}`);
+      } else {
+        this.changeMessage(`Showing new actions from ${server}`);
+      }
+    },
+    unToggleServers() {
+      this.toggledServers = [];
+      for (const [key, value] of Object.entries(this.servers)) {
+        this.servers[key].toggled = true;
+      }
+    },
+    roundDuration(duration) {
+      return duration;
     },
   },
   //https://developers.google.com/web/updates/2012/01/Web-Audio-FAQ#q_i%E2%80%99ve_made_an_awesome_web_audio_api_application_but_whenever_the_tab_its_running_in_goes_in_the_background_sounds_go_all_weird
@@ -188,10 +307,14 @@ export default {
     this.fetchServerList();
     this.interval = setInterval(
       function () {
+        this.fetchServerList();
         this.pollForTickets();
       }.bind(this),
       10000
     );
+  },
+  created: function () {
+    this.moment = moment;
   },
 };
 </script>

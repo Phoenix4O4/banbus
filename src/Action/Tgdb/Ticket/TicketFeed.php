@@ -21,12 +21,6 @@ class TicketFeed extends Action
     {
         $args = $this->request->getParsedBody();
         $id = (int) $args['lastId'];
-        $type = (bool) $args['newTickets'];
-        if ('all' === $args['server']) {
-            $server = null;
-        } else {
-            $server = (int) $args['server'];
-        }
-        return $this->ticket->pollForNewTickets($id, $type, $server);
+        return $this->ticket->pollForNewTickets($id);
     }
 }

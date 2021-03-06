@@ -26,16 +26,12 @@
 
 <script>
 export default {
-  props: {
-    stat: {
-      required: false,
-    },
-    stats: {
-      required: false,
-    },
-    round: {
-      required: false,
-    },
+  data() {
+    return {
+      stats: [],
+      round: this.$route.params.round,
+      stat: null,
+    };
   },
   methods: {
     fetchStatList() {

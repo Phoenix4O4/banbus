@@ -1,0 +1,10 @@
+{% extends 'base/site_sidebar.html' %}
+{% block content %}
+<main id="main" class="flex min-h-screen overflow-hidden">
+<router-view name="sidebar"></router-view>
+<router-view name="statview"></router-view>
+</main>
+{% endblock %}
+{% block script %}
+	<script src="/assets/js/stats.js?{{app.version}}"></script>
+{% endblock %}

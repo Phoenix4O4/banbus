@@ -329,7 +329,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="css">
 @keyframes added {
   from {
     background: #fff9c4;

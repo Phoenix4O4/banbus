@@ -24,15 +24,15 @@
   }
 
   .alert.alert-success {
-    @apply border-green-400 bg-green-200 text-green-800 dark:border-green-700 dark:bg-green-700 dark:text-green-100;
+    @apply border-green-400 bg-green-200 text-green-800 dark:border-green-500 dark:bg-green-700 dark:text-green-100;
   }
 
   .alert.alert-info {
-    @apply border-blue-400 bg-blue-200 text-blue-800 dark:border-blue-700 dark:bg-blue-700 dark:text-blue-100;
+    @apply border-blue-400 bg-blue-200 text-blue-800 dark:border-blue-500 dark:bg-blue-700 dark:text-blue-100;
   }
 
   .alert.alert-danger {
-    @apply border-red-400 bg-red-200 text-red-800 dark:border-red-700 dark:bg-red-700 dark:text-red-100;
+    @apply border-red-400 bg-red-200 text-red-800 dark:border-red-500 dark:bg-red-700 dark:text-red-100;
   }
 
   .big-nav-btn {

@@ -6,18 +6,21 @@ use App\Domain\Tickets\Data\Ticket;
 use App\Factory\SettingsFactory;
 use App\Domain\User\Factory\UserFactory;
 use App\Domain\Servers\Data\Server;
+use App\Utilities\HTMLFactory;
 
 class TicketFactory
 {
     private $servers;
     private $userFactory;
+    private $purifier;
 
     private $lastTimestamp = null;
 
-    public function __construct(SettingsFactory $settings, UserFactory $userFactory)
+    public function __construct(SettingsFactory $settings, UserFactory $userFactory, HTMLFactory $purifier)
     {
         $this->servers = $settings->getSettingsByKey('servers');
         $this->userFactory = $userFactory;
+        $this->purifier = $purifier;
     }
 
     public function buildTicket(object $ticket): Ticket
@@ -30,6 +33,7 @@ class TicketFactory
             $ticket->recipient = $this->userFactory->buildUser($ticket->r_ckey, $ticket->r_rank);
         }
         $ticket->server = Server::fromJson($this->mapServer($ticket->server_ip, $ticket->port));
+        $ticket->message = $this->purifier->sanitizeString($ticket->message);
         return $ticket;
     }
     public function buildTickets(array $tickets)

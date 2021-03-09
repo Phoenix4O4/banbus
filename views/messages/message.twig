@@ -19,7 +19,7 @@
   </div>
 
   <div class="panel-body">
-  <p class="my-4">{{m.text}}</p>
+  <p class="my-4">{{m.text|raw}}</p>
   </div>
   <div class="panel-footer text-sm flex justify-between">
   <span>During {{roundLink(m.round, m.server)}} on {{m.server.name}}</span>

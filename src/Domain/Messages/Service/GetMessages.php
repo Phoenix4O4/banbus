@@ -9,20 +9,23 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use App\Domain\User\Factory\UserFactory;
 use App\Domain\Servers\Data\Server;
 use App\Data\Payload;
+use App\Utilities\HTMLFactory;
 
 class GetMessages extends Service
 {
     private $repo;
     private $session;
     private $user;
+    private $purifier;
 
-    public function __construct(SettingsFactory $settings, Session $session, MessageRepository $repo, UserFactory $user)
+    public function __construct(SettingsFactory $settings, Session $session, MessageRepository $repo, UserFactory $user, HTMLFactory $purifier)
     {
         parent::__construct($settings);
         $this->session = $session;
         $this->repo = $repo;
         $this->user = $user;
         $this->servers = $settings->getSettingsByKey('servers');
+        $this->purifier = $purifier;
     }
 
     public function getMessagesForCurrentUser(int $page = 1): Payload
@@ -128,6 +131,8 @@ class GetMessages extends Service
             $note->editor = false;
         }
         $note->server = Server::fromJson($this->mapServer($note->server_ip, $note->server_port));
+        $note->text = $this->purifier->sanitizeString($note->text);
+        $note->edits = $this->purifier->sanitizeString($note->edits);
         return $note;
     }
 }

@@ -49,8 +49,8 @@
 		text-blue-500
 		{% endswitch %}"></i> 
     {% include 'tickets/components/ticket_header.twig' %}
-    </div>
-    <div class="panel-body">{{ticket.message}}</div>
+    </a>
+    <div class="panel-body">{{ticket.message|raw}}</div>
 
 	</div>
   {% endif %}

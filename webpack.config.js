@@ -1,16 +1,25 @@
 const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const isProductionMode = process.env.NODE_ENV === "production";
+
 module.exports = {
+  mode: isProductionMode ? "production" : "development",
   entry: {
-    test: "./vue/main.js",
     ticketFeed: "./vue/ticketfeed/feed.js",
     stats: "./vue/stats/main.js",
+    tailwind: "./assets/css/style.css"
   },
   output: {
-    path: path.resolve(__dirname, "public/assets/js"),
-    filename: "[name].js",
+    path: path.resolve(__dirname, "public/assets/"),
+    filename: "js/[name].js",
   },
-  plugins: [new VueLoaderPlugin()],
+  plugins: [
+    new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "css/style.css",
+    }),
+  ],
   resolve: {
     alias: {
       vue: "vue/dist/vue.esm-bundler.js",
@@ -32,23 +41,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        oneOf: [
-          {
-            resourceQuery: /module/,
-            use: [
-              "vue-style-loader",
-              {
-                loader: "css-loader",
-                options: {
-                  modules: true,
-                  localIdentName: "[local]_[hash:base64:8]",
-                },
-              },
-            ],
-          },
-          {
-            use: ["vue-style-loader", "css-loader"],
-          },
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
         ],
       },
     ],

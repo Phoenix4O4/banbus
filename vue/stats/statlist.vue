@@ -1,12 +1,9 @@
 <template>
   <aside
     id="sidebar"
-    class="flex-shrink-0 border-r border-gray-300 dark:border-gray-700 w-64 min-h-screen dark:bg-gray-800 overflow-x-hidden overflow-y-scroll py-4"
+    class="flex-shrink-0 border-r border-gray-300 dark:border-gray-700 w-64 min-h-screen max-h-screen dark:bg-gray-800 overflow-x-hidden overflow-y-scroll py-4"
   >
-    <h2
-      v-if="stats && round"
-      class="text-center block font-bold text-xl mb-4 dark:bg-gray-700"
-    >
+    <h2 v-if="stats && round" class="text-center block font-bold text-xl mb-4">
       <small class="text-sm block">Available Stats For </small>
       <i class="fas fa-circle"></i> {{ round }}
     </h2>
@@ -36,7 +33,7 @@ export default {
   methods: {
     fetchStatList() {
       fetch(
-        `http://localhost/round/${this.$route.params.round}/stats/listing`,
+        `http://localhost/round/${this.$route.params.round}/stat/listing?json=true`,
         {
           method: "GET",
           headers: {
@@ -46,13 +43,12 @@ export default {
       )
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
           this.stats = res.stats;
         });
     },
-    created() {
-      this.fetchStatList();
-    },
+  },
+  created() {
+    this.fetchStatList();
   },
 };
 </script>

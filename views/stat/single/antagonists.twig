@@ -1,0 +1,29 @@
+{% set fail = 0 %}
+{% set sucess = 0 %}
+{% for antag in stat.json %}
+  <div class="panel mb-4" id="{{loop.index}}">
+    <a href="#{{loop.index}}" class="block panel-header"><span class="badge badge-info">{{antag.antagonist_name}}</span> {{antag.name}}<small class="text-xs">/{{antag.key}}</small></a>
+    <div class="panel-body p-0 m-0">
+    <dl class="striped">
+      {% for o in antag.objectives %}
+      <div class="flex items-center p-3">
+        <dt class="w-1/4">
+        {% if 'FAIL' == o.result %}
+        {% set fail = fail + 1 %}
+            <span class="badge badge-danger">Failed</span>
+        {% else %}
+        {% set success = success + 1 %}
+            <span class="badge badge-success">Success</span>
+        {% endif %}
+        </dt>
+        <dd class="w-3/4">
+          <strong>{{o.text|striptags}}</strong><br>
+          <small class="dark:text-gray-400">{{o.objective_type}}</small>
+        </dd>
+      </div>
+      {% endfor %}
+
+    </dl>
+  </div>
+  </div>
+{% endfor %}

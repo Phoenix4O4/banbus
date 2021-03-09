@@ -83,6 +83,24 @@ return function (App $app) {
     $app->get("/servers/", \App\Action\Servers\GetServers::class);
 
     $app
+    ->group("/round", function (RouteCollectorProxy $app) {
+        $app->get("", \App\Action\Home\Home::class)->setName("rounds");
+
+        $app
+        ->get(
+            "/{id:[0-9]+}/stat",
+            \App\Action\Round\Stats\Stats::class
+        )
+        ->setName("round.stats");
+
+        $app
+        ->get(
+            "/{id:[0-9]+}/stat/{stat:[a-zA-z_]+}",
+            \App\Action\Round\Stats\GetRoundStat::class
+        )
+        ->setName("round.stat");
+    });
+    $app
     ->group("/tgdb", function (RouteCollectorProxy $app) {
         $app->get("", \App\Action\Tgdb\Index::class)->setName("tgdb");
 

@@ -7,7 +7,6 @@ module.exports = {
   mode: isProductionMode ? "production" : "development",
   entry: {
     ticketFeed: "./vue/ticketfeed/feed.js",
-    stats: "./vue/stats/main.js",
     tailwind: "./assets/css/style.css"
   },
   output: {

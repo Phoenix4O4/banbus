@@ -20,7 +20,7 @@ jobs:
           check-latest: true
 
       - name: Build node assets
-        run: npm install && npm run mix:prod 
+        run: npm install && NODE_ENV=production npm run build:prod
 
       - name: Delete un-needed node files
         run: rm -rf ./node_modules/

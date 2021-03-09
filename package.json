@@ -21,6 +21,8 @@
   },
   "scripts": {
     "mix:prod": "mix --production",
+    "build:dev": "webpack --mode development",
+    "build:prod": "webpack --mode production",
     "mix:dev": "mix"
   },
   "devDependencies": {

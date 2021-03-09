@@ -7,16 +7,16 @@
     @apply rounded-sm px-1 py-0.5 mr-1 whitespace-nowrap font-bold relative;
   }
   .badge-danger {
-    @apply bg-red-600 text-white;
+    @apply bg-red-600 dark:bg-red-700 text-white;
   }
   .badge-warning {
-    @apply bg-yellow-400 text-white;
+    @apply bg-yellow-400 dark:bg-yellow-700 text-white;
   }
   .badge-info {
-    @apply bg-blue-400 text-white;
+    @apply bg-blue-400 dark:bg-blue-700 text-white;
   }
   .badge-success {
-    @apply bg-green-400 text-white;
+    @apply bg-green-400 dark:bg-green-700 text-white;
   }
 
   .alert {
@@ -75,7 +75,7 @@
   }
 
   table tbody tr td {
-    @apply p-2 border border-gray-300 dark:border-gray-600;
+    @apply p-2 border border-gray-300 dark:border-gray-700;
   }
 
   .autoComplete_selected {
@@ -134,6 +134,10 @@
     @apply mx-5 py-2;
   }
 
+  .panel:target {
+    @apply ring-4 ring-indigo-300;
+  }
+
   .pagination a{
     @apply px-3 py-2 text-blue-400 border-blue-400 border border-collapse hover:bg-blue-400 hover:text-white text-lg;
   }
@@ -165,5 +169,45 @@
   .edits hr:last-child {
     @apply: hidden;
   }
+
+  dl.striped div:nth-child(odd){
+    @apply bg-gray-50 dark:bg-gray-700;
+  }
+
+  .panel dl.striped div:last-child {
+    @apply rounded-b;
+  }
+
+  @keyframes added {
+  from {
+    background: #fff9c4;
+  }
+
+  to {
+    background: transparent;
+  }
+}
+.added {
+  background: #fff9c4;
+  animation-name: added;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+.delta-mode {
+  animation: panic 2s ease-in-out infinite;
+}
+@keyframes panic {
+  60%,
+  80% {
+    box-shadow: 0px 0px 5px 2px #f00, inset 0px 0px 5px 2px #f00;
+    border-color: #f00;
+  }
+  0%,
+  50%,
+  70%,
+  100% {
+    box-shadow: none;
+  }
+}
   
 }

@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project loosely adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+---
+
+## [0.8.0] - 2021-03-08
+
+### Added
+- Preliminary new stat pages!
+
+### Changed
+- Added some HTML sanitization in a few places where user generated content hit the browser. 
+- A lot of behind the scenes stuff for how the CSS and javascript files are built
+- Direct links to invididual ticket actions (click on the ticket heading)
 
 ---
 
@@ -11,6 +22,8 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ### Changed
 - Live ticket feed filtering is now done client-side, and is more robust, allowing admins to better specify which servers to poll from.
+
+---
 
 ## [0.7.1] - 2021-03-04
 

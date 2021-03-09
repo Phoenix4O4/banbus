@@ -1,0 +1,23 @@
+<table>
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>High</th>
+      <th>Medium</th>
+      <th>Low</th>
+      <th>Never</th>
+      <th>Banned</th>
+      <th>Young</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for job, prefs in stat.json %}
+    <tr>
+      <td>{{job}}</td>
+      {% for p in prefs %}
+        <td class="text-center">{{p}}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

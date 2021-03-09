@@ -41,6 +41,7 @@
           'alert-danger': 4 === s.gamestate,
           'alert-danger': s.error,
           'opacity-50': !s.toggled,
+          'delta-mode alert-danger': 'delta' == s.security_level,
         }"
         ><span
           >{{ s.serverdata.servername }}
@@ -105,8 +106,17 @@
           class="whitespace-nowrap border-b border-gray-300 dark:border-gray-700 pb-2"
         >
           <i
-            class="fa fa-fw pr-3"
-            :class="['fa-' + t.icon, 'text-' + t.class]"
+            class="fa pr-1"
+            :class="{
+              'fa-ticket-alt text-blue-400': 'Ticket Opened' === t.action,
+              'fa-reply text-yellow-400': 'Reply' === t.action,
+              'fa-check-circle text-green-400': 'Resolved' === t.action,
+              'fa-undo text-red-400': 'Rejected' === t.action,
+              'fa-times-circle text-red-400': 'Closed' === t.action,
+              'fa-gavel text-purple-400': 'IC Issue' === t.action,
+              'fa-window-close text-gray-400': 'Disconnected' === t.action,
+              'fa-network-wired text-purple-400': 'Reconnected' === t.action,
+            }"
           ></i>
           <span> {{ t.action }} by </span>
           <userBadge v-if="t.sender" :user="t.sender" :key="t.id"></userBadge>
@@ -318,21 +328,3 @@ export default {
   },
 };
 </script>
-
-<style>
-@keyframes added {
-  from {
-    background: #fff9c4;
-  }
-
-  to {
-    background: transparent;
-  }
-}
-.added {
-  background: #fff9c4;
-  animation-name: added;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-}
-</style>

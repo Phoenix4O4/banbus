@@ -1,0 +1,73 @@
+<div class="flex">
+  <dl class="striped w-3/5">
+    {% for key, value in stat.json %}
+    <div class="grid grid-cols-2 items-center">
+      <dt class="font-bold p-2 overflow-ellipsis overflow-hidden	">{{key|title}}</dt>
+      <dd class="tabular-nums p-2">{{value}}</dd>
+    </div>
+    {% endfor %}
+  </dl>
+
+  <div class="w-2/5">
+    <canvas id="statChart"></canvas>
+  </div>
+</div>
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"
+  integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA=="
+  crossorigin="anonymous"></script>
+
+  <script>
+
+  const colorScheme = [
+    "#25CCF7","#FD7272","#54a0ff","#00d2d3",
+    "#1abc9c","#2ecc71","#3498db","#9b59b6","#34495e",
+    "#16a085","#27ae60","#2980b9","#8e44ad","#2c3e50",
+    "#f1c40f","#e67e22","#e74c3c","#ecf0f1","#95a5a6",
+    "#f39c12","#d35400","#c0392b","#bdc3c7","#7f8c8d",
+    "#55efc4","#81ecec","#74b9ff","#a29bfe","#dfe6e9",
+    "#00b894","#00cec9","#0984e3","#6c5ce7","#ffeaa7",
+    "#fab1a0","#ff7675","#fd79a8","#fdcb6e","#e17055",
+    "#d63031","#feca57","#5f27cd","#54a0ff","#01a3a4"
+  ]
+  function getColors(arr){
+    colors = []
+    for (let i = arr.length; i < 0; i--) {
+      colors.push(colorScheme[i + 1]);
+    }
+    return colors;
+  }
+  const statData = [{{stat.json|json_encode|raw}}][0]
+  var config = {
+			type: 'pie',
+			data: {
+        datasets: [{
+          data: Object.values(statData),
+          labels: Object.keys(statData),
+          backgroundColor: [
+            "#25CCF7","#FD7272","#54a0ff","#00d2d3",
+            "#1abc9c","#2ecc71","#3498db","#9b59b6","#34495e",
+            "#16a085","#27ae60","#2980b9","#8e44ad","#2c3e50",
+            "#f1c40f","#e67e22","#e74c3c","#ecf0f1","#95a5a6",
+            "#f39c12","#d35400","#c0392b","#bdc3c7","#7f8c8d",
+            "#55efc4","#81ecec","#74b9ff","#a29bfe","#dfe6e9",
+            "#00b894","#00cec9","#0984e3","#6c5ce7","#ffeaa7",
+            "#fab1a0","#ff7675","#fd79a8","#fdcb6e","#e17055",
+            "#d63031","#feca57","#5f27cd","#54a0ff","#01a3a4"
+          ],
+        }],
+        labels: Object.keys(statData)
+      },
+      options: {
+					responsive: true,
+					legend: {
+            display: false,
+						position: 'top',
+					},
+				}
+		};
+  var ctx = document.getElementById('statChart').getContext('2d');
+  var chart = new Chart(ctx, config);
+    </script>
+{% endblock %}
+{{dump(stat.json)}}

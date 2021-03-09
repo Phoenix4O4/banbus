@@ -1,8 +1,9 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+const plugin = require("tailwindcss/plugin");
 
 module.exports = {
   purge: {
-    content: ["./views/**/*.{twig,html}", "./assets/**/*.{vue,js,ts,jsx,tsx}"],
+    content: ["./views/**/*.{twig,html}", "./vue/**/*.{vue,js,ts,jsx,tsx}"],
   },
   darkMode: "media", // or 'media' or 'class'
   theme: {
@@ -92,13 +93,22 @@ module.exports = {
   variants: {
     extend: {
       borderRadius: ["first", "last"],
-      ringColor: ["active", "hover"],
-      ringOffsetColor: ["active", "hover"],
-      ringOffsetWidth: ["active", "hover"],
-      ringOpacity: ["active", "hover"],
-      ringWidth: ["active", "hover"],
+      ringColor: ["active", "hover", "target"],
+      ringOffsetColor: ["active", "hover", "target"],
+      ringOffsetWidth: ["active", "hover", "target"],
+      ringOpacity: ["active", "hover", "target"],
+      ringWidth: ["active", "hover", "target"],
       typography: ["dark"],
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    plugin(function ({ addVariant, e }) {
+      addVariant("target", ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `.${e(`target${separator}${className}`)}:target`;
+        });
+      });
+    }),
+  ],
 };

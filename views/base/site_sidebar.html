@@ -1,0 +1,7 @@
+{% include 'base/components/head_tag.html' %}
+{% set current_subsite = current_url()|split('/')[1] %}
+<main id="main" class="flex">
+    {% block content %} {% endblock %}
+    {% block script %} {% endblock %}
+</main>
+{% include 'base/components/footer_tag.html' %}

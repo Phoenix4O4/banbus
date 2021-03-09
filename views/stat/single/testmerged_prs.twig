@@ -1,0 +1,6 @@
+{% if stat is iterable %}
+  {% set stat = stat[0] %}
+{% endif %}
+{% for data in stat.json %}
+  <a class="link" href="https://github.com/tgstation/tgstation/pull/{{data.number}}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> {{data.title}} by {{data.author}}</a>
+{% endfor %}

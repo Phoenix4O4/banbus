@@ -1,0 +1,22 @@
+{% for parent, items in stat.json %}
+
+<div class="panel">
+  <h4 class="panel-header">{{parent}} Damage</h4>
+  <div class="panel-body p-0 m-0">
+    <dl class="striped">
+      {% for item, count in items %}
+      <div class="flex items-center p-3 justify-between">
+        <dt>
+          {{item}}
+        </dt>
+        <dd class="tabular-nums">
+        {{count}}
+        </dd>
+      </div>
+      {% endfor %}
+    </dl>
+  </div>
+</div>
+{% endfor %}
+
+{{dump()}}

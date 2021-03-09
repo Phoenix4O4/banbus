@@ -328,37 +328,3 @@ export default {
   },
 };
 </script>
-
-<style>
-@keyframes added {
-  from {
-    background: #fff9c4;
-  }
-
-  to {
-    background: transparent;
-  }
-}
-.added {
-  background: #fff9c4;
-  animation-name: added;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-}
-.delta-mode {
-  animation: panic 2s ease-in-out infinite;
-}
-@keyframes panic {
-  60%,
-  80% {
-    box-shadow: 0px 0px 5px 2px #f00, inset 0px 0px 5px 2px #f00;
-    border-color: #f00;
-  }
-  0%,
-  50%,
-  70%,
-  100% {
-    box-shadow: none;
-  }
-}
-</style>

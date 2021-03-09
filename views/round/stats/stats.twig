@@ -1,0 +1,35 @@
+{% extends 'base/site_sidebar.html' %}
+{% block content %}
+<aside
+    id="sidebar"
+    class="flex-shrink-0 border-r border-gray-300 dark:border-gray-700 w-64 min-h-screen dark:bg-gray-800 overflow-x-hidden overflow-y-scroll py-4"
+  >
+    <h2 class="text-center block font-bold text-xl mb-4">
+      <small class="text-sm block">Available Stats For </small>
+      <i class="fas fa-circle"></i> {{ round }}
+    </h2>
+    <ul class="font-mono text-sm">
+			{% for s in stats %}
+      <li>
+        <a href="{{url_for('round.stat',{id: round, stat: s.key_name})}}"
+          class="px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-500 block transition-colors	duration-75"
+          >{{ s.key_name }}</a>
+      </li>
+			{% endfor %}
+    </ul>
+</aside>
+<section class="flex-grow p-4">
+		{% if not stat %}
+			<p class="text-center text-gray-500 pt-8">Select a statistic to view</p>
+		{% else %}
+			{% include 'stat/components/header.twig' %}
+			{% include [
+				'stat/single/' ~ stat.key_name ~'-' ~ stat.version ~'.twig', 
+				'stat/single/' ~ stat.key_name ~'.twig',
+				'stat/type/' ~ stat.key_type ~'.twig', 
+				'stat/generic.twig'
+			] %}
+		{% endif %}
+
+  </section>
+{% endblock %}

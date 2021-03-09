@@ -1,20 +1,13 @@
-const purgecss = require("@fullhuman/postcss-purgecss");
-const cssnano = require("cssnano");
+const isProductionMode = process.env.NODE_ENV === "production";
 
-const purgeCSSOptions = {
-  content: ["./views/**/*.twig", "./views/**/*.html", './assets/js/**/*.vue'],
-  defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
+module.exports = {
+  plugins: [
+    require("postcss-import"),
+    require("tailwindcss"),
+    require("autoprefixer"),
+    isProductionMode ? 
+    require("cssnano")({
+      preset: "default",
+    }) : null,
+  ],
 };
-// module.exports = {
-//   plugins: [
-//     require("postcss-import"),
-//     require("tailwindcss"),
-//     process.env.NODE_ENV === "production" ? require("autoprefixer") : null,
-//     process.env.NODE_ENV === "production"
-//       ? cssnano({ preset: "default" })
-//       : null,
-//     process.env.NODE_ENV === "production"
-//       ? purgecss(purgeCSSOptions)
-//       : null,
-//   ],
-// };

@@ -15,7 +15,7 @@
 {% if ticket.isAction %}
 {% include 'tickets/components/action.twig' %}
 {% else %}
-	<div class="panel {% switch ticket.class %}
+	<div id="{{ticket.id}}" class="panel {% switch ticket.class %}
 		{% case 'success' %}
 		border-green-500
 		{% case 'warning' %}
@@ -27,7 +27,8 @@
     {% case 'secondary' %}
 		border-black
 		{% endswitch %}">
-  <div class="panel-header {% switch ticket.class %} 
+  <a href="#{{ticket.id}}"
+	class="block panel-header {% switch ticket.class %} 
 		{% case 'success' %}
 		border-green-500
 		{% case 'warning' %}

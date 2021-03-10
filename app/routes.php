@@ -78,13 +78,21 @@ return function (App $app) {
     )
     ->setName("adminlogs");
 
+    $app
+    ->get(
+        "/infobus/serverpop",
+        \App\Action\Infobus\ServerPop::class
+    )
+    ->setName("serverpop");
+
+
     $app->get("/ticket/{identifier}", \App\Action\Ticket\ViewPublicTicket::class);
 
     $app->get("/servers/", \App\Action\Servers\GetServers::class);
 
     $app
     ->group("/round", function (RouteCollectorProxy $app) {
-        $app->get("", \App\Action\Home\Home::class)->setName("rounds");
+        $app->get("", \App\Action\Round\Listing::class)->setName("rounds");
 
         $app
         ->get(

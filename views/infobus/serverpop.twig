@@ -1,0 +1,92 @@
+{% extends 'base/site.html' %}
+{% block page %}
+<div class="chart-container" class="w-full">
+    <canvas id="popchart"></canvas>
+</div>
+{% endblock %}
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"
+  integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA=="
+  crossorigin="anonymous"></script>
+<script>
+  function hashCode(str) {
+    return '' + Array.from(str)
+      .reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0)
+  }
+fetch("?json=true", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res.pop)
+      sets = []
+      for([key, server] of Object.entries(res.pop.servers)){
+        sets.push({
+          data: server.players,
+          label: key + ' Players',
+          fill: false,
+          backgroundColor: '#'+server.playercolor,
+          borderColor: '#'+server.playercolor,
+          yAxisID: 'player-axis'
+        })
+        sets.push({
+          data: server.admins,
+          label: key + ' Admins',
+          fill: false,
+          backgroundColor: '#'+server.admincolor,
+          borderColor: '#'+server.admincolor,
+          yAxisID: 'admin-axis',
+          type: 'bar',
+        })
+      }
+      dates = []
+      for([key, date] of Object.entries(res.pop.dates)){
+        dates.push(date)
+      }
+      config = {
+        type: 'line',
+        data: {
+          labels: dates,
+          datasets: 
+            sets
+        },
+        options: {
+          responsive: true,
+          tooltips: {
+            mode: 'index',
+            intersect: false,
+          },
+          hover: {
+            mode: 'nearest',
+            intersect: true
+          },
+          scales: {
+						yAxes: [{
+							display: true,
+							position: 'left',
+							id: 'player-axis',
+              stacked: true,
+						}, {
+							display: true,
+							position: 'right',
+							id: 'admin-axis',
+              stacked: false,
+						}],
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: 'day'
+                }
+            }]
+					}
+        }
+      };
+      var ctx = document.getElementById('popchart').getContext('2d');
+      var chart = new Chart(ctx, config);
+    });
+</script>
+
+{% endblock %}

@@ -20,6 +20,8 @@ class Payload
 
     protected $returnAsJson = false;
 
+    public $jsonOptions = 0;
+
     public function __construct()
     {
     }
@@ -87,8 +89,11 @@ class Payload
         return $this->error_template;
     }
 
-    public function setTemplate(string $template)
+    public function setTemplate(string $template, bool $wide = false)
     {
+        if ($wide) {
+            $this->addData('wide', true);
+        }
         $this->template = $template;
     }
 

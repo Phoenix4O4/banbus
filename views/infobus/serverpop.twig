@@ -1,7 +1,10 @@
 {% extends 'base/site.html' %}
 {% block page %}
-<div class="chart-container" class="w-full">
-    <canvas id="popchart"></canvas>
+<div class="chart-container w-1/2">
+    <canvas id="playerchart"></canvas>
+</div>
+<div class="chart-container w-1/2">
+    <canvas id="adminchart"></canvas>
 </div>
 {% endblock %}
 {% block script %}
@@ -22,6 +25,7 @@ fetch("?json=true", {
     .then((res) => res.json())
     .then((res) => {
       console.log(res.pop)
+      player = []
       sets = []
       for([key, server] of Object.entries(res.pop.servers)){
         sets.push({
@@ -30,7 +34,7 @@ fetch("?json=true", {
           fill: false,
           backgroundColor: '#'+server.playercolor,
           borderColor: '#'+server.playercolor,
-          yAxisID: 'player-axis'
+          yAxisID: 'player-axis',
         })
         sets.push({
           data: server.admins,
@@ -39,7 +43,6 @@ fetch("?json=true", {
           backgroundColor: '#'+server.admincolor,
           borderColor: '#'+server.admincolor,
           yAxisID: 'admin-axis',
-          type: 'bar',
         })
       }
       dates = []
@@ -47,45 +50,41 @@ fetch("?json=true", {
         dates.push(date)
       }
       config = {
-        type: 'line',
+        type: 'radar',
         data: {
           labels: dates,
-          datasets: 
-            sets
+          datasets: sets
         },
         options: {
           responsive: true,
           tooltips: {
-            mode: 'index',
-            intersect: false,
-          },
-          hover: {
-            mode: 'nearest',
-            intersect: true
-          },
+						position: 'nearest',
+						intersect: false,
+            callbacks: {
+                title: function() {return false},
+                afterLabel: function(tooltipItem, data) {
+                  console.log(tooltipItem)
+                    return 'at ' + data.labels[tooltipItem.index] + ' UTC';
+                }
+            }
+					},
           scales: {
 						yAxes: [{
-							display: true,
+							display: false,
 							position: 'left',
 							id: 'player-axis',
-              stacked: true,
 						}, {
-							display: true,
-							position: 'right',
+              display: false,
 							id: 'admin-axis',
-              stacked: false,
+              type: 'linear',
 						}],
-            xAxes: [{
-                type: 'time',
-                time: {
-                    unit: 'day'
-                }
-            }]
 					}
         }
       };
-      var ctx = document.getElementById('popchart').getContext('2d');
+      var ctx = document.getElementById('playerchart').getContext('2d');
       var chart = new Chart(ctx, config);
+
+
     });
 </script>
 

@@ -8,11 +8,12 @@ class ServerPopulationRepository extends Database
 {
     public function fetchServerPopulationData()
     {
-        return $this->db->run("SELECT playercount, admincount, server_ip, server_port, round_id,
-            DATE_FORMAT(`time`, '%Y-%m-%d %H:00:00') AS `date`
-            FROM legacy_population
-            WHERE `time` BETWEEN NOW() - INTERVAL 30 DAY AND NOW()
-            GROUP BY server_port, HOUR(`time`), DAY(`time`), MONTH(`time`), YEAR(`time`)
-            ORDER BY `time` DESC;");
+        return $this->db->run("SELECT avg(playercount) as playercount, avg(admincount) as admincount,
+        DATE_FORMAT(`time`, '%H:00:00') AS `date`,
+        server_ip, server_port
+        FROM legacy_population
+        WHERE `time` BETWEEN NOW() - INTERVAL 30 DAY AND NOW()
+        GROUP BY server_port, HOUR(`time`)
+        ORDER BY HOUR(`time`);");
     }
 }

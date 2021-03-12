@@ -132,7 +132,9 @@ class GetMessages extends Service
         }
         $note->server = Server::fromJson($this->mapServer($note->server_ip, $note->server_port));
         $note->text = $this->purifier->sanitizeString($note->text);
-        $note->edits = $this->purifier->sanitizeString($note->edits);
+        if (isset($note->edits)) {
+            $note->edits = $this->purifier->sanitizeString($note->edits);
+        }
         return $note;
     }
 }

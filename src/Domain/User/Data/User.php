@@ -52,4 +52,9 @@ class User
         }
         return $this->permissions[$permission];
     }
+
+    public function setFeedback($link)
+    {
+        $this->feedback = $link;
+    }
 }

@@ -189,6 +189,15 @@ return function (App $app) {
             \App\Action\Tgdb\Message\ViewSingleMessage::class
         )
         ->setName("tgdb.message");
+        
+        //Feedback Updater
+        $app
+        ->map(
+            ['GET','POST'],
+            "/feedback",
+            \App\Action\Tgdb\Feedback::class
+        )
+        ->setName("tgdb.feedback");
     })
     ->add(UserMiddleware::class);
 };

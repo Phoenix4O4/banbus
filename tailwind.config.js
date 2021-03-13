@@ -103,6 +103,7 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/typography"),
+    require("@tailwindcss/forms"),
     plugin(function ({ addVariant, e }) {
       addVariant("target", ({ modifySelectors, separator }) => {
         modifySelectors(({ className }) => {

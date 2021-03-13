@@ -6,7 +6,6 @@ use App\Service\Service;
 use App\Provider\ExternalAuth;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Data\Payload;
-use App\Domain\User\Data\User;
 use App\Domain\User\Repository\UserRepository as CurrentUser;
 use App\Factory\SettingsFactory;
 use App\Domain\User\Factory\UserFactory;
@@ -79,7 +78,8 @@ class Authenticate extends Service
         $user = $this->userFactory->BuildUser(
             $response->byond_ckey,
             $userData->rank,
-            $userData->flags
+            $userData->flags,
+            $userData->feedback
         );
         $this->payload->addData('user', $user);
         $this->session->set('user', $user);

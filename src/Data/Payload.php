@@ -136,7 +136,7 @@ class Payload
         ];
     }
 
-    public function throwError(int $code = 500, string $message = "Error")
+    public function throwError(int $code = 500, string $message = "Error", ?string $template = null)
     {
         $this->error = true;
         $this->statusCode = $code;
@@ -145,6 +145,10 @@ class Payload
             'color' => 'red',
             'text' => $message
         ];
-        $this->setTemplate($this->getErrorTemplate());
+        if (!$template) {
+            $this->setTemplate($this->getErrorTemplate());
+        } else {
+            $this->setTemplate($template);
+        }
     }
 }

@@ -166,13 +166,7 @@ final class Responder
         if (isset($_GET['json']) || $payload->isJson()) {
             return $this->withJson($response, $payload->getData(), JSON_PRETTY_PRINT);
         }
-        if (isset($this->template)) {
-            $template = $this->template;
-        } elseif ($payload->hasError()) {
-            $template = $payload->getErrorTemplate();
-        } else {
-            $template = $payload->getTemplate();
-        }
+        $template = $payload->getTemplate();
         return $this->withTemplate($response, $template, $payload->getData(), $payload->getStatusCode());
     }
 }

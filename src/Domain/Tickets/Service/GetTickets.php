@@ -60,6 +60,7 @@ class GetTickets extends Service
     {
         if (!$this->currentUser) {
             $this->payload->throwError(403, "You do not have permission to view this");
+            return $this->payload;
         } else {
             $ckey = $this->currentUser->getCkey();
         }
@@ -67,6 +68,7 @@ class GetTickets extends Service
         $tickets = $this->ticketFactory->buildTickets($tickets);
         if (!$tickets) {
             $this->payload->throwError(403, "You do not have permission to view this");
+            return $this->payload;
         }
         //This is kind of a hacky workaround, but we don't get a list of tickets
         //anywhere else until here really.
@@ -76,6 +78,7 @@ class GetTickets extends Service
         //employ here, so this will become a TODO: Replace with SQL
         if (!in_array($ckey, $this->getTicketCkeys($tickets))) {
             $this->payload->throwError(403, "You do not have permission to view this");
+            return $this->payload;
         }
         $canPublicize = false;
         if (!$tickets[0]->recipient && $ckey === $tickets[0]->sender->getCkey()) {

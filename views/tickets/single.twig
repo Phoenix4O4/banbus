@@ -65,6 +65,8 @@
 		</div>
 	{% endif %}
 	<form class="flex items-center" method="POST" action="{{current_url()}}">
+		<input type="hidden" name="{{csrf.keys.name}}" value="{{csrf.name}}">
+    <input type="hidden" name="{{csrf.keys.value}}" value="{{csrf.value}}">
 	{% if canPublicize %}
 	{% if publicityStatus.status %}
 		<button class="btn btn-danger"><i class="fas fa-times pr-2"></i> Mark Private</button>

@@ -47,6 +47,7 @@ return function (App $app) {
         "/banbus/mytickets/{round:[0-9]+}/{ticket:[0-9]+}",
         \App\Action\Ticket\ViewMySingleTicket::class
     )
+    ->add('csrf')
     ->setName("mytickets.single");
 
     $app
@@ -189,7 +190,7 @@ return function (App $app) {
             \App\Action\Tgdb\Message\ViewSingleMessage::class
         )
         ->setName("tgdb.message");
-        
+
         //Feedback Updater
         $app
         ->map(
@@ -197,6 +198,7 @@ return function (App $app) {
             "/feedback",
             \App\Action\Tgdb\Feedback::class
         )
+        ->add('csrf')
         ->setName("tgdb.feedback");
     })
     ->add(UserMiddleware::class);

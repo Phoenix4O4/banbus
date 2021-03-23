@@ -22,6 +22,7 @@ use App\Factory\SettingsFactory;
 use App\Responder\Responder;
 use App\Middleware\UserMiddleware;
 use App\Repository\ConnectionFactory;
+use Slim\Csrf\Guard;
 
 return [
   //Settings
@@ -37,6 +38,13 @@ return [
           $app->setBasePath($container->get("settings")["basepath"]);
       }
       return $app;
+  },
+
+  'csrf' => function (ContainerInterface $container) {
+      $session = $container->get(Session::class);
+      $session->start();
+      $session->migrate(false, 60 * 60 * 24);
+      return new Guard($container->get(ResponseFactoryInterface::class));
   },
 
   //Response
@@ -93,6 +101,7 @@ return [
           }
       );
       $twig->addExtension(new \Twig\Extra\Markdown\MarkdownExtension());
+      $twig->addExtension(new \App\Utilities\CsrfExtension($container->get('csrf')));
       $twig->getEnvironment()->addGlobal("debug", $config["debug"]);
       $twig->getEnvironment()->addGlobal("app", $config["app"]);
       $twig->getEnvironment()->addGlobal("modules", $config["modules"]);

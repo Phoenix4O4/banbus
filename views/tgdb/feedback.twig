@@ -8,7 +8,9 @@
 <p>Paste in the URL to your feedback thread below. This link will show up on the <a class="link" href="{{url_for('adminwho')}}">admin listing</a> and in the in-game <span class="font-mono">adminwho</span> command (at some point in the future).</p>
 <form action="" method="POST" class="form">
   <div class="flex gap-2 pt-2">
-    <input name="link" type="text" placeholder="Paste your feedback link here" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 flex-shrink mr-1" {% if user.feedback %} value="{{user.feedback}}" {% endif %}/>
+    <input type="hidden" name="{{csrf.keys.name}}" value="{{csrf.name}}">
+    <input type="hidden" name="{{csrf.keys.value}}" value="{{csrf.value}}">
+    <input name="link" type="text" placeholder="Paste your feedback link here" class="block w-full mr-1" {% if user.feedback %} value="{{user.feedback}}" {% endif %}/>
     <button class="btn btn-success flex-grow whitespace-nowrap">Update Link</button>
 </form>
 {% endblock %}

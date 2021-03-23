@@ -32,9 +32,7 @@ class UserMiddleware
 
         if (!$this->user) {
             $this->session->set('destination_uri', (string) $req);
-
             $payload = new Payload();
-
             $payload->setTemplate('error/error.twig');
             $payload->throwError(403, "You must be authorized to access this page");
             return $this->responder->processPayload(new Response(), $payload);

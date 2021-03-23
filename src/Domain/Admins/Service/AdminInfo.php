@@ -3,7 +3,6 @@
 namespace App\Domain\Admins\Service;
 
 use App\Service\Service;
-use App\Data\Payload;
 use App\Domain\Admins\Repository\AdminRepository as Repository;
 use App\Domain\User\Factory\UserFactory;
 use App\Factory\SettingsFactory;

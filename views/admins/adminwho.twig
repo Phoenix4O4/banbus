@@ -21,7 +21,10 @@
     {% for admin in admins %}
       <tr>
         <td>
+        <span class="flex justify-between items-center">
         {{userBadge(admin)}}
+        <a href="{{url_for('adminplaytime',{ckey: admin.getCkey()})}}" class="link"><i class="fas fa-clock"></i></a>
+        </span>
         </td>
         <td>{% if admin.feedback %}<a href="{{admin.feedback}}" class="link" target="_blank" rel="noopener noreferrer">Feedback</a>{% endif %}</td>
         {% for name, bits in perms %}

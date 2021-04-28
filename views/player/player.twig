@@ -52,5 +52,33 @@
 				<i class="fas fa-circle"></i>
 			</a>
 		</nav>
-		{{dump(player.standing)}}
+		<div class="grid grid-cols-2">
+			<div>
+				<h2 class="my-3 font-bold text-xl">Permissions</h2>
+				<table class="border-collapse relative">
+					<thead>
+						<tr>
+							{% for p in perms|keys %}
+							<th class="top-0 text-right align-text-bottom">
+								<span class="transform rotate-180" style="writing-mode: vertical-lr">
+								{{p}}
+								</span>
+							</th>
+							{% endfor %}
+						</tr>
+					</thead>
+					<tbody>
+							<tr>
+								{% for name, bits in perms %}
+									{% if player.userData.flags b-and bits %}
+									<td class="td-success text-center text-lg leading-none" data-toggle="tooltip" title="{{player.ckey}} has {{name}}"><i class="far fa-check-circle"></i></td>
+									{% else %}
+									<td class="td-danger text-center text-lg leading-none" data-toggle="tooltip" title="{{player.ckey}} does not have {{name}}"><i class="far fa-times-circle"></i></td>
+									{% endif %}
+								{% endfor %}
+							</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	{% endblock %}

@@ -15,6 +15,7 @@
     <span>{{m.type|title}} <a href="{{url_for(link,{id: m.id})}}" class="link">#{{m.id}}</a> {{m.type == 'message sent' ? 'to' : 'for'}} {{userBadge(m.target)}} by {{userBadge(m.admin)}}</span>
     {% if m.secret %}<span class="badge badge-danger popover" data-template="secret_message_note">## SECRET ##</span>
     {% endif %}
+    <span>{% include 'messages/severity.twig' %}</span>
     <span>Posted <time>{{m.timestamp}}</time></span>
   </div>
 
@@ -23,7 +24,7 @@
   </div>
   <div class="panel-footer text-sm flex justify-between">
   <span>During {{roundLink(m.round, m.server)}} on {{m.server.name}}</span>
-  <span>{% include 'messages/severity.twig' %}</span>
+  {% if m.playtime %}<span title="{{m.target.getCkey()}}'s playtime when this entry was made">{{m.playtime}} minutes living time </span>{% endif %}
   <span>{% if m.editor %}Last edited by {{userBadge(m.editor)}}{% endif %}</span>
   </div>
 </div>

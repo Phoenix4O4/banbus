@@ -39,6 +39,7 @@ class MessageRepository extends Database
               M.severity,
               M.expire_timestamp AS expire,
               M.secret,
+              M.playtime,
               A.rank as adminrank,
               T.rank as targetrank,
               E.rank as editorrank
@@ -78,6 +79,7 @@ class MessageRepository extends Database
                 M.edits,
                 M.expire_timestamp AS expire,
                 M.secret,
+                M.playtime,
                 A.rank as adminrank,
                 T.rank as targetrank,
                 E.rank as editorrank

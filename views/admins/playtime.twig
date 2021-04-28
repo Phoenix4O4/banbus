@@ -1,0 +1,22 @@
+{% extends 'base/site.html' %}
+{% block title %}
+	{{app.name}}
+	{{app.version}}
+{% endblock %}
+{% block page %}
+{% from 'macros/macros.twig' import userBadge %}
+<h1 class="text-4xl font-bold">{{userBadge(admin)}} Activity Over The Last 30 Days</h1>
+<hr class="border-gray-300 dark:border-gray-700 mt-2 mb-4">
+<div class="grid grid-cols-3 gap-2">
+{% for role in playtime %}
+  <div class="rounded-md border border-gray-300 p-4">
+    <span class="text-2xl block">{{role.job}}</span>
+    <span class="font-black text-7xl">{{random(0, 10) + role.minutes}}</span>
+  </div>
+{% endfor %}
+
+</div>
+<p class="text-gray-500 text-xs mt-4 mb-2"><strong><i class="fas fa-hand-point-right"></i> Please be advised that:</strong></p>
+<p class="text-gray-500 text-xs mt-4 mb-2">Admin activity tracking is based on time spent in the Ghost role (which assumes that they are actively administrating) versus time spent in the Living role (interpreted as playing the game). This information <strong>SHOULD NOT</strong> be used as the sole source of truth regarding an administrator's activity.</p>
+<p class="text-gray-500 text-xs mt-4 mb-2">In order to prevent this data being used to subvert OOC concepts, these numbers are randomly padded by up to 10 minutes.</p>
+{% endblock %}

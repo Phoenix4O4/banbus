@@ -33,4 +33,18 @@ class AdminInfo extends Service
         $this->payload->setTemplate('admins/adminwho.twig');
         return $this->payload;
     }
+
+    public function getAdminPlaytime(string $ckey)
+    {
+        $admin = $this->repository->fetchAdmin($ckey)->getResults();
+        if (!$admin) {
+            $this->payload->throwError(404, "This ckey could not be located");
+            return $this->payload;
+        }
+        $admin = $this->userFactory->buildUser($admin->ckey, $admin->rank);
+        $this->payload->setTemplate('admins/playtime.twig');
+        $this->payload->addData('admin', $admin);
+        $this->payload->addData('playtime', $this->repository->getPlaytimeForAdmin($ckey));
+        return $this->payload;
+    }
 }

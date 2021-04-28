@@ -7,6 +7,15 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.9.0] - 2021-04-28
+
+### Added
+- Admin play time tracking
+- Permissions readout on player pages under tgdb
+- If the target ckey's playtime is logged when a note is issued, that number now shows up on the note.
+
+---
+
 ## [0.8.2] - 2021-04-02
 
 ### Fixed

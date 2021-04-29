@@ -11,7 +11,7 @@
 {% for role in playtime %}
   <div class="rounded-md border border-gray-300 p-4">
     <span class="text-2xl block">{{role.job}}</span>
-    <span class="font-black text-7xl">{{random(0, 10) + role.minutes}}</span>
+    <span class="font-black text-7xl">{{random(0, 10) + role.minutes}}</span> minutes
   </div>
 {% endfor %}
 

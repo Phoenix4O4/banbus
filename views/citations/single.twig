@@ -6,7 +6,7 @@
 {% block page %}
 {% from 'macros/macros.twig' import roundLink %}
   <h1 class="page-header"><i class="fas fa-receipt fa-fw"></i> Citation #{{citation.id}}</h1>
-
+  <span class="text-xs">Citations from ongoing rounds are hidden</span>
   <div class="bg-yellow-50 border-gray-300 border rounded-md relative">
     {% if citation.unpaid %}<div class="border-8 border-red-500 text-red-500 p-4 rounded-lg font-black text-7xl inline-block absolute top-16 right-6 rotate-12 transform opacity-25 pointer-events-none">UNPAID</div>{% endif %}
     <div class="border-b border-grey-300 pt-4 px-4 pb-2">

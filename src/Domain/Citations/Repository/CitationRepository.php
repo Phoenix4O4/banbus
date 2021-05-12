@@ -6,7 +6,7 @@ use App\Repository\Database;
 
 class CitationRepository extends Database
 {
-    public function fetchCitations(int $page = 1, int $per_page = 5, ?array $excludeRounds = null): self
+    public function fetchCitations(int $page = 1, int $per_page = 60, ?array $excludeRounds = null): self
     {
         if ($excludeRounds) {
             $this->generateRoundExclusionList($excludeRounds);

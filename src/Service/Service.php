@@ -23,4 +23,15 @@ class Service
     {
         return (object) $this->servers[array_search($port, array_column($this->servers, 'port'))];
     }
+
+    protected function addPagination(int $page = 1)
+    {
+        $this->payload->addData(
+            'pagination',
+            [
+                'pages' => $this->repo->getPages(),
+                'currentPage' => $page
+            ]
+        );
+    }
 }

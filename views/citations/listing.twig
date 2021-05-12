@@ -1,0 +1,40 @@
+{% extends 'base/site.html' %}
+{% block title %}
+	{{app.name}}
+	{{app.version}}
+{% endblock %}
+{% block page %}
+{% from 'macros/macros.twig' import pagination, roundLink %}
+  <h1 class="page-header"><i class="fas fa-receipt fa-fw"></i> Citations</h1>
+  {{pagination(pagination.pages, pagination.currentPage, url_for('citations'))}}
+
+  <table class="datatable">
+
+  <tbody>
+  {% for c in citations %}
+  <tr>
+    <td class="text-center align-middle leading-none py-2 pr-2">
+    <a href="{{url_for('citation',{id:c.id})}}" class="link text-2xl font-bold block mb-2"><i class="fas fa-receipt fa-fw"></i>{{c.id}}</a>
+    {# <span class="block">
+    {{roundLink(c.round_id, c.server)}}
+    </span> #}
+    <time class="text-xs">{{c.timestamp}}</time>
+    </td>
+    <td>{{c.recipient}}</td>
+    <td class="text-xs">cited by</td>
+    <td>{{c.sender_ic}}</td>
+    <td><time>{{c.timestamp}}</time></td>
+    <td class="text-xs pr-2">for</td>
+    <td class="font-mono">{{c.crime}}</td>
+    <td class="text-xs">and fined</td>
+    <td class="tabular-nums">{{c.fine}} cr.</td>
+    {% if c.unpaid %}
+    <td class="tabular-nums">{{c.paid}} cr. <span class="text-xs">paid</span></td>
+    {% else %}
+    <td><span class="badge badge-success">Paid off</span></td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+  </tbody>
+  </table>
+{% endblock %}

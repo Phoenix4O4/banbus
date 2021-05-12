@@ -91,6 +91,9 @@ return function (App $app) {
         )
         ->setName("serverpop");
 
+    $app->get('/citations[/page/{page}]', \App\Action\Citations\CitationList::class)->setName('citations');
+    $app->get('/citations/{id:[0-9]+}', \App\Action\Citations\ViewCitation::class)->setName('citation');
+
 
     $app->get("/ticket/{identifier}", \App\Action\Ticket\ViewPublicTicket::class);
 

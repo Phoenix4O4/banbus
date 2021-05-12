@@ -23,6 +23,7 @@ use App\Responder\Responder;
 use App\Middleware\UserMiddleware;
 use App\Repository\ConnectionFactory;
 use Slim\Csrf\Guard;
+use App\Provider\ActiveRounds;
 
 return [
   //Settings
@@ -125,6 +126,11 @@ return [
       return new ExternalAuth(
           $container->get(Guzzle::class),
           $container->get(UrlGenerator::class)
+      );
+  },
+  ActiveRounds::class => function (ContainerInterface $container) {
+      return new ActiveRounds(
+          $container->get(Guzzle::class)
       );
   },
   UrlGenerator::class => function () {

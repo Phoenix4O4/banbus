@@ -12,6 +12,8 @@ class Database extends ConnectionFactory
     protected $results = null;
     protected $pages = 0;
 
+    protected $excludedRounds = [];
+
     public function __construct(ConnectionFactory $connection)
     {
         $this->db = $connection->db;
@@ -34,5 +36,11 @@ class Database extends ConnectionFactory
     public function getPages(): int
     {
         return $this->pages;
+    }
+
+    protected function generateRoundExclusionList(array $rounds)
+    {
+        $this->excludedRounds = "(" . implode(",", $rounds) . ")";
+        return $this->excludedRounds;
     }
 }

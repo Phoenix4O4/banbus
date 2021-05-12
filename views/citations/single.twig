@@ -1,0 +1,92 @@
+{% extends 'base/site.html' %}
+{% block title %}
+	{{app.name}}
+	{{app.version}}
+{% endblock %}
+{% block page %}
+{% from 'macros/macros.twig' import roundLink %}
+  <h1 class="page-header"><i class="fas fa-receipt fa-fw"></i> Citation #{{citation.id}}</h1>
+
+  <div class="bg-yellow-50 border-gray-300 border rounded-md relative">
+    {% if citation.unpaid %}<div class="border-8 border-red-500 text-red-500 p-4 rounded-lg font-black text-7xl inline-block absolute top-16 right-6 rotate-12 transform opacity-25 pointer-events-none">UNPAID</div>{% endif %}
+    <div class="border-b border-grey-300 pt-4 px-4 pb-2">
+    <span class="text-xs text-right flex justify-between">
+      <span>Form no. 75626-269</span>
+      <span>Carbon Copy - For Offender</span>
+    </span>
+    <span class="font-black text-3xl text-center uppercase block mb-0">Nanotrasen Security Citation</span>
+    <span class="font-bold text-xl text-center block">Notice of Fine Due for Criminal Offense</span>
+    </div>
+    <div class="flex border-b border-grey-300">
+      <div class="border-gray-300 border-r p-4 w-1/3">
+        <span class="text-xs block">Violator</span>
+        <span class="font-black text-xl">{{citation.recipient}}</span>
+      </div>
+      <div class="border-gray-300 border-r p-4 w-1/3 flex justify-between">
+        <span>
+          <span class="text-xs block">Fine</span>
+          <span class="font-black text-xl tabular-nums">{{citation.fine}} cr.</span>
+        </span>
+        <span>
+          <span class="text-xs block">Amount Paid</span>
+          <span class="font-black text-xl tabular-nums">{{citation.paid}} cr.</span>
+        </span>
+      </div>
+      <div class="p-4 w-1/3">
+        <span class="text-xs block">Officer</span>
+        <span class="font-black text-xl">{{citation.sender_ic}}</span>
+      </div>
+    </div>
+    <div class="flex border-b border-grey-300">
+      <div class="border-gray-300 border-r p-4 w-1/2">
+        <span class="text-xs block">Offense</span>
+        <span class="font-black text-xl">{{citation.crime}}</span>
+      </div>
+      <div class="border-gray-300 p-4 w-1/2">
+        <span class="text-xs block">Time and Location</span>
+        <span class="font-black text-xl"><time>{{citation.timestamp}}</time> during {{roundLink(citation.round_id, citation.server)}}</span>
+      </div>
+    </div>
+    <div class="p-4">
+    <p>
+      <ul class="list-disc list-inside text-xs text-gray-500">
+        <li>Receipt of this citation will serve as a notice that you have been charged with the offense(s) listed above</li>
+        <li>You should retain this copy of your citation for your personal records</li>
+        <li>Your citation fine can be paid at a warrant console, located outside the station brig</li>
+        <li>If you wish to contest your citation, please contact your station legal representation team</li>
+        <li>Failure to pay your fine may result in further sanctions against your person, and/or your employment contract</li>
+      </ul>
+    </p>
+    </div>
+  </div>
+
+  <table class="datatable">
+
+  <tbody>
+  {% for c in citations %}
+  <tr>
+    <td class="text-center align-middle leading-none py-2 pr-2">
+    <a href="#" class="link text-2xl font-bold block mb-2"><i class="fas fa-receipt fa-fw"></i>{{c.id}}</a>
+    {# <span class="block">
+    {{roundLink(c.round_id, c.server)}}
+    </span> #}
+    <time class="text-xs">{{c.timestamp}}</time>
+    </td>
+    <td>{{c.recipient}}</td>
+    <td class="text-xs">cited by</td>
+    <td>{{c.sender_ic}}</td>
+    <td><time>{{c.timestamp}}</time></td>
+    <td class="text-xs pr-2">for</td>
+    <td class="font-mono">{{c.crime}}</td>
+    <td class="text-xs">and fined</td>
+    <td class="tabular-nums">{{c.fine}} cr.</td>
+    {% if c.unpaid %}
+    <td class="tabular-nums">{{c.paid}} cr. <span class="text-xs">paid</span></td>
+    {% else %}
+    <td><span class="badge badge-success">Paid off</span></td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+  </tbody>
+  </table>
+{% endblock %}

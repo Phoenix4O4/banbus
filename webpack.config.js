@@ -2,12 +2,13 @@ const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const isProductionMode = process.env.NODE_ENV === "production";
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: isProductionMode ? "production" : "development",
   entry: {
     ticketFeed: "./vue/ticketfeed/feed.js",
-    tailwind: "./assets/css/style.css"
+    tailwind: "./assets/css/style.css",
   },
   output: {
     path: path.resolve(__dirname, "public/assets/"),
@@ -17,6 +18,9 @@ module.exports = {
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: "css/style.css",
+    }),
+    new CopyPlugin({
+      patterns: [{ from: "assets/sound", to: "sound" }],
     }),
   ],
   resolve: {
@@ -40,11 +44,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "postcss-loader",
-        ],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
     ],
   },

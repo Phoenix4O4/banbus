@@ -8,7 +8,7 @@ style="background: {{user.rank.backColor}}; color:{{user.rank.foreColor}}">
 
 {% macro roundLink(id, server = false) %}
 <a class="link roundPopover" href="https://sb.atlantaned.space/rounds/{{id}}" data-round-id="{{id}}"><i class="fa fa-fw fa-circle"></i> {{id}}</a>
-<div id="round-{{id}}-popover" style="display: none">
+<div id="round-{{id}}-popover" style="display: none" class="font-normal">
     <strong class="block"><i class="fa fa-fw fa-circle"></i> {{id}} {% if server %} on {{server.name}} {% endif %}</strong>
     <hr class="mt-1 mb-2">
     <a class="link" href="https://sb.atlantaned.space/rounds/{{id}}" target="_blank" rel="noopener noreferrer">Statbus</a><br>

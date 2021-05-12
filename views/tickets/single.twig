@@ -7,9 +7,9 @@
 {% from 'macros/macros.twig' import roundLink %}
 <div class="text-2xl py-4">Ticket #{{tickets[0].ticket}} from {{roundLink(tickets[0].round, tickets[0].server)}}
 </div>
-<hr class="mb-4 border-gray-300 dark:border-gray-700">
+<hr>
 <div class="flex flex-col relative">
-<div class="border-r-4 border-gray-300 dark:border-gray-700 absolute top-0 bottom-5 left-4 z-0"></div>
+<div class="ticket-timeline"></div>
 {% for ticket in tickets %}
 {% if ticket.interval %}<p class="text-right mb-2 font-mono text-pink-500"><i class="fas fa-stopwatch"></i> {{ticket.interval}}</p>{% endif %}
 {% if ticket.isAction %}

@@ -1,6 +1,6 @@
 # Privacy Policy
 
-This application does not record any data about its users, byond what is necessary in order to facilitate a secure and informative experience. Wherever possible, the application relies on the game server database (the external database) to look up information about players and other associated data. This data is only *displayed* on the application, never stored. Under no circumstances is personally identifiable information (PII) data such as IP addresses and ComputerIDs stored on the application. Some functionality requires storing user information on a database used exclusively by the application (the internal database), or in ephemeral session files. This functionality will be listed and explained below.
+Statbus (this application) does not record any data about its users, byond what is necessary in order to facilitate a secure and informative experience. Wherever possible, the application relies on the game server database (the external database) to look up information about players and other associated data. This data is only *displayed* by the application and never stored. Under no circumstances is personally identifiable information (PII) such as IP addresses and ComputerIDs retained by the application. Some functionality requires storing user information on a database used exclusively by the application (the internal database), or in ephemeral session files. This functionality will be listed and explained below.
 
 ## Session Data
 When you authenticate to the application via the TGStation forums, some information is transmitted back to the application and securely stored as part of your PHP session. The data received from TGStation consists of: 
@@ -14,4 +14,4 @@ Session data is periodically purged by the webserver.
 ## Source Code
 The application source code is publicly available on [GitHub](https://github.com/nfreader/banbus). Please feel free to contact me with any inconsistencies or questions. The greatest effort has been made to make this document as accurate as possible, but there may be omissions or incorrect information.
 
-**1.0 Rev. 22-02-2020**
+**1.1 Rev. 12-05-2021**

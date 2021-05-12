@@ -18,6 +18,7 @@
         <i class="fas fa-gavel text-yellow-800"></i>
         Banbus
     </span>
+    <span class="subtitle">What did you do?!</span>
   </a>
   <a href="{{url_for('infobus')}}" class="big-nav-btn">
       <span class="title">
@@ -32,6 +33,13 @@
         Statbus
     </span>
     <span class="subtitle">Legacy Edition</span>
+  </a>
+  <a href="{{url_for('rounds')}}" class="big-nav-btn">
+    <span class="title">
+        <i class="fas fa-circle text-gray-400"></i>
+        Rounds
+    </span>
+    <span class="subtitle">Round Related Data</span>
   </a>
   {% if user.hasPermission('ADMIN') %}
     <a href="{{url_for('tgdb')}}" class="big-nav-btn">

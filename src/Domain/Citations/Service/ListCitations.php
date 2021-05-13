@@ -13,6 +13,7 @@ class ListCitations extends CitationService
         $citations = $this->factory->buildCitations($citations);
         $this->payload->setTemplate('citations/listing.twig');
         $this->payload->addData('citations', $citations);
+        $this->payload->addData('standing', $this->repo->sumCitations());
         $this->addPagination($page);
 
         return $this->payload;

@@ -49,4 +49,9 @@ class CitationRepository extends Database
         );
         return $this;
     }
+
+    public function sumCitations()
+    {
+        return $this->db->row("SELECT sum(fine) as fine, sum(paid) as paid FROM citation");
+    }
 }

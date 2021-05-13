@@ -7,6 +7,23 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.10.1] - 2021-05-12
+
+### Changed
+- Tweaked the display of the citations listing table and single citation view
+
+---
+
+## [0.10.0] - 2021-05-12
+
+### Added
+- Security citation viewer! It's fun! 
+
+### Fixed 
+- Ahelp feed sound not playing ([#10](https://github.com/nfreader/banbus/issues/10))
+
+---
+
 ## [0.9.0] - 2021-04-28
 
 ### Added

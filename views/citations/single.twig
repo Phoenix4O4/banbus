@@ -7,7 +7,7 @@
 {% from 'macros/macros.twig' import roundLink %}
   <h1 class="page-header"><i class="fas fa-receipt fa-fw"></i> Citation #{{citation.id}}</h1>
   <span class="text-xs">Citations from ongoing rounds are hidden</span>
-  <div class="bg-yellow-50 border-gray-300 border rounded-md relative">
+  <div class="bg-yellow-50 dark:bg-gray-800 border-gray-300 border rounded-md relative">
     {% if citation.unpaid %}<div class="border-8 border-red-500 text-red-500 p-4 rounded-lg font-black text-7xl inline-block absolute top-16 right-6 rotate-12 transform opacity-25 pointer-events-none">UNPAID</div>{% endif %}
     <div class="border-b border-grey-300 pt-4 px-4 pb-2">
     <span class="text-xs text-right flex justify-between">
@@ -45,6 +45,13 @@
       <div class="border-gray-300 p-4 w-1/2">
         <span class="text-xs block">Time and Location</span>
         <span class="font-black text-xl"><time>{{citation.timestamp}}</time> during {{roundLink(citation.round_id, citation.server)}}</span>
+      </div>
+    </div>
+    <div class="flex border-b border-grey-300">
+      <div class="border-gray-300 border-r p-4 w-full">
+        <span class="text-xs block text-center text-red-500 font-bold">### Security Office Use Only ###</span>
+        <span class="font-black text-xl">{% if citation.unpaid %}<i class="far fa-square"></i>{% else %}<i class="far fa-check-square"></i>{% endif %}
+        Tick Box if Citation Fine Has Been Paid In Full</span>
       </div>
     </div>
     <div class="p-4">

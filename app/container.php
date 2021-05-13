@@ -10,6 +10,7 @@ use Slim\Views\TwigMiddleware;
 use Twig\Loader\FilesystemLoader;
 use Twig\Extra\Markdown\DefaultMarkdown;
 use Twig\Extra\Markdown\MarkdownRuntime;
+use Twig\Extra\Intl\IntlExtension;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
@@ -89,6 +90,7 @@ return [
       if ($loader instanceof FilesystemLoader) {
           $loader->addPath($publicPath, "public");
       }
+      $twig->addExtension(new IntlExtension());
       $twig->addExtension(new \Twig\Extension\DebugExtension());
       $twig->addExtension(new \buzzingpixel\twigswitch\SwitchTwigExtension());
       $twig->addRuntimeLoader(

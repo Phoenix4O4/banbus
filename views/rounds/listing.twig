@@ -1,4 +1,61 @@
 {% extends 'base/site.html' %}
 {% block page %}
-<p class="text-gray-500 font-bold text-center">« Under Construction »</p>
+{% from 'macros/macros.twig' import pagination, roundLink %}
+  {{pagination(pagination.pages, pagination.currentPage, url_for('rounds'))}}
+<table class="table w-full">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Server</th>
+      <th>Game Mode & Result</th>
+      <th>Map & Station Name</th>
+      <th>Started</th>
+      <th>Duration</th>
+      <th>Ended</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for r in rounds %}
+    <tr class="
+    {% if r.current_round %} tr-info {% endif %}
+    {% if r.crashed %} tr-danger {% endif %}
+    {% if 'nuke' == r.end_state %} tr-inverse {% endif %}
+    {% if 'restart vote' == r.end_state %} tr-primary {% endif %}
+    {% if r.end_state starts with 'admin reboot' %} tr-warning {% endif %}
+    {% if 'proper completion' == r.end_state %} tr-success {% endif %}
+    ">
+      <td class="whitespace-nowrap leading-tight">{{roundLink(r.id, r.server)}}
+        <span class="text-xs block">On {{r.server.name}}</span>
+      </td>
+      <td class="text-center">
+        <img src="{{base_path()}}/assets/img/{{r.server.name|lower}}.png" style="height: auto; width: 32px" title="{{r.server.name}}" alt="{{r.server.name}}" class="mx-auto">
+      </td>
+      <td class="leading-tight">
+      {% if r.crashed %}
+      <i class="fas fa-fw fa-dumpster-fire"></i>
+      {% elseif r.current_round %}
+      <i class="fas fa-fw fa-spinner fa-spin"></i>
+      {% else %}
+      <i class="fas fa-fw fa-check-circle"></i>
+      {% endif %}
+      {{r.crashed ? "<span title='Indicators of a server crash were detected in the database for this round'>Server Crashed</span>" : r.end_state|title}}
+      {% if r.current_round %}<a class="link font-bold" href="{{r.server.gameLink}}">Join <i class="fas fa-external-link-alt"></i></a>{% endif %}
+      <span class="text-xs block">{% if not r.current_round %}{{r.game_mode|title}} {% if r.game_mode_result %}•{% endif %} {% endif %}{{r.game_mode_result|title}}</span>
+      </td>
+
+      <td class="leading-tight">{{r.map_name}}<br>
+        <span class="text-xs block">{{r.station_name}}</span>
+      </td>
+      <td class="whitespace-nowrap leading-tight">{{r.start_datetime.format('Y-m-d H:i:s')}}
+        <span title="Startup Duration" class="text-xs block">{{r.startup_duration}}</span>
+      </td>
+      <td>{{r.duration}}</td>
+      <td class="whitespace-nowrap leading-tight">{{r.end_datetime.format('Y-m-d H:i:s')}}
+        <span title="Shutdown Duration" class="text-xs block">{{r.shutdown_duration}}</span>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+  {{pagination(pagination.pages, pagination.currentPage, url_for('rounds'))}}
 {% endblock %}

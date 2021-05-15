@@ -7,6 +7,20 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## Upcoming
+
+- Check out the [todo list](https://hackmd.io/Ojsm71RhT2-r5dzf-a16cw).
+
+---
+
+## [0.11.0] - 2021-05-15
+
+### Added
+- A new round listing page. This is still a heavy WIP.
+
+
+---
+
 ## [0.10.1] - 2021-05-12
 
 ### Changed

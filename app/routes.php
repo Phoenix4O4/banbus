@@ -71,7 +71,7 @@ return function (App $app) {
         ->get("/infobus", \App\Action\Infobus\InfobusIndex::class)
         ->setName("infobus");
     $app
-        ->get("/infobus/adminwho", \App\Action\Admins\AdminWho::class)
+        ->get("/infobus/adminwho/", \App\Action\Admins\AdminWho::class)
         ->setName("adminwho");
     $app
         ->get("/infobus/adminwho/{ckey:[a-z0-9]+}", \App\Action\Admins\AdminPlaytime::class)
@@ -98,10 +98,11 @@ return function (App $app) {
     $app->get("/ticket/{identifier}", \App\Action\Ticket\ViewPublicTicket::class);
 
     $app->get("/servers/", \App\Action\Servers\GetServers::class);
+    $app->get("/rounds[/page/{page}]", \App\Action\Round\Listing::class)->setName("rounds");
 
     $app
         ->group("/round", function (RouteCollectorProxy $app) {
-            $app->get("", \App\Action\Round\Listing::class)->setName("rounds");
+            $app->get("", \App\Action\Round\Listing::class)->setName("round.single");
 
             $app
                 ->get(

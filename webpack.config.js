@@ -21,6 +21,7 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [{ from: "assets/sound", to: "sound" }],
+      patterns: [{ from: "assets/img", to: "img" }],
     }),
   ],
   resolve: {

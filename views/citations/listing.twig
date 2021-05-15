@@ -12,12 +12,12 @@
     <div class="w-1/2 text-right mr-2 pr-2 border-r border-gray-300">
       <p class="m-0">Security Has Charged</p>
       <span class="text-6xl font-black tabular-nums">{{standing.fine|format_number}}</span><span class="text-xl pl-2">cr.</span>
-      <p>In Citations</p>
-    </div>
-    <div class="w-1/2 text-left">
-      <p class="m-0">And Collected</p>
-      <span class="text-6xl font-black tabular-nums">{{standing.paid|format_number}}</span><span class="text-xl pl-2">cr.</span>
       <p>In Fines</p>
+    </div>
+    <div class="w-1/2 pl-2">
+      <p class="m-0">Of Which</p>
+      <span class="text-6xl font-black tabular-nums">{{standing.paid|format_number}}</span><span class="text-xl pl-2">cr.</span>
+      <p>Have Been Paid</p>
     </div>
   </div>
   <table class="datatable">

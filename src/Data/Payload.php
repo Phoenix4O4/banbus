@@ -67,10 +67,10 @@ class Payload
         $this->data = $data;
     }
 
-    public function addData(string $key, $data)
+    public function addData(string $key, $data): self
     {
         $this->data[$key] = $data;
-        return true;
+        return $this;
     }
 
     public function getData()
@@ -136,7 +136,7 @@ class Payload
         ];
     }
 
-    public function throwError(int $code = 500, string $message = "Error", ?string $template = null)
+    public function throwError(int $code = 500, string $message = "Error", ?string $template = null): self
     {
         $this->error = true;
         $this->statusCode = $code;
@@ -150,5 +150,6 @@ class Payload
         } else {
             $this->setTemplate($template);
         }
+        return $this;
     }
 }

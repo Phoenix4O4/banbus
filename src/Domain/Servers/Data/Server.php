@@ -2,8 +2,6 @@
 
 namespace App\Domain\Servers\Data;
 
-use PDO;
-
 class Server
 {
     public $gameLink;

@@ -4,6 +4,7 @@
     id="sidebar"
     class="flex-shrink-0 border-r border-gray-300 dark:border-gray-700 w-64 min-h-screen dark:bg-gray-800 overflow-x-hidden overflow-y-scroll py-4"
   >
+  
     <h2 class="text-center block font-bold text-xl mb-4">
       <small class="text-sm block">Available Stats For </small>
       <i class="fas fa-circle"></i> {{ round }}
@@ -18,7 +19,8 @@
 			{% endfor %}
     </ul>
 </aside>
-<section class="flex-grow p-4">
+<section class="flex-grow p-4 relative">
+
 		{% if not stat %}
 			<p class="text-center text-gray-500 pt-8">Select a statistic to view</p>
 		{% else %}

@@ -4,6 +4,8 @@
 
 @layer components {
 
+
+
   body {
     --bg-height: 5px;
     background-image: linear-gradient(black,black), linear-gradient(#a8805f,#a8805f), linear-gradient(red,red), linear-gradient(orange,orange), linear-gradient(yellow,yellow), linear-gradient(green,green), linear-gradient(blue,blue), linear-gradient(purple,purple);
@@ -17,6 +19,10 @@
 
   .page-header {
     @apply text-4xl font-bold border-b border-gray-300 dark:border-gray-700 pb-2 mb-2;
+  }
+
+  .pixel-img {
+    image-rendering: pixelated;
   }
 
   .badge {
@@ -268,4 +274,41 @@
 .form input,
 .form textarea {
   @apply rounded border border-gray-300 dark:border-gray-700 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-1 px-2 leading-none text-sm dark:bg-gray-800
+}
+
+.hide {
+    display: none;
+}
+.clear {
+    float: none;
+    clear: both;
+}
+.rating {
+    width: auto;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    position: relative;
+}
+.rating > label {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 1.1em;
+    cursor: pointer;
+    color: #000;
+}
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+    color: transparent;
+}
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > input.radio-btn:checked ~ label:before,
+.rating > input.radio-btn:checked ~ label:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: #FFD700;
 }

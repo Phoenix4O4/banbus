@@ -1,0 +1,58 @@
+{% extends 'base/site.html' %}
+{% block title %}
+	{{app.name}}
+	{{app.version}}
+{% endblock %}
+{% block page %}
+<h1 class="page-header"><i class="fas fa-paint-brush fa-fw"></i> {{art.title}}</h1>
+<div class="md:flex justify-start gap-4">
+  <img src="{{art.url}}" style="width: 256px; height: 256px;" class="pixel-img p-4 rounded-md border border-gray-300" alt="{{art.title}}" title="{{art.title}}" />
+  <div>
+    <span class="text-xl font-bold block">By {{art.ckey}}</span>
+    <span class="text-xl block">In the {{art.gallery|title|replace({'_':' '})}} gallery on {{art.server.name}}</span>
+    <div class="text-4xl">
+    {% if  art.rating %}<span title="{{art.votes}} Votes">({{art.votes}})</span> <span class="font-bold mt-4">{{art.rating ?? '0.0'}}<span class="text-gray-300">/5</span></span>
+    {% else %}
+    <span class="mt-4 block">No Ratings Yet</span>
+    {% endif %}
+    </div>
+    <form class="star_rating text-6xl" method="POST" x-on:click="alert($event.target.value)">
+      <input type="hidden" class="sb_csrf_name" name="{{csrf.keys.name}}" value="{{csrf.name}}">
+      <input type="hidden" class="sb_csrf_value" name="{{csrf.keys.value}}" value="{{csrf.value}}">
+      <input type="hidden" name="artwork" value="{{art.md5}}">
+        <div class="rating">
+          <input id="{{art.md5}}_star5" name="rating" type="radio" value="5" class="radio-btn hide" />
+          <label for="{{art.md5}}_star5">☆</label>
+          <input id="{{art.md5}}_star4" name="rating" type="radio" value="4" class="radio-btn hide" />
+          <label for="{{art.md5}}_star4">☆</label>
+          <input id="{{art.md5}}_star3" name="rating" type="radio" value="3" class="radio-btn hide" />
+          <label for="{{art.md5}}_star3">☆</label>
+          <input id="{{art.md5}}_star2" name="rating" type="radio" value="2" class="radio-btn hide" />
+          <label for="{{art.md5}}_star2">☆</label>
+          <input id="{{art.md5}}_star1" name="rating" type="radio" value="1" class="radio-btn hide" />
+          <label for="{{art.md5}}_star1">☆</label>
+      </div>
+    </form>
+  </div>
+</div>
+<div x-data="{ open: false }">
+    <button @click="open = true">Open Dropdown</button>
+
+    <ul
+        x-show="open"
+        @click.away="open = false"
+    >
+        Dropdown Body
+    </ul>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+<script>
+function vote(event){
+  console.log(event)
+}
+</script>
+{% endblock %}

@@ -4,67 +4,26 @@
 	{{app.version}}
 {% endblock %}
 {% block page %}
-<style>
-.hide {
-    display: none;
-}
-.clear {
-    float: none;
-    clear: both;
-}
-.rating {
-    width: auto;
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    text-align: center;
-    position: relative;
-    float: right;
-}
-.rating > label {
-    float: right;
-    display: inline;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    width: 1.1em;
-    cursor: pointer;
-    color: #000;
-    font-size: 24px;
-}
-.rating > label:hover,
-.rating > label:hover ~ label,
-.rating > input.radio-btn:checked ~ label {
-    color: transparent;
-}
-.rating > label:hover:before,
-.rating > label:hover ~ label:before,
-.rating > input.radio-btn:checked ~ label:before,
-.rating > input.radio-btn:checked ~ label:before {
-    content: "\2605";
-    position: absolute;
-    left: 0;
-    color: #FFD700;
-}
-</style>
 <h1 class="page-header"><i class="fas fa-paint-brush fa-fw"></i> Art Gallery - {{server.name|title}}</h1>
+<div id="main">
+</div>
 <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
 {% for gallery, artwork in art %}
   <div>
   <h2 class="text-xl font-bold mb-4">{{gallery|title|replace({'_':' '})}}</h2>
   {% for a in artwork %}
     <div class="border border-gray-300 mb-4 flex justify-between p-4">
-    <a href="{{url_for('gallery.single',{server:server.name,md5:a.md5})}}"><img src="{{a.url}}" style="width: 128px; height: 128px; image-rendering: pixelated;" /></a>
-    <div class=" text-right">
+    <a href="{{url_for('gallery.single',{server:server.name,md5:a.md5})}}"><img src="{{a.url}}" style="width: 128px; height: 128px;" class="pixel-img" /></a>
+    <div class="pl-4 text-right">
       <span class="font-bold block leading-tight">{{a.title}}</span>
       {% if a.ckey %}<span>by {{a.ckey}}</span>{% endif %}
-      
       <div>
       {% if  a.rating %}<span title="{{a.votes}} Votes">({{a.votes}})</span> <span class="text-xl font-bold mt-4">{{a.rating ?? '0.0'}}<span class="text-gray-300">/5</span></span>
       {% else %}
       <span class="text-xl mt-4 block">No Rating Yet</span>
       {% endif %}
       </div>
-      <form class="star_rating" method="POST">
+      <form class="star_rating text-xl" method="POST">
         <input type="hidden" class="sb_csrf_name" name="{{csrf.keys.name}}" value="{{csrf.name}}">
         <input type="hidden" class="sb_csrf_value" name="{{csrf.keys.value}}" value="{{csrf.value}}">
         <input type="hidden" name="artwork" value="{{a.md5}}">
@@ -87,4 +46,8 @@
   </div>
 {% endfor %}
 </div>
+{% endblock %}
+
+{% block script %}
+	<script src="/assets/js/artGallery.js?{{app.version}}"></script>
 {% endblock %}

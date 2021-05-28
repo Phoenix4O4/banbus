@@ -47,6 +47,7 @@ class TicketRepository extends Database
                 LEFT JOIN `admin` AS s ON s.ckey = t.sender
                 WHERE t.action = 'Ticket Opened'
                 AND (t.recipient = ? OR t.sender = ?)
+                AND t.round_id != 0
                 GROUP BY t.id
                 ORDER BY `timestamp` DESC
                 LIMIT ?, ?",
@@ -99,6 +100,7 @@ class TicketRepository extends Database
                 LEFT JOIN `admin` AS s ON s.ckey = t.sender
                 WHERE t.action = 'Ticket Opened'
                 AND t.round_id = ?
+                AND t.round_id != 0
                 GROUP BY t.id
                 ORDER BY `timestamp` DESC
                 LIMIT ?, ?",
@@ -138,6 +140,7 @@ class TicketRepository extends Database
                     LEFT JOIN `admin` AS s ON s.ckey = t.sender
                     WHERE t.round_id = ?
                     AND t.ticket = ? 
+                    AND t.round_id != 0
                     GROUP BY t.id
                     ORDER BY `timestamp` ASC",
                     $round,

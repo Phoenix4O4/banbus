@@ -13,6 +13,14 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.11.01 - 2021-05-27
+
+### Fixed
+- An issue with some tickets potentially being viewable by people who weren't supposed to be able to see them
+  - Some tickets in-game get `0` set as their round ID, so those tickets are now excluded from ticket queries.
+
+---
+
 ## [0.11.0] - 2021-05-15
 
 ### Added

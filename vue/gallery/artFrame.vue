@@ -16,37 +16,62 @@
             ></span
           ></span
         >
-        <star-rating
-          v-model:rating="rating"
-          :show-rating="false"
-          :star-size="20"
-          :inline="true"
-          @rating-selected="castVote"
+        <Rating
+          v-model="rating"
+          @change="castVote"
+          :disabled="disabled"
+          :cancel="false"
         />
       </div>
     </div>
   </div>
 </template>
 <script>
-import StarRating from "vue-star-rating";
+import Rating from "primevue/rating";
 
 export default {
   components: {
-    StarRating,
+    Rating,
   },
   props: {
-    title: "",
-    md5: "",
-    url: "",
-    ckey: "",
-    votes: 0,
-    rating: 0,
+    title: {
+      type: String,
+      default: "A work of art",
+      required: true,
+    },
+    md5: {
+      type: String,
+      default: "00000000000000000000000000000000",
+      required: true,
+    },
+    url: {
+      type: String,
+      default: "",
+    },
+    ckey: { type: String, default: "Player", required: true },
+    votes: {
+      type: Number,
+      default: 0,
+      required: false,
+    },
+    rating: {
+      type: Number,
+      default: 0,
+      required: false,
+    },
+  },
+  data() {
+    return {
+      disabled: false,
+      server: this.$parent.server,
+    };
   },
   methods: {
-    castVote(rating) {
-      this.votes++;
-      console.log(this);
-      console.log(rating);
+    castVote(event) {
+      this.disabled = true;
+      console.log(event.value);
+      console.log(this.md5);
+      console.log(this.server);
     },
   },
 };

@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       artwork: [],
-      server: [],
+      server: "",
     };
   },
   methods: {

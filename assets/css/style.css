@@ -312,3 +312,19 @@
     left: 0;
     color: #FFD700;
 }
+
+.p-disabled {
+  @apply opacity-75;
+}
+
+.pi-star:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f005";
+}
+
+.pi-star-o:before{
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    content: "\f005";
+}

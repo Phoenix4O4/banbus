@@ -19,4 +19,19 @@ class GalleryRatingRepository extends Database
         ));
         return $this;
     }
+
+    public function getRatingForArtwork(string $md5): self
+    {
+        $this->setResults(
+            $this->alt_db->row(
+                "SELECT 
+                format(avg(rating),2) as rating, 
+                artwork, count(id) as votes 
+                FROM art_vote
+                WHERE artwork = ?",
+                $md5
+            )
+        );
+        return $this;
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Domain\Gallery\Service;
 
 use App\Domain\Gallery\Service\GalleryService;
+use App\Utilities\HTMLFactory;
 
 class ListArtwork extends GalleryService
 {
@@ -19,6 +20,7 @@ class ListArtwork extends GalleryService
 
     private function parseArt($art)
     {
+        $purifier = new HTMLFactory();
         $ratings = $this->repo->getRatingsForServer($this->server->name)->getResults();
         foreach ($art as $gallery => &$artwork) {
             foreach ($artwork as &$a) {
@@ -26,6 +28,7 @@ class ListArtwork extends GalleryService
                     if ($a->md5 === $r->artwork) {
                         $a->rating = (float) $r->rating;
                         $a->votes = $r->votes;
+                        $a->title = $purifier->sanitizeString($a->title);
                     }
                 }
                 $a->url = $this->server->public_logs . "../paintings/$gallery/$a->md5.png";

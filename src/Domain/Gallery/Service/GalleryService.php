@@ -32,11 +32,21 @@ class GalleryService extends Service
         }
     }
 
-    protected function getArtForServer()
+    protected function getArtForServer(?string $md5 = null)
     {
         $this->url = str_replace('data/logs', 'data', $this->server->public_logs . 'paintings.json');
-
-        $response = $this->guzzle->request('GET', $this->url);
-        return json_decode($response->getBody());
+        $artwork = json_decode($this->guzzle->request('GET', $this->url)->getBody());
+        if (!$md5) {
+            return $artwork;
+        } else {
+            foreach ($artwork as $gallery => $art) {
+                foreach ($art as $a) {
+                    if ($md5 === $a->md5) {
+                        $a->gallery = $gallery;
+                        return $a;
+                    }
+                }
+            }
+        }
     }
 }

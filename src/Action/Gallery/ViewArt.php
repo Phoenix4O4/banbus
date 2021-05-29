@@ -19,6 +19,10 @@ class ViewArt extends Action
 
     public function action(array $args = []): Payload
     {
-        return $this->service->viewSingleArtwork($args['server'], $args['md5']);
+        $cast_vote = false;
+        if ('POST' === $this->request->getMethod()) {
+            $cast_vote = true;
+        }
+        return $this->service->viewSingleArtwork($args['server'], $args['md5'], $cast_vote);
     }
 }

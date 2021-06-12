@@ -7,6 +7,7 @@ use App\Factory\SettingsFactory;
 use GuzzleHttp\Client as Guzzle;
 use App\Domain\Gallery\Repository\GalleryRatingRepository as Repo;
 use App\Domain\Servers\Service\ServerService;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class GalleryService extends Service
 {
@@ -17,7 +18,7 @@ class GalleryService extends Service
     protected $server = null;
     protected $url = '';
 
-    public function __construct(SettingsFactory $settings, Guzzle $guzzle, Repo $repo, ServerService $servers)
+    public function __construct(SettingsFactory $settings, Guzzle $guzzle, Repo $repo, ServerService $servers, protected Session $session)
     {
         parent::__construct($settings);
         $this->guzzle = $guzzle;
@@ -48,5 +49,22 @@ class GalleryService extends Service
                 }
             }
         }
+    }
+
+    protected function getSingleArtwork(string $server, string $md5)
+    {
+        if (!$this->isValidServer($server)) {
+            return $this->payload->throwError(401, "Invalid server selected");
+        }
+        if (!$art = $this->getArtForServer($md5)) {
+            return $this->payload->throwError(401, "This artwork could not be located");
+        }
+        $rating = $this->repo->getRatingForArtwork($md5)->getResults();
+        $art->title = (new \App\Utilities\HTMLFactory())->sanitizeString($art->title);
+        $art->rating = (float) $rating->rating;
+        $art->votes = $rating->votes;
+        $art->url = $this->server->public_logs . "../paintings/$art->gallery/$art->md5.png";
+        $art->server = $this->server;
+        return $art;
     }
 }

@@ -34,4 +34,21 @@ class GalleryRatingRepository extends Database
         );
         return $this;
     }
+
+    public function castVote($server, $md5, $rating, $ckey): self
+    {
+        //TODO: Replace with insertOnDuplicateUpdate from EasyDB
+        $this->alt_db->run(
+            "INSERT INTO `art_vote` (`server`, artwork, rating, ckey) 
+            VALUES (?, ?, ?, ?) 
+            ON DUPLICATE KEY UPDATE rating = ?",
+            $server,
+            $md5,
+            $rating,
+            $ckey,
+            $rating
+        );
+        $this->getRatingForArtwork($md5);
+        return $this;
+    }
 }

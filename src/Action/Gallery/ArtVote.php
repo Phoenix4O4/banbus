@@ -4,10 +4,10 @@ namespace App\Action\Gallery;
 
 use App\Action\Action;
 use App\Responder\Responder;
-use App\Domain\Gallery\Service\ListArtwork as Service;
+use App\Domain\Gallery\Service\ArtworkVoteService as Service;
 use App\Data\Payload;
 
-class ServerArtwork extends Action
+class ArtVote extends Action
 {
     private $service;
 
@@ -19,9 +19,6 @@ class ServerArtwork extends Action
 
     public function action(array $args = []): Payload
     {
-        // $payload = new Payload();
-        // $payload->setTemplate('gallery/gallery.twig');
-        // return $payload;
-        return $this->service->getArtworkForServer($args['server']);
+        return $this->service->castVote($this->request->getParsedBody());
     }
 }

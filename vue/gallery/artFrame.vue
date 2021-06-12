@@ -1,6 +1,14 @@
 <template>
   <div
-    class="border border-gray-300 dark:border-gray-700 mb-4 flex justify-between p-4 rounded-md"
+    class="
+      border border-gray-300
+      dark:border-gray-700
+      mb-4
+      flex
+      justify-between
+      p-4
+      rounded-md
+    "
   >
     <img :src="url" style="width: 128px; height: 128px" class="pixel-img" />
     <div class="pl-4 text-right">
@@ -16,12 +24,7 @@
             ></span
           ></span
         >
-        <Rating
-          v-model="rating"
-          @change="castVote"
-          :disabled="disabled"
-          :cancel="false"
-        />
+        <Rating @change="castVote" :disabled="disabled" :cancel="false" />
       </div>
     </div>
   </div>
@@ -48,7 +51,7 @@ export default {
       type: String,
       default: "",
     },
-    ckey: { type: String, default: "Player", required: true },
+    ckey: { type: String, default: "Player", required: false },
     votes: {
       type: Number,
       default: 0,
@@ -66,12 +69,45 @@ export default {
       server: this.$parent.server,
     };
   },
+  // computed: {
+  //   rating: {
+  //     get: function () {
+  //       return this.rating;
+  //     },
+  //     set: function (newRating) {
+  //       this.rating = newRating;
+  //     },
+  //   },
+  //   votes: {
+  //     get: function () {
+  //       return this.votes;
+  //     },
+  //     set: function (newVotes) {
+  //       this.votes = newVotes;
+  //     },
+  //   },
+  // },
+  emits: ["update:rating", "update:votes"],
   methods: {
     castVote(event) {
       this.disabled = true;
-      console.log(event.value);
-      console.log(this.md5);
-      console.log(this.server);
+      fetch(`/gallery/vote`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          rating: event.value,
+          md5: this.md5,
+          server: this.server,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          this.$emit("update:rating", res.art.rating);
+          this.$emit("update:votes", res.art.votes);
+        });
+      this.disabled = false;
     },
   },
 };

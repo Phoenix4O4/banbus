@@ -23,6 +23,7 @@ use App\Factory\SettingsFactory;
 use App\Responder\Responder;
 use App\Middleware\UserMiddleware;
 use App\Repository\ConnectionFactory;
+use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Csrf\Guard;
 use App\Provider\ActiveRounds;
 
@@ -61,6 +62,7 @@ return [
       ->getRouteCollector()
       ->getRouteParser();
   },
+ 
   Request::class => function (ContainerInterface $container) {
       return $container->get("Request");
   },

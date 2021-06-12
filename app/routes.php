@@ -5,7 +5,7 @@ use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 
 return function (App $app) {
-    $app->get("/", \App\Action\Home\Home::class)->setName("home");
+    $app->get("/", \App\Action\Home\Home::class)->setName("home")->setArgument('template', 'home');
     $app->get("/changelog", \App\Action\Changelog::class)->setName("changelog");
     $app->get("/privacy", \App\Action\PrivacyPolicy::class)->setName("privacy");
 
@@ -100,24 +100,32 @@ return function (App $app) {
     $app->get("/servers/", \App\Action\Servers\GetServers::class);
     $app->get("/rounds[/page/{page}]", \App\Action\Round\Listing::class)->setName("rounds");
 
-    $app
-        ->group("/round", function (RouteCollectorProxy $app) {
-            $app->get("", \App\Action\Round\Listing::class)->setName("round.single");
+    $app->group("/gallery", function (RouteCollectorProxy $app) {
+        $app->get("", \App\Action\Gallery\Selector::class)->setName("gallery");
+        $app->get("/{server:[a-zA-Z ]+}", \App\Action\Gallery\ServerArtwork::class)->setName("gallery.server");
+        $app->map(['GET','POST'], "/{server:[a-zA-Z ]+}/{md5:[a-z0-9]+}", \App\Action\Gallery\ViewArt::class)->setName("gallery.single");
+        $app->post('/vote', \App\Action\Gallery\ArtVote::class);
+    });
 
-            $app
-                ->get(
-                    "/{id:[0-9]+}/stat",
-                    \App\Action\Round\Stats\Stats::class
-                )
-                ->setName("round.stats");
+    // $app
+    //     ->group("/round", function (RouteCollectorProxy $app) {
+    //         $app->get("", \App\Action\Round\Listing::class)->setName("round.single");
 
-            $app
-                ->get(
-                    "/{id:[0-9]+}/stat/{stat:[a-zA-z_]+}",
-                    \App\Action\Round\Stats\GetRoundStat::class
-                )
-                ->setName("round.stat");
-        });
+    //         $app
+    //             ->get(
+    //                 "/{id:[0-9]+}/stat",
+    //                 \App\Action\Round\Stats\Stats::class
+    //             )
+    //             ->setName("round.stats");
+
+    //         $app
+    //             ->get(
+    //                 "/{id:[0-9]+}/stat/{stat:[a-zA-z_]+}",
+    //                 \App\Action\Round\Stats\GetRoundStat::class
+    //             )
+    //             ->setName("round.stat");
+    //     });
+
     $app
         ->group("/tgdb", function (RouteCollectorProxy $app) {
             $app->get("", \App\Action\Tgdb\Index::class)->setName("tgdb");

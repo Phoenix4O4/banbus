@@ -45,7 +45,7 @@ return [
   'csrf' => function (ContainerInterface $container) {
       $session = $container->get(Session::class);
       $session->start();
-      $session->migrate(false, 60 * 60 * 24);
+      $session->migrate(false, 60 * 60 * 72);
       return new Guard($container->get(ResponseFactoryInterface::class));
   },
 

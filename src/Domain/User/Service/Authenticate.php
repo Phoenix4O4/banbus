@@ -27,8 +27,8 @@ class Authenticate extends Service
         $this->session = $session;
         $this->auth = $auth;
         if (!$this->session->get('site_private_token')) {
-            // $this->session->invalidate();
-            // $this->session->start();
+            $this->session->invalidate();
+            $this->session->start();
             $this->session->set('site_private_token', $this->generateToken());
         }
         $this->user = $user;

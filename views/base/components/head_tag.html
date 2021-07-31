@@ -6,7 +6,7 @@
     <meta http-equiv="Permissions-Policy" content="interest-cohort=()"/>
     {% block meta %}{% endblock %}
     <link
-      href="{{base_path()}}/assets/css/style.css?v={{app.version}}"
+      href="{{base_path()}}/assets/css/style.css?v={{app.version}}{%if debug %}&{{ random() }} {% endif %}"
       rel="stylesheet"
     />
     <link rel="preconnect" href="https://fonts.gstatic.com" />

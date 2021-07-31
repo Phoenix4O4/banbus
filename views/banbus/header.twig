@@ -3,9 +3,8 @@
 		<i class="fas fa-gavel text-yellow-800"></i>
 		Banbus</a>
 	<nav class="text-lg font-bold">
-		{% if modules.public_bans %}
-			<a href="{{url_for('bans')}}" class="transition duration-700 ease-in-out hover:text-gray-500 md:pl-3">Public Bans</a>
-		{% endif %}
+			<a href="https://tgstation13.org/tgdb/publicbans.php" target="_blank"
+            rel="noopener noreferrer" class="transition duration-700 ease-in-out hover:text-gray-500 md:pl-3">Public Bans</a>
 		{% if modules.personal_bans and user%}
 			<a href="{{url_for('mybans')}}" class="transition duration-700 ease-in-out hover:text-gray-500 md:pl-3">Your Bans</a>
 		{% endif %}

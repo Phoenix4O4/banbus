@@ -1,0 +1,27 @@
+{% extends 'base/site.html' %}
+{% block title %}
+	{{app.name}}
+	{{app.version}}
+{% endblock %}
+{% block page %}
+
+{% if book.deleted %}
+<div class="alert alert-info mb-2">This book has been deleted.</div>
+{% endif %}
+
+{% if user.hasPermission('BAN') %}
+<h2>Moderation Log</h2>
+
+{% endif %}
+
+<h1 class="page-header"><i class="fas fa-book fa-fw"></i> {{book.title}} <span class="text-gray-300 text-right">#{{book.id}}</span></h1>
+
+<article class="prose dark:prose-light mx-auto lg:prose-lg xl:prose-2xl">
+
+{{book.content|raw}}
+
+</article>
+
+{% include 'library/moderation.twig' %}
+
+{% endblock %}

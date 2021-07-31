@@ -1,0 +1,16 @@
+{% extends 'base/site.html' %}
+{% block page %}
+{% from 'macros/macros.twig' import pagination, roundLink %}
+  {{pagination(pagination.pages, pagination.currentPage, url_for('library'))}}
+<div class="grid grid-cols-4 gap-4">
+	{% for b in books %}
+		<a class="border border-gray-300 p-4 rounded relative book" href="{{url_for('library.single',{ntbn:b.id})}}">
+			<h2 class="font-bold text-xl border-b border-black">{{b.title}}</h2>
+			<h3 class="text-xs text-right">by {{b.author}}</h3>
+			<p class="book-snippet text-sm break-words text-transparent bg-clip-text bg-gradient-to-b from-gray-700 pb-8">{{b.content}}</p>
+			<p class="absolute bottom-4 text-sm">Posted <time>{{b.datetime.format('Y')}}</time> in {{b.category}}</p>
+		</a>
+	{% endfor %}
+	</div>
+	  {{pagination(pagination.pages, pagination.currentPage, url_for('library'))}}
+{% endblock %}

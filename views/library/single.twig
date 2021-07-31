@@ -9,7 +9,7 @@
 <div class="alert alert-info mb-2">This book has been deleted. Please see the moderation log below.</div>
 {% endif %}
 
-<h1 class="page-header"><i class="fas fa-book fa-fw"></i> {{book.title}} <span class="text-gray-300 text-right">#{{book.id}}</span></h1>
+<h1 class="page-header"><i class="fas fa-book fa-fw"></i> {{book.title}} <span class="text-gray-300 text-right">#{{book.id}} <span class="text-lg">Published <time>{{book.datetime.format('Y-m-d H:i:s')}}</time></span></h1>
 
 <article class="prose dark:prose-light mx-auto lg:prose-lg xl:prose-2xl">
 

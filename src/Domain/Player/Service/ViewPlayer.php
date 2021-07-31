@@ -7,6 +7,7 @@ use App\Domain\Player\Repository\ViewPlayerRepository;
 use App\Domain\User\Factory\UserFactory;
 use App\Domain\Bans\Service\ListBans;
 use App\Domain\Messages\Service\GetMessages;
+use App\Domain\Library\Service\LibraryByAuthor;
 
 class ViewPlayer
 {
@@ -19,7 +20,8 @@ class ViewPlayer
         ViewPlayerRepository $ViewPlayerRepository,
         UserFactory $userFactory,
         ListBans $bans,
-        GetMessages $messages
+        GetMessages $messages,
+        private LibraryByAuthor $library
     ) {
         $this->ViewPlayerRepository = $ViewPlayerRepository;
         $this->userFactory = $userFactory;
@@ -42,6 +44,7 @@ class ViewPlayer
         }
         $player->standing = $this->bans->isPlayerBanned($player->ckey);
         $player->messages = $this->messages->getPlayerMessageCount($player->ckey);
+        $player->books = $this->library->countBooksByAuthor($player->ckey);
         $this->payload->addData(
             'player',
             $player

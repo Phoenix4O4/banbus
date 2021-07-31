@@ -2,6 +2,9 @@
 {% block page %}
 {% from 'macros/macros.twig' import pagination, roundLink %}
   {{pagination(pagination.pages, pagination.currentPage, url_for('library'))}}
+	{% if ckey and user.hasPermission('BAN') %}
+	<h2 class="text-2xl font-bold border-b border-gray-300 mb-3 pb-3">Showing books by <a class="link" href="{{url_for('tgdb.player',{ckey:ckey})}}">{{ckey}}</a></h2>
+	{% endif %}
 <div class="grid grid-cols-4 gap-4">
 	{% for b in books %}
 		<a class="border border-gray-300 p-4 rounded relative book" href="{{url_for('library.single',{ntbn:b.id})}}">

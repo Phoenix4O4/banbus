@@ -9,33 +9,42 @@ use DateTime;
 
 class LibraryRepository extends Database
 {
-    public function getBookList(int $page = 1, int $per_page = 60): self
+    public function getBookList(int $page = 1, int $per_page = 60, bool|string $ckey = false): self
     {
-        $this->setPages((int) ceil($this->db->cell(
-            "SELECT
+        $author = '';
+        if ($ckey) {
+            $author = 'AND ckey = ?';
+            $args[] = $ckey;
+            $this->setPages((int) ceil($this->db->cell("SELECT count(library.id) as count FROM library WHERE ckey = ? AND (deleted = 0 OR deleted IS NULL)", $ckey) / $per_page));
+        } else {
+            $this->setPages((int) ceil($this->db->cell(
+                "SELECT
           count(library.id)
           FROM library
           WHERE deleted = 0
         OR deleted IS NULL"
-        ) / $per_page));
-
+            ) / $per_page));
+        }
+        $args[] = ($page * $per_page) - $per_page;
+        $args[] = $per_page;
+        //TODO: Rework this so we can show deleted books to admins
         $this->setResults($this->db->run(
             "SELECT 
-        id, 
-        author,
-        title,
-        category,
-        `datetime`,
-        SUBSTRING(`content`, 1, 512) as content,
-        IFNULL(deleted, 0) as deleted,
-        ckey
-        FROM library
-        WHERE deleted = 0
-        OR deleted IS NULL
-        ORDER BY `datetime`
-        DESC LIMIT ?,?",
-            ($page * $per_page) - $per_page,
-            $per_page
+            id, 
+            author,
+            title,
+            category,
+            `datetime`,
+            SUBSTRING(`content`, 1, 512) as content,
+            IFNULL(deleted, 0) as deleted,
+            ckey
+            FROM library
+            WHERE (deleted = 0
+            OR deleted IS NULL)
+            $author
+            ORDER BY `datetime`
+            DESC LIMIT ?,?",
+            ...$args
         ));
         foreach ($this->getResults() as &$r) {
             $r->datetime = new DateTime($r->datetime);
@@ -108,6 +117,11 @@ class LibraryRepository extends Database
     public function addBookReport(int $ntbn, string $reason, string $ckey)
     {
         $this->updateBookLog($ntbn, $reason, 'reported', $ckey);
+    }
+
+    public function countBooksByAuthor(string $ckey)
+    {
+        return $this->db->cell("SELECT count(id) FROM library WHERE ckey = ? AND (deleted = 0 OR deleted IS NULL)", $ckey);
     }
 
     private function getModerationLog(int $ntbn)

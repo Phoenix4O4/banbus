@@ -25,6 +25,11 @@ class Library
         $this->content = $this->HTMLFactory->sanitizeString($this->content);
         $this->author = $this->HTMLFactory->sanitizeString($this->author);
         $this->deleted = (bool) $this->deleted;
+        if ($this->modLog) {
+            foreach ($this->modLog as &$l) {
+                $l->reason = $this->HTMLFactory->sanitizeString($l->reason);
+            }
+        }
     }
 
     public function clearModLog()

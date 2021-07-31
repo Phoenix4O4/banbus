@@ -10,6 +10,9 @@ class LibraryBook extends LibraryService
     {
         $this->payload->setTemplate('library/single.twig');
         $this->book = $this->repo->getSingleBook($ntbn)->getResults();
+        if ($moderate) {
+            $this->moderateBook($ntbn);
+        }
         if ($this->book->deleted && $this->user && $this->user->hasPermission('BAN')) {
             $this->payload->addData('book', $this->book);
         } elseif (!$this->book->deleted) {
@@ -20,9 +23,7 @@ class LibraryBook extends LibraryService
         } else {
             $this->payload->throwError(451, "This book has been deleted");
         }
-        if ($moderate) {
-            $this->moderateBook($ntbn);
-        }
+
         return $this->payload;
     }
 
@@ -34,6 +35,7 @@ class LibraryBook extends LibraryService
         } else {
             $this->reportBook($reason);
         }
+        $this->book = $this->repo->getSingleBook($this->book->id)->getResults();
     }
 
     private function deleteBook($reason): void
@@ -54,7 +56,7 @@ class LibraryBook extends LibraryService
         }
     }
 
-    private function reportBook($reason):void
+    private function reportBook($reason): void
     {
         if (!$this->user) {
             die("You must be authenticated");

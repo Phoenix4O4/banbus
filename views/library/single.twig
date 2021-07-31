@@ -6,12 +6,7 @@
 {% block page %}
 
 {% if book.deleted %}
-<div class="alert alert-info mb-2">This book has been deleted.</div>
-{% endif %}
-
-{% if user.hasPermission('BAN') %}
-<h2>Moderation Log</h2>
-
+<div class="alert alert-info mb-2">This book has been deleted. Please see the moderation log below.</div>
 {% endif %}
 
 <h1 class="page-header"><i class="fas fa-book fa-fw"></i> {{book.title}} <span class="text-gray-300 text-right">#{{book.id}}</span></h1>
@@ -22,6 +17,33 @@
 
 </article>
 
+{% if user.hasPermission('BAN') and book.modLog %}
+<hr>
+<h2 class="text-2xl font-bold border-b border-gray-300 mb-3 pb-3">Moderation Log</h2>
+<ul>
+{% for l in book.modLog %}
+	<li class="mb-2"><strong>{{l.ckey}}</strong> 
+
+	{% switch l.action %}
+	
+		{% case "deleted" %}
+		
+		<span class="badge badge-danger mr-0">Deleted</span>
+	
+		{% case "undeleted" %}
+		
+		<span class="badge badge-success mr-0">Undeleted</span>
+
+		{% default %}
+		
+		<span class="badge badge-warning mr-0">Reported</span>
+	
+	{% endswitch %} this book <time>{{l.datetime}}</time> with reason: <br><blockquote class="ml-4 pl-4 border-l-4 border-gray-300">{{l.reason}}</blockquote><br></em></li>
+{% endfor %}
+{% endif %}
+
 {% include 'library/moderation.twig' %}
+
+
 
 {% endblock %}

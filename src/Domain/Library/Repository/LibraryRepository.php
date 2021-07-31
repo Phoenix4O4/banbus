@@ -116,6 +116,7 @@ class LibraryRepository extends Database
         a.rank
         FROM library_action
         LEFT JOIN `admin` a ON a.ckey = library_action.ckey
-        WHERE book = ?", $ntbn);
+        WHERE book = ?
+        ORDER BY library_action.datetime DESC", $ntbn);
     }
 }

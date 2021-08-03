@@ -225,6 +225,10 @@
     @apply bg-green-500 hover:bg-green-400 text-white;
   }
 
+  .btn-info {
+    @apply bg-blue-500 hover:bg-blue-400 text-white;
+  }
+
   .edits hr:last-child {
     @apply: hidden;
   }

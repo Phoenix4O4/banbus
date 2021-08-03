@@ -6,6 +6,7 @@ use App\Repository\Database;
 use App\Domain\Library\Data\Library;
 use App\Utilities\HTMLFactory;
 use DateTime;
+use Exception;
 
 class LibraryRepository extends Database
 {
@@ -105,13 +106,17 @@ class LibraryRepository extends Database
 
     private function updateBookLog(int $ntbn, string $reason, string $action, string $ckey)
     {
-        $this->db->insert('library_action', [
+        try {
+            $this->db->insert('library_action', [
             'book' => $ntbn,
             'reason' => $reason,
             'action' => $action,
             'ckey' => $ckey,
-            'ip_addr' => ip2long($_SERVER['REMOTE_ADDR'])
+            'ipaddr' => ip2long($_SERVER['REMOTE_ADDR'])
         ]);
+        } catch (Exception $e) {
+            die('Whoops');
+        }
     }
 
     public function addBookReport(int $ntbn, string $reason, string $ckey)

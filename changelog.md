@@ -13,6 +13,14 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.12.0 - 2021-07-31
+
+### Added
+- The library makes its triumphant return! 
+  - Book moderation is now easier than ever, with support for reporting books to administrators.
+
+---
+
 ## [0.11.01 - 2021-05-27
 
 ### Fixed

@@ -41,6 +41,13 @@
     </span>
     <span class="subtitle">Round Related Data</span>
   </a>
+  <a href="{{url_for('library')}}" class="big-nav-btn">
+      <span class="title">
+        <i class="fas fa-book text-yellow-400"></i>
+        The Library
+    </span>
+    <span class="subtitle">Be quiet</span>
+  </a>
   {% if user.hasPermission('ADMIN') %}
     <a href="{{url_for('tgdb')}}" class="big-nav-btn">
       <span class="title">

@@ -100,6 +100,13 @@ return function (App $app) {
     $app->get("/servers/", \App\Action\Servers\GetServers::class);
     $app->get("/rounds[/page/{page}]", \App\Action\Round\Listing::class)->setName("rounds");
 
+    $app->group("/library", function (RouteCollectorProxy $app) {
+        $app->get("[/page/{page}]", \App\Action\Library\LibraryListing::class)->setName("library");
+        $app->map(['GET','POST'], "/book/{ntbn:[0-9]+}", \App\Action\Library\SingleBook::class)->setName("library.single");
+        $app->get("/{ckey}[/page/{page}]", \App\Action\Tgdb\Player\ViewPlayerBooks::class)->setName("library.author");
+    });
+
+
     $app->group("/gallery", function (RouteCollectorProxy $app) {
         $app->get("", \App\Action\Gallery\Selector::class)->setName("gallery");
         $app->get("/{server:[a-zA-Z ]+}", \App\Action\Gallery\ServerArtwork::class)->setName("gallery.server");

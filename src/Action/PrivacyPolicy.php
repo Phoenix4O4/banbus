@@ -14,7 +14,7 @@ final class PrivacyPolicy extends Action
     {
         $payload = new Payload();
         $payload->addData(
-            'changelog',
+            'content',
             file_get_contents(__DIR__ . "/../../privacy_policy.md")
         );
         $payload->setTemplate('home/markdown.twig');

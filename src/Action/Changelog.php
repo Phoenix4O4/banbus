@@ -14,7 +14,7 @@ final class Changelog extends Action
     {
         $payload = new Payload();
         $payload->addData(
-            'changelog',
+            'content',
             file_get_contents(__DIR__ . "/../../changelog.md")
         );
         $payload->setTemplate('home/markdown.twig');

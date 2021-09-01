@@ -2,6 +2,8 @@
 
 namespace App\Domain\Tickets\Data;
 
+use DateTime;
+
 class Ticket
 {
     protected $labels = [];
@@ -20,14 +22,14 @@ class Ticket
         public int $ticket = 0,
         public ?string $action = 'Reply', //Action of an individual ticket
         public ?string $message = null,
-        public ?string $timestamp = null,
+        public ?DateTime $timestamp = null,
         public ?string $r_ckey = null,
         public ?string $s_ckey = null,
         public ?string $r_rank = 'Player',
         public ?string $s_rank = 'Player',
         public int $replies = 0,
         public ?string $status = null, //Last status for ticket listing views
-        public ?string $lastTimestamp = null
+        public ?DateTime $lastTimestamp = null
     ) {
         $this->addLabels();
         $this->mapAction();
@@ -35,8 +37,8 @@ class Ticket
             $this->mapStatus();
         }
         if ($this->lastTimestamp) {
-            $interval = date('U', strtotime($this->timestamp)) - date('U', strtotime($this->lastTimestamp));
-            $this->interval = date('H:i:s', $interval);
+            $interval = $this->timestamp->format('U') - $this->lastTimestamp->format('U');
+            $this->interval = DateTime::createFromFormat('U', $interval);
         }
         $this->message = urldecode(htmlentities($this->message, ENT_QUOTES, 'UTF-8', false));
     }

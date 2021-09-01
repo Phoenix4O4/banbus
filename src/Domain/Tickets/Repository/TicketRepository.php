@@ -3,6 +3,8 @@
 namespace App\Domain\Tickets\Repository;
 
 use App\Repository\Database;
+use DateTime;
+use App\Domain\Tickets\Data\Ticket;
 
 class TicketRepository extends Database
 {
@@ -57,6 +59,11 @@ class TicketRepository extends Database
                 $per_page
             )
         );
+        foreach ($this->getResults() as &$r) {
+            $r->timestamp = new DateTime($r->timestamp);
+            $r = Ticket::fromDb($r);
+        }
+
         return $this;
     }
 
@@ -109,6 +116,10 @@ class TicketRepository extends Database
                 $per_page
             )
         );
+        foreach ($this->getResults() as &$r) {
+            $r->timestamp = new DateTime($r->timestamp);
+            $r = Ticket::fromDb($r);
+        }
         return $this;
     }
 
@@ -147,6 +158,10 @@ class TicketRepository extends Database
                     $ticket
                 )
             );
+            foreach ($this->getResults() as &$r) {
+                $r->timestamp = new DateTime($r->timestamp);
+                $r = Ticket::fromDb($r);
+            }
         } catch (\Exception $e) {
             die($e->getMessage());
         }

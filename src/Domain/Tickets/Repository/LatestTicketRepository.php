@@ -3,6 +3,8 @@
 namespace App\Domain\Tickets\Repository;
 
 use App\Repository\Database;
+use DateTime;
+use App\Domain\Tickets\Data\Ticket;
 
 class LatestTicketRepository extends Database
 {
@@ -32,6 +34,11 @@ class LatestTicketRepository extends Database
                 LIMIT 0, 10"
             )
         );
+        foreach ($this->getResults() as &$r) {
+            $r->timestamp = new DateTime($r->timestamp);
+            $r = Ticket::fromDb($r);
+        }
+
         return $this;
     }
 
@@ -62,6 +69,11 @@ class LatestTicketRepository extends Database
                 $id
             )
         );
+        foreach ($this->getResults() as &$r) {
+            $r->timestamp = new DateTime($r->timestamp);
+            $r = Ticket::fromDb($r);
+        }
+
         return $this;
     }
 }

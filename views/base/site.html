@@ -83,7 +83,7 @@
       const timestamps = document.querySelectorAll("time");
       timestamps.forEach(function (ts) {
         ts.setAttribute("title", ts.textContent);
-        ts.textContent = dayjs(ts.textContent).utc().fromNow();
+        ts.textContent = dayjs.utc(ts.textContent).fromNow();
       });
       tippy("[title]", {
         content(reference) {

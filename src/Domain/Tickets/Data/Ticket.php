@@ -70,7 +70,7 @@ class Ticket
             default:
                 $this->class = 'warning';
                 $this->icon = 'reply';
-                $this->action_label = "replied to";
+                $this->action_label = "Reply from";
                 break;
             case 'Ticket Opened':
                 $this->class = 'info';
@@ -81,11 +81,13 @@ class Ticket
                 $this->class = 'success';
                 $this->icon = 'check-circle';
                 $this->isAction = true;
+                $this->action_label = "Ticket Resolved by";
                 break;
             case 'Rejected':
                 $this->class = 'danger';
                 $this->icon = 'undo';
                 $this->isAction = true;
+                $this->action_label = "Ticket Rejected by";
                 break;
             case 'Disconnected':
                 $this->class = 'secondary';
@@ -101,6 +103,7 @@ class Ticket
                 $this->class = 'secondary';
                 $this->isAction = true;
                 $this->icon = 'gavel';
+                $this->action_label = "Ticket marked as IC Issue by";
                 break;
 
         }
@@ -112,41 +115,50 @@ class Ticket
             case 'Ticket Opened':
                 $this->class = 'info';
                 $this->icon = 'ticket-alt';
+                $this->verb = "Ticket Opened by";
                 break;
 
             case 'Closed':
                 $this->class = 'danger';
                 $this->icon = 'times-circle';
+                $this->verb = "Ticket Closed by";
                 break;
 
             case 'Resolved':
                 $this->class = 'success';
                 $this->icon = 'check-circle';
+                $this->verb = "Ticket Resolved by";
                 break;
 
             case 'Reply':
                 $this->class = 'warning';
                 $this->icon = 'reply';
+                $this->verb = "Reply from";
+
                 break;
 
             case 'Rejected':
                 $this->class = 'danger';
                 $this->icon = 'undo';
+                $this->verb = "Ticket Rejected by";
                 break;
 
             case 'IC Issue':
                 $this->class = 'secondary';
                 $this->icon = 'gavel';
+                $this->verb = "Ticket marked as IC Issue by";
                 break;
 
             case 'Disconnected':
                 $this->status_class = "dark";
                 $this->icon = "window-close";
+                $this->verb = "Client Disconnected";
                 break;
 
             case 'Reconnected':
                 $this->status_class = "info";
                 $this->icon = "network-wired";
+                $this->verb = "Client reconnected";
                 break;
         }
     }

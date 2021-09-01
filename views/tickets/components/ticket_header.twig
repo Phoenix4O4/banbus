@@ -6,4 +6,4 @@
 {% else %}
 {{userBadge(ticket.sender)}} {{ticket.action_label}} {{userBadge(ticket.recipient)}}
 {% endif %}
-<time class="tooltip">{{ticket.timestamp}}</time>
+<time class="tooltip">{{ticket.timestamp.format('Y-m-d H:i:s')}}</time>

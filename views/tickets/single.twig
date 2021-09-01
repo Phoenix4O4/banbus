@@ -11,7 +11,7 @@
 <div class="flex flex-col relative">
 <div class="ticket-timeline"></div>
 {% for ticket in tickets %}
-{% if ticket.interval %}<p class="text-right mb-2 font-mono text-pink-500"><i class="fas fa-stopwatch"></i> {{ticket.interval}}</p>{% endif %}
+{% if ticket.interval %}<p class="text-right mb-2 font-mono text-pink-500"><i class="fas fa-stopwatch"></i> {{ticket.interval.format('H:i:s')}}</p>{% endif %}
 {% if ticket.isAction %}
 {% include 'tickets/components/action.twig' %}
 {% else %}

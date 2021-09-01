@@ -11,6 +11,6 @@
 		text-black
 		{% endif %}"></i>
     {{ticket.message}}
-    <span class="text-gray-400 text-xl"><time>{{ticket.timestamp}}</time>
+    <span class="text-gray-400 text-xl"><time>{{ticket.timestamp.format('Y-m-d H:i:s')}}</time>
     </div>
 </div>

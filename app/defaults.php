@@ -11,6 +11,8 @@ $settings['debug'] = false;
 $settings['root'] = dirname(__DIR__);
 $settings['temp'] = $settings['root'] . '/tmp';
 $settings['public'] = $settings['root'] . '/public';
+//If your application is not in the root directory of your webserver, set the
+//relative path from the webserver root here
 $settings['basepath'] = false;
 
 $settings['app'] = [
@@ -21,7 +23,8 @@ $settings['app'] = [
 
 $settings['modules'] = [
   'public_bans' => true,
-  'personal_bans' => true
+  'personal_bans' => true,
+  'discord_auth' => false
 ];
 
 $settings['twig'] = [
@@ -115,5 +118,14 @@ $settings['perm_flags'] = [
 $settings['site_perms'] = [
   'tgdb' => 'ADMIN'
 ];
+
+$settings['auth'] = [
+  'discord' => [
+    'clientId' => '',
+    'clientSecret' => '',
+    'scope' => ['identify', 'email'],
+  ]
+];
+
 
 return $settings;

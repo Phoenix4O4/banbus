@@ -11,7 +11,17 @@
         <i class="fas fa-id-badge text-green-800"></i>
         Authenticate
     </span>
+    <span class="subtitle">Old school TG forum auth</span>
   </a>
+    {% if modules.discord_auth %}
+    <a href="{{url_for('discord_auth')}}" class="big-nav-btn">
+      <span class="text-4xl font-extrabold tracking-wide uppercase">
+          <i class="fab fa-discord" style="color: #7289DA"></i>
+          Discord Auth
+      </span>
+      <span class="subtitle">It's from the future!</span>
+    </a>
+    {% endif %}
   {% endif %}
   <a href="{{url_for('banbus.index')}}" class="big-nav-btn">
     <span class="title">

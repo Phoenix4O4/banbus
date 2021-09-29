@@ -22,6 +22,9 @@ return function (App $app) {
         ->setName("auth_confirm");
     $app->get("/logout", \App\Action\User\Logout::class)->setName("logout");
 
+    $app->get("/auth/discord", \App\Action\User\AuthenticateWithDiscord::class)
+        ->setName('discord_auth');
+
     $app
         ->get("/banbus", \App\Action\Banbus\BanbusIndex::class)
         ->setName("banbus.index");

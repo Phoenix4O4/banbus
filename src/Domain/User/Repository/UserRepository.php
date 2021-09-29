@@ -13,4 +13,13 @@ final class UserRepository extends Database
         LEFT JOIN admin_ranks r ON a.rank = r.rank
         WHERE ckey = ?", $ckey);
     }
+
+    public function getUserByDiscordId(string $discordId)
+    {
+        return $this->db->row("SELECT p.ckey, a.rank, r.flags, a.feedback
+            FROM player p
+            LEFT JOIN `admin` a ON p.ckey = a.ckey
+            LEFT JOIN admin_ranks r ON a.rank = r.rank
+            WHERE p.discord_id = ?", $discordId);
+    }
 }

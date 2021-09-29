@@ -3,8 +3,15 @@
 use App\Middleware\UserMiddleware;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 return function (App $app) {
+    $app->options('/{routes:.*}', function (Request $request, Response $response) {
+        // CORS Pre-Flight OPTIONS Request Handler
+        return $response;
+    });
+
     $app->get("/", \App\Action\Home\Home::class)->setName("home")->setArgument('template', 'home');
     $app->get("/changelog", \App\Action\Changelog::class)->setName("changelog");
     $app->get("/privacy", \App\Action\PrivacyPolicy::class)->setName("privacy");

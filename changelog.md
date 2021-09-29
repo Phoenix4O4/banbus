@@ -13,6 +13,13 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.13.0 - 2021-09-28
+
+### Added
+- Support for authenticating with Statbus using Discord! The future is NOW!
+
+---
+
 ## [0.12.0 - 2021-07-31
 
 ### Added

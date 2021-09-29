@@ -2,8 +2,9 @@
 {% set current_subsite = current_url()|split('/')[1] %}
 {% from 'macros/macros.twig' import userBadge %}
     <header>
+            
       <div
-        class="{{ wide ? '' : narrow ? 'max-w-3xl lg:max-w-4xl xl:max-w-6xl' : 'container' }} mx-auto px-4"
+        class="{{ wide ? '' : narrow ? 'max-w-3xl lg:max-w-4xl xl:max-w-6xl' : 'container' }} mx-auto px-4 relative"
       >
         <nav id="global_nav" class="flex items-start justify-between">
           {% if '' != current_subsite %}
@@ -14,10 +15,13 @@
             <i class="fas fa-home"></i>
             {{app.name}}</a
           >
+          {% endif %} 
+          {% include 'base/components/messages.twig' %} 
           {% include [current_subsite ~ '/components/nav_inject.twig'] ignore
           missing %}
         </nav>
-        {% endif %} {% include 'base/components/messages.twig' %} {% include
+
+        {% include
         [current_subsite ~ '/header.twig', 'base/header.twig'] %}
       </div>
     </header>

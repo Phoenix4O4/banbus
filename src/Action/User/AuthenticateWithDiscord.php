@@ -20,7 +20,7 @@ class AuthenticateWithDiscord extends Action
         $query = $this->request->getQueryParams();
         if (empty($query['code'])) {
             $this->user->beginAuthentication();
-            return $this->payload;
+            return new Payload();
         } else {
             if (empty($query['state'])) {
                 die("Error: Missing state parameter");

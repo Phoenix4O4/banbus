@@ -17,9 +17,9 @@ final class UserRepository extends Database
     public function getUserByDiscordId(string $discordId)
     {
         return $this->db->row("SELECT p.ckey, a.rank, r.flags, a.feedback
-            FROM player p
+            FROM discord_links p
             LEFT JOIN `admin` a ON p.ckey = a.ckey
             LEFT JOIN admin_ranks r ON a.rank = r.rank
-            WHERE p.discord_id = ?", $discordId);
+            WHERE p.discord_id = ? AND valid = 1", $discordId);
     }
 }

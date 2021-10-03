@@ -25,6 +25,7 @@
     </a>
     {% endif %}
   {% endif %}
+  {% if user %}
   <a href="{{url_for('banbus.index')}}" class="big-nav-btn">
     <span class="title">
         <i class="fas fa-gavel text-yellow-800"></i>
@@ -32,6 +33,7 @@
     </span>
     <span class="subtitle">What did you do?!</span>
   </a>
+  {% endif %}
   <a href="{{url_for('infobus')}}" class="big-nav-btn">
       <span class="title">
         <i class="fas fa-info-circle text-blue-400"></i>

@@ -6,13 +6,15 @@
 {% block page %}
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 {% if not user %}
-  <a href="{{url_for('auth')}}" class="big-nav-btn">
-    <span class="text-4xl font-extrabold tracking-wide uppercase">
-        <i class="fas fa-id-badge text-green-800"></i>
-        Authenticate
-    </span>
-    <span class="subtitle">Old school TG forum auth</span>
-  </a>
+    {% if modules.forum_auth %}
+      <a href="{{url_for('auth')}}" class="big-nav-btn">
+        <span class="text-4xl font-extrabold tracking-wide uppercase">
+            <i class="fas fa-id-badge text-green-800"></i>
+            Authenticate
+        </span>
+        <span class="subtitle">Old school TG forum auth</span>
+      </a>
+    {% endif %}
     {% if modules.discord_auth %}
     <a href="{{url_for('discord_auth')}}" class="big-nav-btn">
       <span class="text-4xl font-extrabold tracking-wide uppercase">

@@ -48,6 +48,8 @@ $settings['error'] = [
 $settings['session'] = [
   'name' => 'banbus',
   'cache_expire' => 0,
+  'cookie_lifetime' => 2592000,
+  'gc_maxlifetime' => 604800
 ];
 
 $settings['db'] = [

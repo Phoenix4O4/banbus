@@ -97,7 +97,7 @@
           >#{{ t.round }}-{{ t.ticket }}</a
         >
         <span class="block text-gray-500 text-xs"
-          ><time>{{ moment.utc(t.timestamp).fromNow() }}</time> <br />on
+          ><time>{{ moment.utc(t.timestamp.date).fromNow() }}</time> <br />on
           <gameLink :server="t.server"></gameLink>
         </span>
       </dt>

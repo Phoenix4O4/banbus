@@ -10,7 +10,7 @@
   {% for s in servers %}
 		<a href="{{url_for('gallery.server',{server:s.name})}}" class="big-nav-btn">
 			<span class="title">
-				<img src="/assets/img/{{s.name|lower}}.png" class="mx-auto w-1/4" />
+				<img src="/assets/img/server_icons/{{s.name|lower}}.png" class="mx-auto w-1/4" />
 				{{s.name}}
 			</span>
 		</a>

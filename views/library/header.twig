@@ -2,5 +2,11 @@
 	<a href="{{url_for('library')}}" class="font-extrabold tracking-wide uppercase transition hover:text-gray-500 duration-700 ease-in-out text-xl md:text-2xl xl:text-4xl">
 		<i class="fas fa-book text-yellow-400"></i>
 		The Library</a>
+	<form action="" method="GET" class="form">
+		<div class="flex gap-2 pt-2">
+		<input type="text" name="term" value="{{term}}" class="mr-1" placeholder="Search Term"/>
+		<button class="btn btn-success">Search</button>
+		</div>
+	</form>
 </div>
 <hr class="border-gray-300 dark:border-gray-700 my-4">

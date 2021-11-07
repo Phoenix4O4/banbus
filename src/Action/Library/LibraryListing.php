@@ -19,7 +19,12 @@ class LibraryListing extends Action
 
     public function action(array $args = []): Payload
     {
+        $term = null;
+        $body = $this->request->getQueryParams();
+        if (isset($body['term'])) {
+            $term = $body['term'];
+        }
         $page = ($args) ? (int) $args['page'] : 1;
-        return $this->service->getLibraryShelf($page);
+        return $this->service->getLibraryShelf($page, $term);
     }
 }

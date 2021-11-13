@@ -156,10 +156,10 @@ class LibraryRepository extends Database
             'reason' => $reason,
             'action' => $action,
             'ckey' => $ckey,
-            'ipaddr' => ip2long($_SERVER['REMOTE_ADDR'])
+            'ip_addr' => ip2long($_SERVER['REMOTE_ADDR'])
         ]);
         } catch (Exception $e) {
-            die('Whoops');
+            die($e->getMessage());
         }
     }
 

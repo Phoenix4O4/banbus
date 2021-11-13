@@ -113,7 +113,7 @@ return function (App $app) {
     $app->group("/library", function (RouteCollectorProxy $app) {
         $app->get("[/page/{page}]", \App\Action\Library\LibraryListing::class)->setName("library");
         $app->map(['GET','POST'], "/book/{ntbn:[0-9]+}", \App\Action\Library\SingleBook::class)->setName("library.single");
-        $app->get("/{ckey}[/page/{page}]", \App\Action\Tgdb\Player\ViewPlayerBooks::class)->setName("library.author");
+        $app->get("/{ckey}[/page/{page}]", \App\Action\Tgdb\Player\ViewPlayerBooks::class)->setName('library.author')->setArgument("permission", "ADMIN")->add(UserMiddleware::class);
     });
 
 

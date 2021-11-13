@@ -5,6 +5,7 @@
   {% if user.hasPermission('BAN') %}
   <p class="my-3 text-sm">This book was published by <a class="link" href="{{url_for('tgdb.player',{ckey:book.ckey})}}">{{book.ckey}}</a>.</p>
   {% endif %}
+  <p class="mt-3 text-sm">Please provide a reason for reporting {% if user.hasPermission('BAN') %}(or deleting){% endif %} this book.</p>
   <form class="form" action="" method="POST">
     <textarea name="reason" rows="6" class="w-full block mb-4" required="required"></textarea>
     <button class="btn btn-info mr-2" name="report" value="1">Report book</button>

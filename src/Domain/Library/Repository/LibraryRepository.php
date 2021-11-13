@@ -12,18 +12,19 @@ class LibraryRepository extends Database
 {
     public function getBookList(int $page = 1, int $per_page = 60, bool|string $ckey = false): self
     {
-        $author = '';
+        $where = '';
         if ($ckey) {
-            $author = 'AND ckey = ?';
+            $where = "WHERE ckey = ?";
             $args[] = $ckey;
-            $this->setPages((int) ceil($this->db->cell("SELECT count(library.id) as count FROM library WHERE ckey = ? AND (deleted = 0 OR deleted IS NULL)", $ckey) / $per_page));
+            $this->setPages((int) ceil($this->db->cell("SELECT count(library.id) as count FROM library WHERE ckey = ?", $ckey) / $per_page));
         } else {
+            $where = "WHERE deleted = 0 OR ISNULL(deleted)";
             $this->setPages((int) ceil($this->db->cell(
                 "SELECT
-          count(library.id)
-          FROM library
-          WHERE deleted = 0
-        OR deleted IS NULL"
+                count(library.id)
+                FROM library
+                WHERE deleted = 0
+                OR deleted IS NULL"
             ) / $per_page));
         }
         $args[] = ($page * $per_page) - $per_page;
@@ -40,9 +41,7 @@ class LibraryRepository extends Database
             IFNULL(deleted, 0) as deleted,
             ckey
             FROM library
-            WHERE (deleted = 0
-            OR deleted IS NULL)
-            $author
+            $where
             ORDER BY `datetime` DESC
             LIMIT ?,?",
             ...$args
@@ -170,7 +169,7 @@ class LibraryRepository extends Database
 
     public function countBooksByAuthor(string $ckey)
     {
-        return $this->db->cell("SELECT count(id) FROM library WHERE ckey = ? AND (deleted = 0 OR deleted IS NULL)", $ckey);
+        return $this->db->cell("SELECT count(id) FROM library WHERE ckey = ?", $ckey);
     }
 
     private function getModerationLog(int $ntbn)

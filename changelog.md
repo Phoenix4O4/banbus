@@ -16,6 +16,17 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 ## [0.13.1 - 2021-09-28
 
 ### Added
+- Admins can now view all books (including deleted ones) by any ckey
+
+### Fixed
+- Library search was not actually configured
+- An error that was always being triggered when a book was reported or deleted
+
+---
+
+## [0.13.1 - 2021-09-28
+
+### Added
 - Library search feature
 
 ---

@@ -2,19 +2,25 @@
 {% block page %}
 {% from 'macros/macros.twig' import pagination, roundLink %}
   {{pagination(pagination.pages, pagination.currentPage, url_for('library'))}}
-	{% if ckey and user.hasPermission('BAN') %}
-	<h2 class="text-2xl font-bold border-b border-gray-300 mb-3 pb-3">Showing books by <a class="link" href="{{url_for('tgdb.player',{ckey:ckey})}}">{{ckey}}</a></h2>
+	{% if ckey and user.hasPermission('ADMIN') %}
+	<h2 class="text-2xl font-bold border-b border-gray-300 mb-3 pb-3">Showing published and deleted books by <a class="link" href="{{url_for('tgdb.player',{ckey:ckey})}}">{{ckey}}</a></h2>
 	{% endif %}
 	{% if term %}
 		<h2 class="text-2xl font-bold border-b border-gray-300 mb-3 pb-3">Showing results for <em>{{term}}</em></h2>
 		{% endif %}
 <div class="grid grid-cols-4 gap-4">
 	{% for b in books %}
-		<a class="border border-gray-300 p-4 rounded relative book" href="{{url_for('library.single',{ntbn:b.id})}}">
-			<h2 class="font-bold text-xl border-b border-black">{{b.title}}</h2>
+		<a class="border border-gray-300 p-4 rounded relative book {% if b.deleted %}bg-red-100{% endif %}" href="{{url_for('library.single',{ntbn:b.id})}}">
+			<h2 class="font-bold text-xl border-b border-black">
+			{% if b.deleted %}
+				<span class="text-red-600 font-bold uppercase pr-1"><i class="fas fa-minus-circle" title="This book has been deleted"></i></span>
+				{% endif %}
+				{{b.title}}</h2>
 			<h3 class="text-xs text-right">by {{b.author}}</h3>
 			<p class="book-snippet text-sm break-words text-transparent bg-clip-text bg-gradient-to-b from-gray-700 pb-8">{{b.content}}</p>
-			<p class="absolute bottom-4 text-sm">Posted <time>{{b.datetime.format('Y-m-d H:i:s')}}</time> in {{b.category}}</p>
+			<p class="absolute bottom-4 text-sm">
+				<span>Posted <time>{{b.datetime.format('Y-m-d H:i:s')}}</time> in {{b.category}}</span>
+			</p>
 		</a>
 	{% endfor %}
 	</div>

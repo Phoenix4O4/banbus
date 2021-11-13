@@ -8,8 +8,10 @@ class User
     protected $permissions = false;
     public $rank;
     public $displayName;
+    public $feedback = null;
+    public $authSource = null;
 
-    public function __construct($ckey, $rank, ?array $permissions = [], ?int $flags = 0, ?string $feedback = null)
+    public function __construct($ckey, $rank, ?array $permissions = [], ?int $flags = 0, ?string $feedback = null, $authSource = null)
     {
         $this->setCkey($ckey);
         $this->setRank($rank);
@@ -19,6 +21,7 @@ class User
         }
         $this->flags = $flags;
         $this->feedback = $feedback;
+        $this->authSource = $authSource;
     }
 
     private function setCkey($ckey)

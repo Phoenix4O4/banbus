@@ -63,7 +63,8 @@ class DiscordAuthenticate extends Service
             $userData->ckey,
             $userData->rank,
             $userData->flags,
-            $userData->feedback
+            $userData->feedback,
+            'Discord'
         );
         $this->payload->addData('user', $user);
         $this->session->set('user', $user);

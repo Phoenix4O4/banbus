@@ -27,9 +27,11 @@ class Authenticate extends Service
         $this->session = $session;
         $this->auth = $auth;
         if (!$this->session->get('site_private_token')) {
+            $dest = $this->session->get('destination_uri');
             $this->session->invalidate();
             $this->session->start();
             $this->session->set('site_private_token', $this->generateToken());
+            $this->session->set('destination_uri', $dest);
         }
         $this->user = $user;
         $this->userFactory = $userFactory;
@@ -79,7 +81,8 @@ class Authenticate extends Service
             $response->byond_ckey,
             $userData->rank,
             $userData->flags,
-            $userData->feedback
+            $userData->feedback,
+            'Forums'
         );
         $this->payload->addData('user', $user);
         $this->session->set('user', $user);

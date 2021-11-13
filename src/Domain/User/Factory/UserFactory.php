@@ -18,7 +18,7 @@ class UserFactory
         $this->perm_flags = (array) $settings->getSettingsByKey('perm_flags');
     }
 
-    public function buildUser($ckey, $rank, ?int $flags = 0, ?string $feedback = null): User
+    public function buildUser($ckey, $rank, ?int $flags = 0, ?string $feedback = null, $authSource = null): User
     {
         if (!in_array($rank, array_keys($this->ranks))) {
             $rank = new \stdclass();
@@ -32,7 +32,7 @@ class UserFactory
 
         $permissions = $this->calculatePermissions($flags);
 
-        return new User($ckey, $rank, $permissions, $flags, $feedback);
+        return new User($ckey, $rank, $permissions, $flags, $feedback, $authSource);
     }
 
     public function buildUsers($users)

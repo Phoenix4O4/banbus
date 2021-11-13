@@ -43,10 +43,54 @@ class LibraryRepository extends Database
             WHERE (deleted = 0
             OR deleted IS NULL)
             $author
-            ORDER BY `datetime`
-            DESC LIMIT ?,?",
+            ORDER BY `datetime` DESC
+            LIMIT ?,?",
             ...$args
         ));
+        foreach ($this->getResults() as &$r) {
+            $r->datetime = new DateTime($r->datetime);
+            $r->content = strip_tags($r->content);
+            $r->modLog = null;
+            $tmp[] = Library::new($r);
+        }
+        $this->setResults($tmp);
+        return $this;
+    }
+
+    public function searchLibrary(int $page = 1, int $per_page = 60, string $term = '')
+    {
+        $term = filter_var($term, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+        $statement = \ParagonIE\EasyDB\EasyStatement::open()->andWith('AND library.content like ?', '%' . $this->db->escapeLikeValue($term) . '%');
+        $this->setPages((int) ceil($this->db->cell(
+            "SELECT
+        count(library.id)
+        FROM library
+        WHERE deleted = 0
+        OR deleted IS NULL
+        $statement",
+            $statement->values()[0]
+        ) / $per_page));
+        $this->setResults($this->db->run(
+            "SELECT 
+            id, 
+            author,
+            title,
+            category,
+            `datetime`,
+            SUBSTRING(`content`, 1, 512) as content,
+            IFNULL(deleted, 0) as deleted,
+            ckey
+            FROM library
+            WHERE (deleted = 0
+            OR deleted IS NULL)
+            $statement
+            ORDER BY `datetime` DESC
+            LIMIT ?,?",
+            $statement->values()[0],
+            ($page * $per_page) - $per_page,
+            $per_page
+        ));
+        $tmp = [];
         foreach ($this->getResults() as &$r) {
             $r->datetime = new DateTime($r->datetime);
             $r->content = strip_tags($r->content);

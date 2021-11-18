@@ -62,6 +62,20 @@
     </span>
     <span class="subtitle">Be quiet</span>
   </a>
+  <a href="{{url_for('citations')}}" class="big-nav-btn">
+      <span class="title">
+        <i class="fas fa-receipt text-purple-400"></i>
+        Citations
+    </span>
+    <span class="subtitle">Pay the fine or serve your sentence</span>
+  </a>
+    <a href="{{url_for('citations')}}" class="big-nav-btn">
+      <span class="title">
+        <i class="fas fa-paint-brush text-red-400"></i>
+        Gallery
+    </span>
+    <span class="subtitle">What even <em>is</em> art?</span>
+  </a>
   <a href="https://badger.atlantaned.space" class="big-nav-btn" target="_blank" rel="noopener noreferrer">
       <span class="title">
         <i class="fas fa-id-card text-pink-400"></i>
@@ -86,5 +100,9 @@
   </a>
   {% endif %}
 </div>
+<hr class="border-gray-300 dark:border-gray-700 my-4">
+<article class="prose dark:prose-light mx-auto lg:prose-lg xl:prose-2xl">
+  <strong>Statbus</strong> is a collection of tools for working with the <a href="https://tgstation13.org/" class="link" target="_blank" rel="noopener noreferrer">TGStation</a> database. Much of the content is user-generated, un-filtered and un-moderated. Any statements expressed here in no way reflect my personal feelings. By proceeding you acknowledge that you may encounter content that may be objectionable or harmful.
+</article>
 
 {% endblock %}

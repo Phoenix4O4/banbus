@@ -57,7 +57,7 @@
           >{% endif %}
         </p>
         <p class="text-gray-500 text-sm">
-          {% if user %} Logged in as {{userBadge(user)}} |
+          {% if user %} Logged in as {{userBadge(user)}} (Via {{user.authSource}}) |
           <a href="{{url_for('logout')}}" class="link">Logout</a>
           {% endif %}
         </p>

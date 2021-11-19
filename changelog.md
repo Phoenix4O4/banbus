@@ -13,7 +13,14 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.13.1 - 2021-09-28
+## [0.13.2] - 2021-09-28
+
+### Added
+- A search bar on the rounds page will let you quickly jump to whatever round ID you input
+
+---
+
+## [0.13.1] - 2021-09-28
 
 ### Added
 - Admins can now view all books (including deleted ones) by any ckey
@@ -24,21 +31,21 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.13.1 - 2021-09-28
+## [0.13.1] - 2021-09-28
 
 ### Added
 - Library search feature
 
 ---
 
-## [0.13.0 - 2021-09-28
+## [0.13.0] - 2021-09-28
 
 ### Added
 - Support for authenticating with Statbus using Discord! The future is NOW!
 
 ---
 
-## [0.12.0 - 2021-07-31
+## [0.12.0] - 2021-07-31
 
 ### Added
 - The library makes its triumphant return! 
@@ -46,7 +53,7 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
-## [0.11.01 - 2021-05-27
+## [0.11.01] - 2021-05-27
 
 ### Fixed
 - An issue with some tickets potentially being viewable by people who weren't supposed to be able to see them

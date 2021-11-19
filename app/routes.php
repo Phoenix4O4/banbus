@@ -109,6 +109,8 @@ return function (App $app) {
 
     $app->get("/servers/", \App\Action\Servers\GetServers::class);
     $app->get("/rounds[/page/{page}]", \App\Action\Round\Listing::class)->setName("rounds");
+    $app->get("/rounds/{round:[0-9]+}", \App\Action\Round\Single::class)->setName("round");
+
 
     $app->group("/library", function (RouteCollectorProxy $app) {
         $app->get("[/page/{page}]", \App\Action\Library\LibraryListing::class)->setName("library");

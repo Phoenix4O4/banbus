@@ -2,6 +2,12 @@
 	<a href="{{url_for('rounds')}}" class="font-extrabold tracking-wide uppercase transition hover:text-gray-500 duration-700 ease-in-out text-xl md:text-2xl xl:text-4xl">
 		<i class="fas fa-circle text-grey-400"></i>
 		Rounds</a>
+	<form action="" method="GET" class="form">
+		<div class="flex gap-2">
+			<input type="text" name="round" value="" class="mr-1 block" placeholder="Jump to round..."/>
+			<button class="btn btn-success">Go</button>
+		</div>
+	</form>
 	<nav class="text-lg font-bold">
 		<a href="{{url_for('citations')}}" class="link md:pl-3">Security Citations</a>
 	</nav>

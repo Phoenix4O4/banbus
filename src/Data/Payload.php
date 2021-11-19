@@ -7,6 +7,8 @@ class Payload
     protected $data = [];
     protected $messages = [];
 
+    protected $args = [];
+
     protected $template = 'home/home.twig';
 
     protected $redirect = false;
@@ -36,9 +38,10 @@ class Payload
         return $this->redirect;
     }
 
-    public function setRouteRedirect(string $route)
+    public function setRouteRedirect(string $route, ?array $args = [])
     {
         $this->routeRedirect = $route;
+        $this->args = $args;
     }
 
     public function getRouteRedirect()
@@ -116,6 +119,11 @@ class Payload
     public function isJson(): bool
     {
         return $this->returnAsJson;
+    }
+
+    public function getArgs(): array
+    {
+        return $this->args;
     }
 
     public function addMessage(string $message = "Message")

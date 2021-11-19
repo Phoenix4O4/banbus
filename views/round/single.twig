@@ -1,0 +1,13 @@
+{% extends 'base/site.html' %}
+{% block page %}
+{% from 'macros/macros.twig' import roundLink %}
+<h1 class="page-header">{{roundLink(round.id, round.server)}} on {{round.server.name}}</h1>
+  {% if user.hasPermission('ADMIN') %}
+    <nav class="grid md:grid-cols-4 gap-2">
+			<a href="{{url_for('tgdb.ticket.round',{round: round.id})}}" class="small-nav-btn">
+				<span>Tickets</span>
+				<i class="fas fa-ticket-alt"></i>
+			</a>
+    </nav>
+  {% endif %}
+{% endblock %}

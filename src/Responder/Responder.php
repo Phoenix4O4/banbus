@@ -160,7 +160,8 @@ final class Responder
         if ($payload->checkForRouteRedirect()) {
             return $this->withRedirectFor(
                 $response,
-                $payload->getRouteRedirect()
+                $payload->getRouteRedirect(),
+                $payload->getArgs()
             );
         }
         if (isset($_GET['json']) || $payload->isJson()) {

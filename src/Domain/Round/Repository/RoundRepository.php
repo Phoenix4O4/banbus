@@ -38,4 +38,21 @@ class RoundRepository extends Database
 
         return $this;
     }
+    public function fetchRound(int $id): self
+    {
+        $this->setResults(
+            $this->db->row(
+                "SELECT * FROM round WHERE id = ?",
+                $id
+            )
+        );
+        $round = $this->getResults();
+        foreach (self::DATETIME_COLS as $date) {
+            if ($round->$date) {
+                $round->$date = new DateTime($round->$date, new DateTimeZone('UTC'));
+            }
+        }
+        $this->setResults($round);
+        return $this;
+    }
 }

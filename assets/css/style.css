@@ -7,7 +7,7 @@
 
 
   body {
-    --bg-height: 5px;
+    --bg-height: 10px;
     background-image: linear-gradient(black,black), linear-gradient(#a8805f,#a8805f), linear-gradient(red,red), linear-gradient(orange,orange), linear-gradient(yellow,yellow), linear-gradient(green,green), linear-gradient(blue,blue), linear-gradient(purple,purple);
     background-size: calc(1 * (100% / 8)) var(--bg-height), calc(2 * (100% / 8)) var(--bg-height), calc(3 * (100% / 8)) var(--bg-height), calc(4 * (100% / 8)) var(--bg-height), calc(5 * (100% / 8)) var(--bg-height), calc(6 * (100% / 8)) var(--bg-height), calc(7 * (100% / 8)) var(--bg-height), calc(8 * (100% / 8)) var(--bg-height);
     background-repeat: no-repeat;

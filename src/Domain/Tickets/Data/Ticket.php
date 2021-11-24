@@ -3,9 +3,13 @@
 namespace App\Domain\Tickets\Data;
 
 use DateTime;
+use App\Utilities\HTMLFactory;
+use HTMLPurifier_Config;
 
 class Ticket
 {
+    private HTMLFactory $purifier;
+
     protected $labels = [];
     public $class = "success";
     public $action_label = "Ticket Opened By";
@@ -31,6 +35,12 @@ class Ticket
         public ?string $status = null, //Last status for ticket listing views
         public ?DateTime $lastTimestamp = null
     ) {
+        $config = HTMLPurifier_Config::createDefault();
+        $config->set('HTML.Allowed', 'br');
+        // $config->set('Output.TidyFormat', true);
+        $this->purifier = new HTMLFactory($config);
+        // $this->message = str_replace(['<br />','&lt;br /&gt;'], '<br>', $this->message);
+        $this->message = $this->purifier->sanitizeString($this->message);
         $this->addLabels();
         $this->mapAction();
         if ($this->status) {
@@ -40,7 +50,7 @@ class Ticket
             $interval = $this->timestamp->format('U') - $this->lastTimestamp->format('U');
             $this->interval = DateTime::createFromFormat('U', $interval);
         }
-        $this->message = urldecode(htmlentities($this->message, ENT_QUOTES, 'UTF-8', false));
+        // $this->message = urldecode(htmlentities($this->message, ENT_QUOTES, 'UTF-8', false));
     }
 
     public static function fromDb(object $ticket)
@@ -105,6 +115,10 @@ class Ticket
                 $this->icon = 'gavel';
                 $this->action_label = "Ticket marked as IC Issue by";
                 break;
+            case 'Interaction':
+                $this->class = "secondary";
+                $this->icon = "tools";
+                $this->action_label = "Interacted with";
 
         }
     }

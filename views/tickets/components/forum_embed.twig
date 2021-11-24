@@ -26,7 +26,7 @@ Ticket opened at [b]<strong>{{tickets[0].timestamp.format('Y-m-d H:i:s')}}</stro
 [b]<strong>Log:</strong>[/b]<br>
 {% for t in tickets %}
 {{t.timestamp.format('H:i:s')}}:
-{% if t.isAction %}
+{% if t.isAction or 'Interaction' == t.action %}
 {{t.message}}<br>
 {% elseif blue == t.sender.getCkey() %}
 [color=#0000FF]<span class="text-blue-500"> {{t.action_label}}-{{t.sender.getCkey()}}: {{t.message}}</span>[/color]<br>

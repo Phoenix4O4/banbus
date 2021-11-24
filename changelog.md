@@ -13,6 +13,14 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+## [0.13.3] - 2021-09-28
+
+### Added
+- Support for `Interaction` admin helps (See [tgstation/62994](https://github.com/tgstation/tgstation/pull/62994))
+- Option to pass a config to HTMLPurifier
+
+---
+
 ## [0.13.2] - 2021-09-28
 
 ### Added

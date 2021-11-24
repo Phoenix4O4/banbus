@@ -8,10 +8,12 @@ class HTMLFactory
 {
     public $purifier;
 
-    public function __construct()
+    public function __construct($config = [])
     {
         require_once __DIR__ . '/../../vendor/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
-        $config = \HTMLPurifier_Config::createDefault();
+        if (!$config) {
+            $config = \HTMLPurifier_Config::createDefault();
+        }
         $this->purifier = new HTMLPurifier($config);
     }
 

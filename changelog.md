@@ -10,6 +10,12 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 ## Upcoming
 
 - Check out the [todo list](https://hackmd.io/Ojsm71RhT2-r5dzf-a16cw).
+---
+
+## [0.14.0] - 2022-01-26
+
+### Changed
+- Forum authentication now uses TGStation's OAuth provider instead of the OAuth-like system that was in use.
 
 ---
 

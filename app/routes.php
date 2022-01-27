@@ -9,7 +9,7 @@ return function (App $app) {
     $app->get("/changelog", \App\Action\Changelog::class)->setName("changelog");
     $app->get("/privacy", \App\Action\PrivacyPolicy::class)->setName("privacy");
 
-    $app->get("/auth", \App\Action\User\Authenticate::class)->setName("auth");
+    $app->get("/auth/forum", \App\Action\User\Authenticate::class)->setName("auth_forum");
     $app
         ->get("/auth/confirm", \App\Action\User\ConfirmAuthentication::class)
         ->setName("auth_confirm");

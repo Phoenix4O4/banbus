@@ -7,7 +7,7 @@
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 {% if not user %}
     {% if modules.forum_auth %}
-      <a href="{{url_for('auth')}}" class="big-nav-btn">
+      <a href="{{url_for('auth_forum')}}" class="big-nav-btn">
         <span class="text-4xl font-extrabold tracking-wide uppercase">
             <i class="fas fa-id-badge text-green-800"></i>
             Authenticate

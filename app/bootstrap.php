@@ -14,6 +14,7 @@ $app = $container->get(App::class);
 
 date_default_timezone_set($container->get('settings')['app']['timezone']);
 
+(require __DIR__ . '/cors.php')($app);
 (require __DIR__ . '/routes.php')($app);
 (require __DIR__ . '/middleware.php')($app);
 

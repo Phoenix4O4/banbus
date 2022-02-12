@@ -8,18 +8,20 @@ final class UserRepository extends Database
 {
     public function getUserByCkey($ckey)
     {
-        return $this->db->row("SELECT a.ckey, a.rank, r.flags, a.feedback
-        FROM `admin` a
+        return $this->db->row("SELECT p.ckey, a.rank, r.flags, a.feedback
+        FROM `player` p
+        LEFT JOIN `admin` a ON a.ckey = p.ckey
         LEFT JOIN admin_ranks r ON a.rank = r.rank
-        WHERE ckey = ?", $ckey);
+        WHERE p.ckey = ?", $ckey);
     }
 
     public function getUserByDiscordId(string $discordId)
     {
         return $this->db->row("SELECT p.ckey, a.rank, r.flags, a.feedback
-            FROM discord_links p
+            FROM `player` p
             LEFT JOIN `admin` a ON p.ckey = a.ckey
             LEFT JOIN admin_ranks r ON a.rank = r.rank
-            WHERE p.discord_id = ? AND valid = 1", $discordId);
+            LEFT JOIN discord_links d ON d.ckey = p.ckey
+            WHERE d.discord_id = ? AND d.valid = 1", $discordId);
     }
 }

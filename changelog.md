@@ -12,6 +12,12 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 - Check out the [todo list](https://hackmd.io/Ojsm71RhT2-r5dzf-a16cw).
 ---
 
+## [0.14.1] - 2022-02-25
+
+### Added
+- Easily copy-able BBCode for forum links to tickets for admins AND players! 
+---
+
 ## [0.14.0] - 2022-01-26
 
 ### Changed

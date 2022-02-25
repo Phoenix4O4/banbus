@@ -5,8 +5,19 @@
 {% endblock %}
 {% block page %}
 {% from 'macros/macros.twig' import roundLink %}
-<div class="text-2xl py-4">Ticket #{{tickets[0].ticket}} from {{roundLink(tickets[0].round, tickets[0].server)}}
+<div class="text-2xl py-4">Ticket #{{tickets[0].ticket}} from {{roundLink(tickets[0].round, tickets[0].server)}} | <a href="#" id="copyLinks" title="Copy links to this ticket for the forum"><i class="fas fa-copy text-gray-400 select-none"></i></a>
 </div>
+<textarea id="links" style="display: none; visibility: hidden">
+[b]Links to this ticket[/b]
+For admins:
+[size=85]This link is to the ticket page on TGDB and can only be accessed by admins.[/size]
+[url={{full_url_for('tgdb.ticket',{'round':tickets[0].round,'ticket':tickets[0].ticket})}}]{{full_url_for('tgdb.ticket',{'round':tickets[0].round,'ticket':tickets[0].ticket})}}[/url]
+
+For the player:
+[size=85]This link is for players and can only be accessed by the player the ticket was started by, or sent to.[/size]
+[url={{full_url_for('mytickets.single',{'round':tickets[0].round,'ticket':tickets[0].ticket})}}]{{full_url_for('mytickets.single',{'round':tickets[0].round,'ticket':tickets[0].ticket})}}[/url]
+
+</textarea>
 <hr>
 <div class="flex flex-col relative">
 <div class="ticket-timeline"></div>
@@ -81,4 +92,28 @@
 </div>
 {% endif %}
 		{% include ('tickets/components/forum_embed.twig') %}
+
+<script>
+function setClipboard(text) {
+    var type = "text/plain";
+    var blob = new Blob([text], { type });
+    var data = [new ClipboardItem({ [type]: blob })];
+
+    navigator.clipboard.write(data).then(
+        function () {
+        	console.log("Saved link BBCode to clipboard")
+        },
+        function () {
+        	console.log("Failed to save link BBCode to clipboard")
+        }
+    );
+}
+
+linkGrabbber = document.querySelector('#copyLinks')
+linkGrabbber.addEventListener('click',function(e){
+	e.preventDefault();
+	setClipboard(document.getElementById("links").value)
+})
+</script>
 {% endblock %}
+

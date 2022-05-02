@@ -43,4 +43,4 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             echo "Copying files from staging..."
-            rsync -aqz --delete ~/staging/ ~/www/atlantaned.space
+            rsync -aqz --delete ~/staging/ ~/www/${{ secrets.PROD_DOMAIN }}

@@ -20,6 +20,7 @@ jobs:
         uses: php-actions/composer@v6
         with:
           php_version: latest
+          args: --ignore-platform-reqs
 
       - name: Set up node
         uses: actions/setup-node@v2

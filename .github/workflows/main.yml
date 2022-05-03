@@ -42,9 +42,8 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
-	    echo "Stashing configuration files..."
-
-	    mv ~/serv/www/${{ secrets.PROD_DOMAIN }}/app/conf ~/serv/www
+            echo "Stashing configuration files..."
+            mv ~/serv/www/${{ secrets.PROD_DOMAIN }}/app/conf ~/serv/www
             echo "Copying files from staging..."
             rsync -aqz --delete --filter=':- .gitignore' ~/staging/ ~/serv/www/${{ secrets.PROD_DOMAIN }}
             echo "Wiping previous template stash"
@@ -54,8 +53,8 @@ jobs:
             mv ~/serv/www/conf ~/${{ secrets.PROD_DOMAIN }}/app/
             echo "Done!"
       - name: send message
-  		uses: appleboy/discord-action@master
-  		with:
-    		webhook_id: ${{ secrets.WEBHOOK_ID }}
-    		webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-    		message: Statbus has been updated!
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.WEBHOOK_ID }}
+          webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
+          message: Statbus has been updated!

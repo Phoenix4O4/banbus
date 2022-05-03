@@ -43,20 +43,18 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             echo "Stashing configuration files..."
-            sudo mv /var/www/atlantaned.space/banbus/app/conf /var/www/atlantaned.space/
+            mv ~/serv/www/${{ secrets.PROD_DOMAIN }}/app/conf ~/serv/www
             echo "Copying files from staging..."
-            sudo rsync -aqz --delete ~/staging/ /var/www/atlantaned.space/banbus/
-            echo "Wiping old template configuration..."
-            sudo rm -rf /var/www/atlantaned.space/tmp/twig/*
-            echo "Cleaning public directory..."
-            sudo rm -rf /var/www/atlantaned.space/public/*
-            echo "Moving newer assets into public directory..."
-            sudo mv /var/www/atlantaned.space/banbus/public/* /var/www/atlantaned.space/public/
+            rsync -aqz --delete --filter=':- .gitignore' ~/staging/ ~/serv/www/${{ secrets.PROD_DOMAIN }}
+            echo "Wiping previous template stash"
+            rm -rf ~/serv/www/${{ secrets.PROD_DOMAIN }}/tmp/twig/*
             echo "Restoring configuration..."
-            sudo rm -rf /var/www/atlantaned.space/banbus/app/conf/
-            sudo mv /var/www/atlantaned.space/conf /var/www/atlantaned.space/banbus/app/
-            echo "Updating index script location..."
-            sudo sed -i 's/\/app/\/banbus\/app/g' /var/www/atlantaned.space/public/index.php
-            echo "Restoring file ownership..."
-            sudo chown -R www-data:www-data /var/www/atlantaned.space
+            rm -rf ~/serv/www/${{ secrets.PROD_DOMAIN }}/app/conf/
+            mv ~/serv/www/conf ~/${{ secrets.PROD_DOMAIN }}/app/
             echo "Done!"
+      - name: send message
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.WEBHOOK_ID }}
+          webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
+          message: Statbus has been updated!

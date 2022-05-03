@@ -52,13 +52,13 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             echo "Stashing configuration files..."
-            mv ~/serv/www/${{ secrets.PROD_DOMAIN }}/app/conf ~/serv/www
+            tar -cjf conf.tar -C serv/www/${{ secrets.PROD_DOMAIN }}/app/conf/ .
             echo "Copying files from staging..."
             rsync -aqz --delete --filter=':- .gitignore' ~/staging/ ~/serv/www/${{ secrets.PROD_DOMAIN }}
             echo "Wiping previous template stash"
             rm -rf ~/serv/www/${{ secrets.PROD_DOMAIN }}/tmp/twig/*
             echo "Restoring configuration..."
-            rm -rf ~/serv/www/${{ secrets.PROD_DOMAIN }}/app/conf/
+            tar xvf conf.tar -C serv/www/${{ secrets.PROD_DOMAIN }}/app/conf
             mv ~/serv/www/conf ~/${{ secrets.PROD_DOMAIN }}/app/
             echo "Done!"
       - name: send message
@@ -66,4 +66,4 @@ jobs:
         with:
           webhook_id: ${{ secrets.WEBHOOK_ID }}
           webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-          message: Statbus has been updated!
+          message: Statbus has been updated! See what's new at ${{ secrets.PROD_DOMAIN }}/changelog 

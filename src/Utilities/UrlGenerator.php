@@ -90,12 +90,16 @@ final class UrlGenerator
         array $data = [],
         array $queryParams = []
     ): string {
-        return $this->getRouteParser()->fullUrlFor(
+        $url = $this->getRouteParser()->fullUrlFor(
             $this->getRequest()->getUri(),
             $routeName,
             $data,
             $queryParams
         );
+        if ('https' === $_SERVER['REQUEST_SCHEME']) {
+            $url = str_replace('http://', 'https://', $url);
+        }
+        return $url;
     }
 
     /**

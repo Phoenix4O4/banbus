@@ -2,14 +2,14 @@
     "name": "neffy/banbus",
     "type": "project",
     "require": {
-        "slim/slim": "^4.7",
-        "slim/twig-view": "^3.2",
-        "symfony/http-foundation": "^5.2",
-        "php-di/php-di": "^6.3",
+        "slim/slim": "^4.10",
+        "slim/twig-view": "^3.3",
+        "symfony/http-foundation": "^6.0",
+        "php-di/php-di": "^6.4",
         "slim/http": "^1.2",
-        "slim/psr7": "^1.3",
-        "php-di/slim-bridge": "^3.1",
-        "guzzlehttp/guzzle": "^7.2",
+        "slim/psr7": "^1.5",
+        "php-di/slim-bridge": "^3.2",
+        "guzzlehttp/guzzle": "^7.4",
         "paragonie/easydb": "^2.11",
         "buzzingpixel/twig-switch": "^1.0",
         "erusev/parsedown": "^1.7",
@@ -18,7 +18,8 @@
         "ezyang/htmlpurifier": "^4.13",
         "slim/csrf": "^1.2",
         "twig/intl-extra": "^3.3",
-        "wohali/oauth2-discord-new": "^1.1"
+        "wohali/oauth2-discord-new": "^1.1",
+        "league/oauth2-client": "^2.6"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5"

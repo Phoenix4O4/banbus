@@ -20,6 +20,10 @@ class UserFactory
 
     public function buildUser($ckey, $rank, ?int $flags = 0, ?string $feedback = null, $authSource = null): User
     {
+
+        if (str_contains($rank, '+')) {
+            $rank = explode('+', $rank)[0];
+        }
         if (!in_array($rank, array_keys($this->ranks))) {
             $rank = new \stdclass();
             $rank->title = 'Player';

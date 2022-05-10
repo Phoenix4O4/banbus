@@ -23,6 +23,9 @@
 
         {% include
         [current_subsite ~ '/header.twig', 'base/header.twig'] %}
+        {% if app.announce %}
+        <div class="alert alert-inline alert-{{app.announce.status}} mb-4">{{app.announce.message}}</div>
+        {% endif %}
       </div>
     </header>
     <main

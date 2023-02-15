@@ -1,181 +1,19 @@
 {% include 'base/components/head_tag.html' %}
-{% set current_subsite = current_url()|split('/')[1] %}
-{% from 'macros/macros.twig' import userBadge %}
     <header>
-            
-      <div
-        class="{{ wide ? '' : narrow ? 'max-w-3xl lg:max-w-4xl xl:max-w-6xl' : 'container' }} mx-auto px-4 relative"
-      >
-        <nav id="global_nav" class="flex items-start justify-between">
-          {% if '' != current_subsite %}
-          <a
-            href="{{url_for('home')}}"
-            class="link py-2 px-4 text-sm dark:bg-gray-800 bg-gray-50 border-b border-l border-r border-gray-300 dark:border-gray-700 rounded-b"
-          >
-            <i class="fas fa-home"></i>
-            {{app.name}}</a
-          >
-          {% endif %} 
-          {% include 'base/components/messages.twig' %} 
-          {% include [current_subsite ~ '/components/nav_inject.twig'] ignore
-          missing %}
-        </nav>
-
-        {% include
-        [current_subsite ~ '/header.twig', 'base/header.twig'] %}
-        {% if app.announce %}
-        <div class="alert alert-inline alert-{{app.announce.status}} mb-4">{{app.announce.message}}</div>
-        {% endif %}
-      </div>
     </header>
     <main
       id="main"
       class="{{ wide ? '' : narrow ? 'max-w-3xl lg:max-w-4xl xl:max-w-6xl' : 'container' }} mx-auto px-4"
     >
-      {% block page %}No content defined for this block{% endblock %}
+      i'm free
     </main>
     <footer
       class="{{ wide ? '' : narrow ? 'max-w-3xl lg:max-w-4xl xl:max-w-6xl' : 'container' }} mx-auto px-4 pb-4"
     >
       <hr class="my-4 border-gray-300 dark:border-gray-700" />
       <div class="md:flex justify-between">
-        <p class="text-gray-500 text-sm">
-          <a class="link" href="{{url_for('home')}}">{{app.name}}</a>
-          {{app.version}} |
-          <a href="{{url_for('changelog')}}" class="link">Changelog</a> |
-          <a href="{{url_for('privacy')}}" class="link">Privacy Policy</a><br />
-          Report issues & request features on 
-          <a
-            href="https://github.com/{{app.github}}/issues"
-            class="link"
-            target="_blank"
-            rel="noopener noreferrer"
-            ><i class="fab fa-github"></i> GitHub</a
-          > {% if app.patreon %}| Support Statbus on <a
-            href="{{app.patreon}}"
-            class="link"
-            target="_blank"
-            rel="noopener noreferrer"
-            ><i class="fab fa-patreon"></i> Patreon</a
-          >{% endif %}
-        </p>
-        <p class="text-gray-500 text-sm">
-          {% if user %} Logged in as {{userBadge(user)}} (Via {{user.authSource}}) |
-          <a href="{{url_for('logout')}}" class="link">Logout</a>
-          {% endif %}
-        </p>
       </div>
       {% if debug %}{{dump()}}{% endif %}
     </footer>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js"
-      integrity="sha512-0fcCRl828lBlrSCa8QJY51mtNqTcHxabaXVLPgw/jPA5Nutujh6CbTdDgRzl9aSPYW/uuE7c4SffFUQFBAy6lg=="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/utc.min.js"
-      integrity="sha512-m00bfmYnAl3plEBlQfeQUhw/U2uvmw29V2+jxSWpAjankMWS+zAsjezbKWDEJNXqWq9o9qQZSOiA2RKDpa4D5w=="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/relativeTime.min.js"
-      integrity="sha512-BQqXM2ye6+98YyRQzE676pY2Bc4d3o/fBNlBQyKv2J9oKwp9K/4BVqFWIJBx1zKlAJ8M0PIJR5Yp51FsnSUynQ=="
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/tippy.js@6"></script>
-    <script>
-      dayjs.extend(window.dayjs_plugin_utc);
-      dayjs.extend(window.dayjs_plugin_relativeTime);
-      const timestamps = document.querySelectorAll("time");
-      timestamps.forEach(function (ts) {
-        ts.setAttribute("title", ts.textContent);
-        ts.textContent = dayjs.utc(ts.textContent).fromNow();
-      });
-      tippy("[title]", {
-        content(reference) {
-          const title = reference.getAttribute("title");
-          reference.removeAttribute("title");
-          return title;
-        },
-      });
-      tippy(".popover", {
-        content(reference) {
-          const id = reference.getAttribute("data-template");
-          const template = document.getElementById(id);
-          return template;
-        },
-        allowHTML: true,
-      });
-      tippy(".roundPopover", {
-        content(reference) {
-          const id = reference.getAttribute("data-round-id");
-          const template = document.getElementById("round-" + id + "-popover");
-          template.style.display = "block";
-          return template;
-        },
-        allowHTML: true,
-        interactive: true,
-      });
-      {% if user.hasPermission('BAN') %}
-      tippy(".userPopover", {
-        content: "Loading...",
-        onCreate(instance) {
-          // Setup our own custom state properties
-          instance._isFetching = false;
-          instance._src = null;
-          instance._error = null;
-        },
-        onShow(instance) {
-          if (instance._isFetching || instance._src || instance._error) {
-            return;
-          }
-          const ckey = instance.reference.getAttribute("data-target-ckey");
-          instance._isFetching = true;
-          fetch("/tgdb/player/" + ckey + "?format=popover")
-            .then((response) => response.text())
-            .then((html) => {
-              parser = new DOMParser();
-              html = parser.parseFromString(html, 'text/html')
-              const timestamps = html.querySelectorAll("time");
-              timestamps.forEach(function (ts) {
-                ts.setAttribute("title", ts.textContent);
-                ts.textContent = dayjs(ts.textContent).utc().fromNow();
-              });
-              console.log(html)
-              instance.setContent(html.body.outerHTML)
-            })
-            .catch((error) => {
-              instance._error = error;
-              instance.setContent(`Request failed. ${error}`);
-            })
-            .finally(() => {
-              instance._isFetching = false;
-            });
-        },
-        onHidden(instance) {
-          instance.setContent("Loading...");
-          // Unset these properties so new network requests can be initiated
-          instance._src = null;
-          instance._error = null;
-        },
-        allowHTML: true,
-        interactive: true,
-        {% if debug %}
-        hideOnClick: 'toggle',
-        trigger: 'click',
-        {% endif %}
-      });
-      {% else %}
-      tippy("[data-rank]", {
-        content(reference) {
-          const title = reference.getAttribute("data-rank");
-          reference.removeAttribute("data-rank");
-          return title;
-        },
-      });
-      {% endif %}
-    </script>
-    {% block script %} {% endblock %}
   </body>
 </html>
